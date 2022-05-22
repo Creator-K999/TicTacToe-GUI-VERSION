@@ -18,9 +18,12 @@ class MainGameWindow(QMainWindow):
             for i in range(1, 10)
         }
 
+        first_players_label_object_name = "Player1"
+        second_players_label_object_name = "Player2"
+
         self.__player_labels = {
-            "Player1": self.findChild(QtWidgets.QLabel, "Player1"),
-            "Player2": self.findChild(QtWidgets.QLabel, "Player2")
+            first_players_label_object_name: self.findChild(QtWidgets.QLabel, first_players_label_object_name),
+            second_players_label_object_name: self.findChild(QtWidgets.QLabel, second_players_label_object_name)
         }
 
         if None in self.__buttons.values() or None in self.__player_labels.values():
