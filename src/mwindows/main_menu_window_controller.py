@@ -2,9 +2,6 @@
 This is the file that contains the code which controls the main menu window.
 """
 
-# Built-ins
-from logging import DEBUG, ERROR, Logger
-
 # 3rd party Libs
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
@@ -25,8 +22,6 @@ class MainMenu(QMainWindow):
         Loads the main_menu_window.ui file, then displays it.
         """
 
-        self.__logger = Logger("MainMenu Logger", DEBUG)
-
         super().__init__()  # calls the constructor of QMainWindow
 
         # loads the .UI file and sets "self" as its base object.
@@ -37,11 +32,11 @@ class MainMenu(QMainWindow):
 
         # checks if we succeeded getting the button object
         if self.__local_game_button is None:
-            self.__logger.log(ERROR, "Couldn't Find the button!")
+            print("Couldn't Find the button!")
 
         else:
-            self.__logger.log(DEBUG, "successfully connected 'local_game_button' object with "
-                                     "'self.__show_local_game_window'")
+            print("successfully connected 'local_game_button' object with "
+                  "'self.__show_local_game_window'")
             self.__local_game_button.clicked.connect(self.__show_local_game_window)
 
         # displays the window
