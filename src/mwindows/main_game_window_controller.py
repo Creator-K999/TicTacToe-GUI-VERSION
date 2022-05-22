@@ -1,13 +1,10 @@
 from PyQt6 import uic, QtWidgets
-from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QMainWindow
 
 from src.gprocessing import main_game_processing
 
 
 class MainGameWindow(QMainWindow):
-
-    __signal = pyqtSignal()
 
     def __init__(self, main_window):
 
@@ -22,8 +19,8 @@ class MainGameWindow(QMainWindow):
         }
 
         self.__player_labels = {
-            (button_name := f"Player{i}"): self.findChild(QtWidgets.QLabel, button_name)
-            for i in range(1, 3)
+            (button_name := f"Player0"): self.findChild(QtWidgets.QLabel, button_name),
+            (button_name := f"Player1"): self.findChild(QtWidgets.QLabel, button_name)
         }
 
         if None in self.__buttons.values() or None in self.__player_labels.values():
@@ -39,10 +36,6 @@ class MainGameWindow(QMainWindow):
         return self.__game_processor
 
     @property
-    def signal(self):
-        return self.__signal
-
-    @property
     def buttons(self):
         return self.__buttons
 
@@ -53,10 +46,7 @@ class MainGameWindow(QMainWindow):
     def __buttonPress(self):
         result = self.__game_processor.button_clicked_process(self.sender())
 
-        if result == "Win":
-            self.__reset_game()
-
-        elif result == "Tie":
+        if result in {"Win", "Tie"}:
             self.__reset_game()
 
     def __reset_game(self):
@@ -65,5 +55,4 @@ class MainGameWindow(QMainWindow):
             button.setDisabled(False)
 
     def closeEvent(self, event):
-        self.__game_processor.timer_is_on = False
         self.__main_window().show()

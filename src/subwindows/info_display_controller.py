@@ -25,3 +25,4 @@ class InfoDisplay(QDialog):
 
     def closeEvent(self, event):
         self.close()
+        self.__prev_window.show()
