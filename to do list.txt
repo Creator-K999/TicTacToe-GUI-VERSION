@@ -1,0 +1,11 @@
+for Local Player Feature
+{
+	1- Player Label to display Current Playing Player (Done)
+	2- Get the Game running (Done)
+	3- Win/Tie window display (Done)
+	4- Working on Score Labels (Beside Player Name Label) (Done)
+	5- Working on the Timer (Done)
+	6- logging system
+	7- Work on ScoreBoard
+	8- Credentials
+}
