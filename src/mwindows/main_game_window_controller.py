@@ -19,8 +19,8 @@ class MainGameWindow(QMainWindow):
         }
 
         self.__player_labels = {
-            (button_name := f"Player0"): self.findChild(QtWidgets.QLabel, button_name),
-            (button_name := f"Player1"): self.findChild(QtWidgets.QLabel, button_name)
+            "Player1": self.findChild(QtWidgets.QLabel, "Player1"),
+            "Player2": self.findChild(QtWidgets.QLabel, "Player2")
         }
 
         if None in self.__buttons.values() or None in self.__player_labels.values():
