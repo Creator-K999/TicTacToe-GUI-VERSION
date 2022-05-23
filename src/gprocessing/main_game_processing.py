@@ -4,27 +4,11 @@ from src.pobject.player_class import Player
 from src.subwindows.info_display_controller import InfoDisplay
 
 
-def get_marks():
-    flip_coin = randint(0, 100)
-
-    if flip_coin % 2:
-        return 'X', 'O'
-
-    return 'O', 'X'
-
-
-def change_object_color(_object, object_part, color):
-    if object_part == "foreground":
-        _object.setStyleSheet(f"color: {color};")
-    else:
-        _object.setStyleSheet(f"background-color: {color};")
-
-
 class MainGameProcessing:
 
     def __init__(self, game_instance):
 
-        marks = get_marks()
+        marks = self.__get_marks()
 
         self.__game_window_instance = game_instance
 
@@ -37,23 +21,39 @@ class MainGameProcessing:
         self.__player_labels["Player1"].setText(f"Player1 ({self.__player1.mark}): {self.__player1.score}")
         self.__player_labels["Player2"].setText(f"Player2 ({self.__player2.mark}): {self.__player2.score}")
 
-        change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
+        self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
     @property
     def game_instance(self):
         return self.__game_window_instance
 
+    @staticmethod
+    def __get_marks():
+        flip_coin = randint(0, 100)
+
+        if flip_coin % 2:
+            return 'X', 'O'
+
+        return 'O', 'X'
+
+    @staticmethod
+    def __change_object_color(_object, object_part, color):
+        if object_part == "foreground":
+            _object.setStyleSheet(f"color: {color};")
+        else:
+            _object.setStyleSheet(f"background-color: {color};")
+
     def __win_tie_process(self):
 
-        marks = get_marks()
+        marks = self.__get_marks()
 
-        change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
+        self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
 
         self.__player1 = Player("Player1", marks[0], self.__player1.score)
         self.__player2 = Player("Player2", marks[1], self.__player2.score)
         self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
 
-        change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
+        self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
         self.__player_labels[self.__player1.name].setText(
             f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
@@ -85,9 +85,9 @@ class MainGameProcessing:
             self.__win_tie_process()
 
         else:
-            change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
+            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
             self.__current_player = self.__player1 if self.__current_player is self.__player2 else self.__player2
-            change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
+            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
         return result
 
