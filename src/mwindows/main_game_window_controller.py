@@ -34,6 +34,10 @@ class MainGameWindow(QMainWindow):
         for button in self.__buttons.values():
             button.clicked.connect(self.__buttonPress)
 
+#
+#   PUBLIC SECTION
+#
+
     @property
     def game_processor(self):
         return self.__game_processor
@@ -46,6 +50,9 @@ class MainGameWindow(QMainWindow):
     def player_labels(self):
         return self.__player_labels
 
+#
+#   PRIVATE SECTION
+#
     def __buttonPress(self):
         result = self.__game_processor.button_clicked_process(self.sender())
 
@@ -57,5 +64,8 @@ class MainGameWindow(QMainWindow):
             button.setText("")
             button.setDisabled(False)
 
+#
+#   OverLoaded SECTION
+#
     def closeEvent(self, event):
         self.__main_window().show()

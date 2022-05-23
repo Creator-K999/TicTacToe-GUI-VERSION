@@ -18,11 +18,18 @@ class InfoDisplay(QDialog):
         self.__prev_window.hide()
         self.__window.show()
 
+#
+#   PRIVATE SECTION
+#
+
     def __close_and_show_prev_window(self):
 
         self.close()
         self.__prev_window.show()
 
+#
+#   OverLoaded SECTION
+#
     def closeEvent(self, event):
         self.close()
         self.__prev_window.show()

@@ -10,6 +10,9 @@ class Player:
 
         return f"Player({self.__name}, {self.__mark}, {self.__score})"
 
+#
+#   PUBLIC SECTION
+#
     @property
     def name(self):
         return self.__name

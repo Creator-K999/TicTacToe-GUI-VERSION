@@ -42,6 +42,10 @@ class MainMenu(QMainWindow):
         # displays the window
         self.__window.show()
 
+#
+#   PRIVATE SECTION
+#
+
     def __show_local_game_window(self):
 
         """

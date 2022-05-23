@@ -25,6 +25,9 @@ class MainClass:
         self.__app = QApplication([])  # main application
         self.__window = MainMenu()  # main menu class
 
+#
+#   PUBLIC SECTION
+#
     def run(self) -> None:
 
         """

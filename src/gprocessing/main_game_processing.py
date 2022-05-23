@@ -23,10 +23,45 @@ class MainGameProcessing:
 
         self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
+#
+#   PUBLIC SECTION
+#
+
     @property
     def game_instance(self):
         return self.__game_window_instance
 
+    def button_clicked_process(self, button):
+        button.setText(self.__current_player.mark)
+        button.setDisabled(True)
+
+        result = "None"
+        print(f"[TURN]: {self.__current_player.name}")
+        current_player = self.__current_player
+
+        if self.__win_check():
+            InfoDisplay(self.__game_window_instance, f"{current_player.name} has Won!")
+            current_player.increment_score()
+
+            result = "Win"
+            self.__win_tie_process()
+
+        elif self.__tie_check():
+            InfoDisplay(self.__game_window_instance, "Tie Game!")
+
+            result = "Tie"
+            self.__win_tie_process()
+
+        else:
+            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
+            self.__current_player = self.__player1 if self.__current_player is self.__player2 else self.__player2
+            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
+
+        return result
+
+#
+#   PRIVATE SECTION
+#
     @staticmethod
     def __get_marks():
         flip_coin = randint(0, 100)
@@ -62,34 +97,6 @@ class MainGameProcessing:
         self.__player_labels[self.__player2.name].setText(
             f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
         )
-
-    def button_clicked_process(self, button):
-        button.setText(self.__current_player.mark)
-        button.setDisabled(True)
-
-        result = "None"
-        print(f"[TURN]: {self.__current_player.name}")
-        current_player = self.__current_player
-
-        if self.__win_check():
-            InfoDisplay(self.__game_window_instance, f"{current_player.name} has Won!")
-            current_player.increment_score()
-
-            result = "Win"
-            self.__win_tie_process()
-
-        elif self.__tie_check():
-            InfoDisplay(self.__game_window_instance, "Tie Game!")
-
-            result = "Tie"
-            self.__win_tie_process()
-
-        else:
-            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
-            self.__current_player = self.__player1 if self.__current_player is self.__player2 else self.__player2
-            self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
-
-        return result
 
     def __win_check(self):
         buttons = [button.text() for button in self.__buttons.values()]
