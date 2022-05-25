@@ -6,14 +6,15 @@ from src.subwindows.info_display_controller import InfoDisplay
 
 class MainGameProcessing:
 
-    def __init__(self, game_instance):
+    def __init__(self, main_game_window_object):
 
         marks = self.__get_marks()
 
-        self.__game_window_instance = game_instance
+        self.__main_game_window_object = main_game_window_object
 
-        self.__buttons = game_instance.buttons
-        self.__player_labels = game_instance.player_labels
+        self.__buttons = main_game_window_object.buttons
+        self.__player_labels = main_game_window_object.player_labels
+
         self.__player1 = Player("Player1", marks[0])
         self.__player2 = Player("Player2", marks[1])
         self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
@@ -29,7 +30,7 @@ class MainGameProcessing:
 
     @property
     def game_instance(self):
-        return self.__game_window_instance
+        return self.__main_game_window_object
 
     def button_clicked_process(self, button):
         button.setText(self.__current_player.mark)
@@ -40,14 +41,14 @@ class MainGameProcessing:
         current_player = self.__current_player
 
         if self.__win_check():
-            InfoDisplay(self.__game_window_instance, f"{current_player.name} has Won!")
+            InfoDisplay(self.__main_game_window_object, f"{current_player.name} has Won!")
             current_player.increment_score()
 
             result = "Win"
             self.__win_tie_process()
 
         elif self.__tie_check():
-            InfoDisplay(self.__game_window_instance, "Tie Game!")
+            InfoDisplay(self.__main_game_window_object, "Tie Game!")
 
             result = "Tie"
             self.__win_tie_process()
