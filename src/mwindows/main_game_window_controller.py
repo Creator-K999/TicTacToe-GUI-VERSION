@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from src.gprocessing import main_game_processing
+from processing.gprocessing import main_game_processing
 
 
 class MainGameWindow(QMainWindow):
@@ -32,7 +32,7 @@ class MainGameWindow(QMainWindow):
         self.__game_processor = main_game_processing.MainGameProcessing(self)
 
         for button in self.__buttons.values():
-            button.clicked.connect(self.__buttonPress)
+            button.clicked.connect(self.__button_press)
 
 #
 #   PUBLIC SECTION
@@ -53,7 +53,7 @@ class MainGameWindow(QMainWindow):
 #
 #   PRIVATE SECTION
 #
-    def __buttonPress(self):
+    def __button_press(self):
         result = self.__game_processor.button_clicked_process(self.sender())
 
         if result in {"Win", "Tie"}:

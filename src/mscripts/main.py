@@ -14,6 +14,7 @@ Version: 0.3
 """
 
 # Custom Libs
+from processing.management.logger_threads_manager import LoggerThreadManager
 from src.mscripts.main_class import MainClass
 
 
@@ -23,8 +24,17 @@ def main():
     This is the main function, the program starts from here!
     """
 
+    logger = LoggerThreadManager()
+
+    logger.info(f"Started The Application!")
+
+    logger.debug(f"Creating MainClass Object")
     main_class = MainClass()
+    logger.info(f"MainClass Object has been created Successfully!")
+
+    logger.debug(f"Displaying Window")
     main_class.run()
+    logger.info(f"Application Closed!")
 
 
 if __name__ == "__main__":

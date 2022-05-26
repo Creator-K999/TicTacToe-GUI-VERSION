@@ -7,6 +7,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 # Custom Libs
+from processing.management.logger_threads_manager import LoggerThreadManager
 from src.mwindows.main_game_window_controller import MainGameWindow
 
 
@@ -24,27 +25,40 @@ class MainMenu(QMainWindow):
 
         super().__init__()  # calls the constructor of QMainWindow
 
+        self.__logger = LoggerThreadManager()
+
         # loads the .UI file and sets "self" as its base object.
+        self.__logger.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\main_menu_window.ui", self)
+        self.__logger.info("UI has been Loaded Successfully!")
 
         # gets the object of the "Vs. Local Player" button.
+        self.__logger.debug("Looking for 'local_game_button'")
         self.__local_game_button = self.findChild(QtWidgets.QPushButton, "local_game_button")
+        self.__logger.info("Finished Looking for 'local_game_button'!")
 
         # checks if we succeeded getting the button object
         if self.__local_game_button is None:
-            print("Couldn't Find the button!")
+            self.__logger.warning("Couldn't Find 'local_game_button'!")
 
         else:
-            print("successfully connected 'local_game_button' object with "
-                  "'self.__show_local_game_window'")
-            self.__local_game_button.clicked.connect(self.__show_local_game_window)
+            self.__logger.info("Found 'local_game_button'")
 
-        # displays the window
-        self.__window.show()
+            self.__logger.debug("Connecting 'self.__local_game_button' with 'self.__show_local_game_window'")
+            try:
+                self.__local_game_button.clicked.connect(self.__show_local_game_window)
 
-#
-#   PRIVATE SECTION
-#
+            except Exception as Error:
+                self.__logger.exception("Couldn't connect 'self.__local_game_button' with "
+                                        "'self.__show_local_game_window'")
+
+            else:
+                self.__logger.info("Successfully connected 'self.__local_game_button' with "
+                                   "'self.__show_local_game_window'")
+
+    #
+    #   PRIVATE SECTION
+    #
 
     def __show_local_game_window(self):
 
@@ -56,8 +70,15 @@ class MainMenu(QMainWindow):
         """
 
         # closing the main menu
+        self.__logger.debug("Calling 'self.__window.close()'...")
         self.__window.close()
+        self.__logger.info("self.__window has been closed Successfully!")
 
         # creating a game window objects and displaying it
+        self.__logger.debug("Creating 'MainGameWindow' Object...")
         main_game_window = MainGameWindow(MainMenu)
+        self.__logger.info("'MainGameWindow' Object has been created Successfully!")
+
+        self.__logger.debug("Calling 'main_game_window.show()'...")
         main_game_window.show()
+        self.__logger.info("'main_game_window.show()' has been Called Successfully!")
