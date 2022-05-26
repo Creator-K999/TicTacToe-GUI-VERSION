@@ -1,0 +1,384 @@
+2022-05-26 23:01:53,178 - INFO - {
+	FILE NAME: main.py
+	FUNC NAME: main
+	LINE NUMBER: 29
+	MESSAGE: Started The Application!
+}
+2022-05-26 23:01:53,178 - DEBUG - {
+	FILE NAME: main.py
+	FUNC NAME: main
+	LINE NUMBER: 31
+	MESSAGE: Creating MainClass Object
+}
+2022-05-26 23:01:53,179 - DEBUG - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 28
+	MESSAGE: Creating QApplication Object...
+}
+2022-05-26 23:01:53,188 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 30
+	MESSAGE: QApplication Object has been created Successfully!
+}
+2022-05-26 23:01:53,189 - DEBUG - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 32
+	MESSAGE: Creating MainMenu object...
+}
+2022-05-26 23:01:53,190 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 31
+	MESSAGE: Loading The UI...
+}
+2022-05-26 23:01:53,193 - DEBUG - {toplevel widget is MainMenu}
+2022-05-26 23:01:53,193 - DEBUG - {setting property geometry}
+2022-05-26 23:01:53,193 - DEBUG - {setting property windowTitle}
+2022-05-26 23:01:53,193 - DEBUG - {push MainMenu MainWindow}
+2022-05-26 23:01:53,194 - DEBUG - {push QWidget centralwidget}
+2022-05-26 23:01:53,194 - DEBUG - {setting property pyuicMargins}
+2022-05-26 23:01:53,194 - DEBUG - {push QGridLayout gridLayout_2}
+2022-05-26 23:01:53,194 - DEBUG - {push QGridLayout gridLayout}
+2022-05-26 23:01:53,194 - DEBUG - {push QGridLayout gridLayout_3}
+2022-05-26 23:01:53,194 - DEBUG - {setting property font}
+2022-05-26 23:01:53,195 - DEBUG - {setting property text}
+2022-05-26 23:01:53,195 - DEBUG - {setting property alignment}
+2022-05-26 23:01:53,212 - DEBUG - {push QLabel label}
+2022-05-26 23:01:53,212 - DEBUG - {pop widget QLabel label}
+2022-05-26 23:01:53,212 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779047D00>}
+2022-05-26 23:01:53,212 - DEBUG - {pop layout QGridLayout gridLayout_3}
+2022-05-26 23:01:53,212 - DEBUG - {push QGridLayout gridLayout_4}
+2022-05-26 23:01:53,212 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:01:53,213 - DEBUG - {setting property minimumSize}
+2022-05-26 23:01:53,213 - DEBUG - {setting property font}
+2022-05-26 23:01:53,213 - DEBUG - {setting property text}
+2022-05-26 23:01:53,213 - DEBUG - {push QPushButton pushButton_2}
+2022-05-26 23:01:53,213 - DEBUG - {pop widget QPushButton pushButton_2}
+2022-05-26 23:01:53,213 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779047D00>}
+2022-05-26 23:01:53,213 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:01:53,213 - DEBUG - {setting property minimumSize}
+2022-05-26 23:01:53,213 - DEBUG - {setting property font}
+2022-05-26 23:01:53,214 - DEBUG - {setting property text}
+2022-05-26 23:01:53,214 - DEBUG - {push QPushButton local_game_button}
+2022-05-26 23:01:53,214 - DEBUG - {pop widget QPushButton local_game_button}
+2022-05-26 23:01:53,214 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779047D00>}
+2022-05-26 23:01:53,214 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:01:53,214 - DEBUG - {setting property minimumSize}
+2022-05-26 23:01:53,214 - DEBUG - {setting property font}
+2022-05-26 23:01:53,214 - DEBUG - {setting property text}
+2022-05-26 23:01:53,214 - DEBUG - {push QPushButton pushButton_3}
+2022-05-26 23:01:53,214 - DEBUG - {pop widget QPushButton pushButton_3}
+2022-05-26 23:01:53,214 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779047D00>}
+2022-05-26 23:01:53,214 - DEBUG - {pop layout QGridLayout gridLayout_4}
+2022-05-26 23:01:53,214 - DEBUG - {pop layout QGridLayout gridLayout}
+2022-05-26 23:01:53,214 - DEBUG - {pop layout QGridLayout gridLayout_2}
+2022-05-26 23:01:53,214 - DEBUG - {pop widget QWidget centralwidget}
+2022-05-26 23:01:53,214 - DEBUG - {new topwidget <src.mwindows.main_menu_window_controller.MainMenu object at 0x000001D7790476D0>}
+2022-05-26 23:01:53,214 - DEBUG - {pop widget MainMenu MainWindow}
+2022-05-26 23:01:53,214 - DEBUG - {new topwidget None}
+2022-05-26 23:01:53,216 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 33
+	MESSAGE: UI has been Loaded Successfully!
+}
+2022-05-26 23:01:53,216 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 36
+	MESSAGE: Looking for 'local_game_button'
+}
+2022-05-26 23:01:53,217 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 38
+	MESSAGE: Finished Looking for 'local_game_button'!
+}
+2022-05-26 23:01:53,218 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 45
+	MESSAGE: Found 'local_game_button'
+}
+2022-05-26 23:01:53,219 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 47
+	MESSAGE: Connecting 'self.__local_game_button' with 'self.__show_local_game_window'
+}
+2022-05-26 23:01:53,220 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 56
+	MESSAGE: Successfully connected 'self.__local_game_button' with 'self.__show_local_game_window'
+}
+2022-05-26 23:01:53,220 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 34
+	MESSAGE: MainMenu Object has been created Successfully!
+}
+2022-05-26 23:01:53,221 - DEBUG - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 36
+	MESSAGE: Calling 'self.__window.show()'...
+}
+2022-05-26 23:01:53,269 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: __init__
+	LINE NUMBER: 38
+	MESSAGE: 'self.__window.show()' has been called Successfully!
+}
+2022-05-26 23:01:53,269 - INFO - {
+	FILE NAME: main.py
+	FUNC NAME: main
+	LINE NUMBER: 33
+	MESSAGE: MainClass Object has been created Successfully!
+}
+2022-05-26 23:01:53,270 - DEBUG - {
+	FILE NAME: main.py
+	FUNC NAME: main
+	LINE NUMBER: 35
+	MESSAGE: Displaying Window
+}
+2022-05-26 23:01:53,270 - DEBUG - {
+	FILE NAME: main_class.py
+	FUNC NAME: run
+	LINE NUMBER: 51
+	MESSAGE: Executing the Application...
+}
+2022-05-26 23:02:08,715 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 73
+	MESSAGE: Calling 'self.__window.close()'...
+}
+2022-05-26 23:02:08,727 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 75
+	MESSAGE: self.__window has been closed Successfully!
+}
+2022-05-26 23:02:08,728 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 78
+	MESSAGE: Creating 'MainGameWindow' Object...
+}
+2022-05-26 23:02:08,731 - DEBUG - {toplevel widget is MainGameWindow}
+2022-05-26 23:02:08,731 - DEBUG - {setting property geometry}
+2022-05-26 23:02:08,731 - DEBUG - {setting property windowTitle}
+2022-05-26 23:02:08,731 - DEBUG - {push MainGameWindow MainWindow}
+2022-05-26 23:02:08,731 - DEBUG - {push QWidget centralwidget}
+2022-05-26 23:02:08,731 - DEBUG - {setting property pyuicMargins}
+2022-05-26 23:02:08,731 - DEBUG - {push QGridLayout gridLayout_2}
+2022-05-26 23:02:08,731 - DEBUG - {push QGridLayout gridLayout_6}
+2022-05-26 23:02:08,732 - DEBUG - {setting property font}
+2022-05-26 23:02:08,732 - DEBUG - {setting property text}
+2022-05-26 23:02:08,732 - DEBUG - {setting property alignment}
+2022-05-26 23:02:08,732 - DEBUG - {push QLabel Player1}
+2022-05-26 23:02:08,732 - DEBUG - {pop widget QLabel Player1}
+2022-05-26 23:02:08,732 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,732 - DEBUG - {setting property font}
+2022-05-26 23:02:08,732 - DEBUG - {setting property text}
+2022-05-26 23:02:08,732 - DEBUG - {setting property alignment}
+2022-05-26 23:02:08,732 - DEBUG - {push QLabel Player2}
+2022-05-26 23:02:08,732 - DEBUG - {pop widget QLabel Player2}
+2022-05-26 23:02:08,732 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,732 - DEBUG - {pop layout QGridLayout gridLayout_6}
+2022-05-26 23:02:08,732 - DEBUG - {push QGridLayout gridLayout}
+2022-05-26 23:02:08,732 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,733 - DEBUG - {setting property font}
+2022-05-26 23:02:08,733 - DEBUG - {setting property text}
+2022-05-26 23:02:08,733 - DEBUG - {push QPushButton b2}
+2022-05-26 23:02:08,733 - DEBUG - {pop widget QPushButton b2}
+2022-05-26 23:02:08,733 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,733 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,733 - DEBUG - {setting property font}
+2022-05-26 23:02:08,733 - DEBUG - {setting property text}
+2022-05-26 23:02:08,733 - DEBUG - {push QPushButton b3}
+2022-05-26 23:02:08,733 - DEBUG - {pop widget QPushButton b3}
+2022-05-26 23:02:08,733 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,733 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,733 - DEBUG - {setting property font}
+2022-05-26 23:02:08,733 - DEBUG - {setting property text}
+2022-05-26 23:02:08,734 - DEBUG - {push QPushButton b1}
+2022-05-26 23:02:08,734 - DEBUG - {pop widget QPushButton b1}
+2022-05-26 23:02:08,734 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,734 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,734 - DEBUG - {setting property font}
+2022-05-26 23:02:08,734 - DEBUG - {setting property text}
+2022-05-26 23:02:08,734 - DEBUG - {push QPushButton b7}
+2022-05-26 23:02:08,734 - DEBUG - {pop widget QPushButton b7}
+2022-05-26 23:02:08,734 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,734 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,734 - DEBUG - {setting property font}
+2022-05-26 23:02:08,735 - DEBUG - {setting property focusPolicy}
+2022-05-26 23:02:08,735 - DEBUG - {setting property text}
+2022-05-26 23:02:08,735 - DEBUG - {push QPushButton b6}
+2022-05-26 23:02:08,735 - DEBUG - {pop widget QPushButton b6}
+2022-05-26 23:02:08,735 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,735 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,735 - DEBUG - {setting property font}
+2022-05-26 23:02:08,736 - DEBUG - {setting property focusPolicy}
+2022-05-26 23:02:08,736 - DEBUG - {setting property text}
+2022-05-26 23:02:08,736 - DEBUG - {push QPushButton b5}
+2022-05-26 23:02:08,736 - DEBUG - {pop widget QPushButton b5}
+2022-05-26 23:02:08,736 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,736 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,736 - DEBUG - {setting property font}
+2022-05-26 23:02:08,736 - DEBUG - {setting property text}
+2022-05-26 23:02:08,736 - DEBUG - {push QPushButton b4}
+2022-05-26 23:02:08,737 - DEBUG - {pop widget QPushButton b4}
+2022-05-26 23:02:08,737 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,737 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,737 - DEBUG - {setting property font}
+2022-05-26 23:02:08,737 - DEBUG - {setting property text}
+2022-05-26 23:02:08,737 - DEBUG - {push QPushButton b9}
+2022-05-26 23:02:08,737 - DEBUG - {pop widget QPushButton b9}
+2022-05-26 23:02:08,737 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,737 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:08,737 - DEBUG - {setting property font}
+2022-05-26 23:02:08,737 - DEBUG - {setting property text}
+2022-05-26 23:02:08,737 - DEBUG - {push QPushButton b8}
+2022-05-26 23:02:08,737 - DEBUG - {pop widget QPushButton b8}
+2022-05-26 23:02:08,737 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779661EA0>}
+2022-05-26 23:02:08,738 - DEBUG - {pop layout QGridLayout gridLayout}
+2022-05-26 23:02:08,738 - DEBUG - {pop layout QGridLayout gridLayout_2}
+2022-05-26 23:02:08,738 - DEBUG - {pop widget QWidget centralwidget}
+2022-05-26 23:02:08,738 - DEBUG - {new topwidget <src.mwindows.main_game_window_controller.MainGameWindow object at 0x000001D7796620E0>}
+2022-05-26 23:02:08,738 - DEBUG - {pop widget MainGameWindow MainWindow}
+2022-05-26 23:02:08,738 - DEBUG - {new topwidget None}
+2022-05-26 23:02:08,744 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 80
+	MESSAGE: 'MainGameWindow' Object has been created Successfully!
+}
+2022-05-26 23:02:08,745 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 82
+	MESSAGE: Calling 'main_game_window.show()'...
+}
+2022-05-26 23:02:08,759 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __show_local_game_window
+	LINE NUMBER: 84
+	MESSAGE: 'main_game_window.show()' has been Called Successfully!
+}
+2022-05-26 23:02:40,666 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 31
+	MESSAGE: Loading The UI...
+}
+2022-05-26 23:02:40,667 - DEBUG - {toplevel widget is MainMenu}
+2022-05-26 23:02:40,667 - DEBUG - {setting property geometry}
+2022-05-26 23:02:40,667 - DEBUG - {setting property windowTitle}
+2022-05-26 23:02:40,667 - DEBUG - {push MainMenu MainWindow}
+2022-05-26 23:02:40,667 - DEBUG - {push QWidget centralwidget}
+2022-05-26 23:02:40,667 - DEBUG - {setting property pyuicMargins}
+2022-05-26 23:02:40,667 - DEBUG - {push QGridLayout gridLayout_2}
+2022-05-26 23:02:40,667 - DEBUG - {push QGridLayout gridLayout}
+2022-05-26 23:02:40,667 - DEBUG - {push QGridLayout gridLayout_3}
+2022-05-26 23:02:40,667 - DEBUG - {setting property font}
+2022-05-26 23:02:40,668 - DEBUG - {setting property text}
+2022-05-26 23:02:40,668 - DEBUG - {setting property alignment}
+2022-05-26 23:02:40,668 - DEBUG - {push QLabel label}
+2022-05-26 23:02:40,668 - DEBUG - {pop widget QLabel label}
+2022-05-26 23:02:40,668 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779662D40>}
+2022-05-26 23:02:40,668 - DEBUG - {pop layout QGridLayout gridLayout_3}
+2022-05-26 23:02:40,668 - DEBUG - {push QGridLayout gridLayout_4}
+2022-05-26 23:02:40,668 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:40,668 - DEBUG - {setting property minimumSize}
+2022-05-26 23:02:40,668 - DEBUG - {setting property font}
+2022-05-26 23:02:40,668 - DEBUG - {setting property text}
+2022-05-26 23:02:40,668 - DEBUG - {push QPushButton pushButton_2}
+2022-05-26 23:02:40,668 - DEBUG - {pop widget QPushButton pushButton_2}
+2022-05-26 23:02:40,668 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779662D40>}
+2022-05-26 23:02:40,669 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:40,669 - DEBUG - {setting property minimumSize}
+2022-05-26 23:02:40,669 - DEBUG - {setting property font}
+2022-05-26 23:02:40,669 - DEBUG - {setting property text}
+2022-05-26 23:02:40,669 - DEBUG - {push QPushButton local_game_button}
+2022-05-26 23:02:40,669 - DEBUG - {pop widget QPushButton local_game_button}
+2022-05-26 23:02:40,669 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779662D40>}
+2022-05-26 23:02:40,669 - DEBUG - {setting property sizePolicy}
+2022-05-26 23:02:40,669 - DEBUG - {setting property minimumSize}
+2022-05-26 23:02:40,669 - DEBUG - {setting property font}
+2022-05-26 23:02:40,669 - DEBUG - {setting property text}
+2022-05-26 23:02:40,669 - DEBUG - {push QPushButton pushButton_3}
+2022-05-26 23:02:40,670 - DEBUG - {pop widget QPushButton pushButton_3}
+2022-05-26 23:02:40,670 - DEBUG - {new topwidget <PyQt6.QtWidgets.QWidget object at 0x000001D779662D40>}
+2022-05-26 23:02:40,670 - DEBUG - {pop layout QGridLayout gridLayout_4}
+2022-05-26 23:02:40,670 - DEBUG - {pop layout QGridLayout gridLayout}
+2022-05-26 23:02:40,670 - DEBUG - {pop layout QGridLayout gridLayout_2}
+2022-05-26 23:02:40,670 - DEBUG - {pop widget QWidget centralwidget}
+2022-05-26 23:02:40,670 - DEBUG - {new topwidget <src.mwindows.main_menu_window_controller.MainMenu object at 0x000001D779661750>}
+2022-05-26 23:02:40,670 - DEBUG - {pop widget MainMenu MainWindow}
+2022-05-26 23:02:40,670 - DEBUG - {new topwidget None}
+2022-05-26 23:02:40,671 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 33
+	MESSAGE: UI has been Loaded Successfully!
+}
+2022-05-26 23:02:40,672 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 36
+	MESSAGE: Looking for 'local_game_button'
+}
+2022-05-26 23:02:40,673 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 38
+	MESSAGE: Finished Looking for 'local_game_button'!
+}
+2022-05-26 23:02:40,674 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 45
+	MESSAGE: Found 'local_game_button'
+}
+2022-05-26 23:02:40,675 - DEBUG - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 47
+	MESSAGE: Connecting 'self.__local_game_button' with 'self.__show_local_game_window'
+}
+2022-05-26 23:02:40,675 - INFO - {
+	FILE NAME: main_menu_window_controller.py
+	FUNC NAME: __init__
+	LINE NUMBER: 56
+	MESSAGE: Successfully connected 'self.__local_game_button' with 'self.__show_local_game_window'
+}
+2022-05-26 23:03:05,030 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: run
+	LINE NUMBER: 53
+	MESSAGE: User Closed Window Successfully!
+}
+2022-05-26 23:03:05,031 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: run
+	LINE NUMBER: 58
+	MESSAGE: Cleaning things up
+}
+2022-05-26 23:03:05,032 - INFO - {
+	FILE NAME: main_class.py
+	FUNC NAME: run
+	LINE NUMBER: 63
+	MESSAGE: Closing Application...
+}
+2022-05-26 23:03:05,032 - INFO - {
+	FILE NAME: main.py
+	FUNC NAME: main
+	LINE NUMBER: 37
+	MESSAGE: Application Closed!
+}
