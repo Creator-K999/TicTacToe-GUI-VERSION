@@ -10,12 +10,10 @@ class Logger:
     def __init__(self):
         self.__lock = Lock()
 
-        print("Called!")
         cwd = getcwd()
         chdir("..\\..")
 
         config.fileConfig(fname=f"logger.config")
-        print("Reached!")
         self.__logger = getLogger(__name__)
 
         chdir(cwd)
@@ -32,16 +30,12 @@ class Logger:
 
     @property
     def debug(self):
-        print("Debug Called")
         with self.__lock:
-            print("Debug Acquired!")
             return self.__logger.debug
 
     @property
     def info(self):
-        print("Info Called")
         with self.__lock:
-            print("Info Acquired!")
             return self.__logger.info
 
     @property
