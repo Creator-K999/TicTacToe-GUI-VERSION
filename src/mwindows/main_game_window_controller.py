@@ -1,8 +1,8 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
+from src import OBJECTS_MANAGER
 from processing.gprocessing import main_game_processing
-from processing.management.accessmgmt.objects_access_manager import MultiAccessManager
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
@@ -14,8 +14,8 @@ class MainGameWindow(QMainWindow):
 
         self.__logger = LoggerThreadManager()
 
-        self.__access_manager = MultiAccessManager()
-        self.__access_manager.multi_access_objects["MainGameWindow"] = self
+        self.__logger.debug("Adding MainGameWindow object to multi_access_objects Dict...!")
+        OBJECTS_MANAGER["MainGameWindow"] = self
 
         self.__logger.debug("Storing 'MainMenu' instance in 'self.__main_window' attribute")
         self.__main_window = main_window
@@ -119,5 +119,9 @@ class MainGameWindow(QMainWindow):
 #   OverLoaded SECTION
 #
     def closeEvent(self, event):
+        self.__logger.debug("Closing MainGameWindow...")
         self.close()
-        self.__main_window().show()
+
+        self.__logger.debug("Creating and Re-Displaying the MainMenu")
+        OBJECTS_MANAGER["MainMenu"] = self.__main_window()
+        OBJECTS_MANAGER["MainMenu"].show()

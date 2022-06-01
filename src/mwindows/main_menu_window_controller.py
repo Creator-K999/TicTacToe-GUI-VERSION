@@ -7,10 +7,9 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 # Custom Libs
-from src import OBJECT_LIFE_EXTENDER
+from src import OBJECTS_MANAGER
 from src.mwindows.main_game_window_controller import MainGameWindow
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
-from processing.management.accessmgmt.objects_access_manager import MultiAccessManager
 
 
 class MainMenu(QMainWindow):
@@ -29,7 +28,8 @@ class MainMenu(QMainWindow):
 
         self.__logger = LoggerThreadManager()
 
-        self.__access_manager = MultiAccessManager()
+        self.__logger.debug("Adding MainMenu Object to OBJECTS_MANAGER!")
+        OBJECTS_MANAGER["MainMenu"] = self
 
         # loads the .UI file and sets "self" as its base object.
         self.__logger.debug("Loading The UI...")
@@ -62,13 +62,16 @@ class MainMenu(QMainWindow):
 
     def show(self):
 
+        self.__logger.debug("Trying to delete MainGameWindow from Object Life Extender!")
         try:
-            del OBJECT_LIFE_EXTENDER["MainGameWindow"]
-            print("LOL")
+            del OBJECTS_MANAGER["MainGameWindow"]
 
         except KeyError:
-            ...
-        
+            self.__logger.exception("Didn't find a MainGameWindow Object in OBJECTS_MANAGER")
+
+        else:
+            self.__logger.info("Successfully deleted MainGameWindow object from Object Life Extender!")
+
         super().show()
 
     #
@@ -94,7 +97,8 @@ class MainMenu(QMainWindow):
         main_game_window = MainGameWindow(MainMenu)
         self.__logger.info("'MainGameWindow' Object has been created Successfully!")
 
-        OBJECT_LIFE_EXTENDER["MainGameWindow"] = main_game_window
+        self.__logger.info("Adding MainGameWindow to Object Life Extender!")
+        OBJECTS_MANAGER["MainGameWindow"] = main_game_window
 
         self.__logger.debug("Calling 'main_game_window.show()'...")
         main_game_window.show()

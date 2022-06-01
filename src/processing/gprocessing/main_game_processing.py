@@ -1,6 +1,6 @@
 from random import randint
 
-from processing.management.accessmgmt.objects_access_manager import MultiAccessManager
+from src import OBJECTS_MANAGER
 from src.pobject.player_class import Player
 from src.subwindows.info_display_controller import InfoDisplay
 
@@ -11,9 +11,7 @@ class MainGameProcessing:
 
         marks = self.__get_marks()
 
-        self.__multi_access_manager = MultiAccessManager()
-
-        self.__main_game_window_object = self.__multi_access_manager.multi_access_objects["MainGameWindow"]
+        self.__main_game_window_object = OBJECTS_MANAGER["MainGameWindow"]
 
         self.__buttons = self.__main_game_window_object.buttons
         self.__player_labels = self.__main_game_window_object.player_labels
