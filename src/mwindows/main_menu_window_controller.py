@@ -7,8 +7,10 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 # Custom Libs
-from processing.management.logger_threads_manager import LoggerThreadManager
+from src import OBJECT_LIFE_EXTENDER
 from src.mwindows.main_game_window_controller import MainGameWindow
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.accessmgmt.objects_access_manager import MultiAccessManager
 
 
 class MainMenu(QMainWindow):
@@ -26,6 +28,8 @@ class MainMenu(QMainWindow):
         super().__init__()  # calls the constructor of QMainWindow
 
         self.__logger = LoggerThreadManager()
+
+        self.__access_manager = MultiAccessManager()
 
         # loads the .UI file and sets "self" as its base object.
         self.__logger.debug("Loading The UI...")
@@ -48,13 +52,24 @@ class MainMenu(QMainWindow):
             try:
                 self.__local_game_button.clicked.connect(self.__show_local_game_window)
 
-            except Exception as Error:
+            except AttributeError:
                 self.__logger.exception("Couldn't connect 'self.__local_game_button' with "
                                         "'self.__show_local_game_window'")
 
             else:
                 self.__logger.info("Successfully connected 'self.__local_game_button' with "
                                    "'self.__show_local_game_window'")
+
+    def show(self):
+
+        try:
+            del OBJECT_LIFE_EXTENDER["MainGameWindow"]
+            print("LOL")
+
+        except KeyError:
+            ...
+        
+        super().show()
 
     #
     #   PRIVATE SECTION
@@ -78,6 +93,8 @@ class MainMenu(QMainWindow):
         self.__logger.debug("Creating 'MainGameWindow' Object...")
         main_game_window = MainGameWindow(MainMenu)
         self.__logger.info("'MainGameWindow' Object has been created Successfully!")
+
+        OBJECT_LIFE_EXTENDER["MainGameWindow"] = main_game_window
 
         self.__logger.debug("Calling 'main_game_window.show()'...")
         main_game_window.show()

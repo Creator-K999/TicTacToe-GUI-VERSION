@@ -5,7 +5,6 @@ from processing.logging.logger import Logger
 
 
 class LoggerThreadManager:
-
     __instance = None
     __logger_thread = Logger()
     __threads_list = []
@@ -16,13 +15,14 @@ class LoggerThreadManager:
 
         return cls.__instance
 
+    @classmethod
     @property
-    def threads_list(self):
-        return LoggerThreadManager.__threads_list
+    def threads_list(cls):
+        return cls.__threads_list
 
     @classmethod
     def debug(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
         t = Thread(
             target=lambda: cls.__logger_thread.debug(
@@ -34,7 +34,6 @@ class LoggerThreadManager:
             args=())
 
         cls.__threads_list.append(t)
-
         t.start()
 
     @classmethod
@@ -51,7 +50,6 @@ class LoggerThreadManager:
             args=())
 
         cls.__threads_list.append(t)
-
         t.start()
 
     @classmethod
@@ -68,7 +66,6 @@ class LoggerThreadManager:
             args=())
 
         cls.__threads_list.append(t)
-
         t.start()
 
     @classmethod
@@ -85,7 +82,6 @@ class LoggerThreadManager:
             args=())
 
         cls.__threads_list.append(t)
-
         t.start()
 
     @classmethod
@@ -102,5 +98,4 @@ class LoggerThreadManager:
             args=())
 
         cls.__threads_list.append(t)
-
         t.start()

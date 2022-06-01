@@ -5,6 +5,6 @@ for Local Player Feature
 	3- Win/Tie window display (Done)
 	4- Working on Score Labels (Beside Player Name Label) (Done)
 	5- logging system
-	6- Work on ScoreBoard
-	7- Credentials
+	6- Credentials
+	7- Work on ScoreBoard
 }

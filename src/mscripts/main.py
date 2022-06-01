@@ -14,7 +14,7 @@ Version: 0.3
 """
 
 # Custom Libs
-from processing.management.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 from src.mscripts.main_class import MainClass
 
 

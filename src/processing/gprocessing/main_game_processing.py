@@ -1,19 +1,22 @@
 from random import randint
 
+from processing.management.accessmgmt.objects_access_manager import MultiAccessManager
 from src.pobject.player_class import Player
 from src.subwindows.info_display_controller import InfoDisplay
 
 
 class MainGameProcessing:
 
-    def __init__(self, main_game_window_object):
+    def __init__(self):
 
         marks = self.__get_marks()
 
-        self.__main_game_window_object = main_game_window_object
+        self.__multi_access_manager = MultiAccessManager()
 
-        self.__buttons = main_game_window_object.buttons
-        self.__player_labels = main_game_window_object.player_labels
+        self.__main_game_window_object = self.__multi_access_manager.multi_access_objects["MainGameWindow"]
+
+        self.__buttons = self.__main_game_window_object.buttons
+        self.__player_labels = self.__main_game_window_object.player_labels
 
         self.__player1 = Player("Player1", marks[0])
         self.__player2 = Player("Player2", marks[1])

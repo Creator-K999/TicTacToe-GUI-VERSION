@@ -7,7 +7,7 @@ The main menu gets called and displayed from here.
 from PyQt6.QtWidgets import QApplication
 
 # Custom Libs
-from processing.management.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 from src.mwindows.main_menu_window_controller import MainMenu
 
 
@@ -16,6 +16,8 @@ class MainClass:
     This is the MainClass class, It creates an application, initiate the main menu, then displays it.
     SystemExit error thrown on main menu close.
     """
+
+    __instance = None
 
     def __init__(self):
 
@@ -36,6 +38,13 @@ class MainClass:
         self.__logger.debug("Calling 'self.__window.show()'...")
         self.__window.show()
         self.__logger.info("'self.__window.show()' has been called Successfully!")
+
+    def __new__(cls):
+
+        if cls.__instance is None:
+            cls.__instance = super(MainClass, cls).__new__(cls)
+
+        return cls.__instance
 
 #
 #   PUBLIC SECTION
