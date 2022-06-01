@@ -26,15 +26,15 @@ def main():
 
     logger = LoggerThreadManager()
 
-    logger.info(f"Started The Application!")
+    logger.info("Started The Application!")
 
-    logger.debug(f"Creating MainClass Object")
+    logger.debug("Creating MainClass Object")
     main_class = MainClass()
-    logger.info(f"MainClass Object has been created Successfully!")
+    logger.info("MainClass Object has been created Successfully!")
 
-    logger.debug(f"Displaying Window")
+    logger.debug("Displaying Window")
     main_class.run()
-    logger.info(f"Application Closed!")
+    logger.info("Application Closed!")
 
 
 if __name__ == "__main__":
