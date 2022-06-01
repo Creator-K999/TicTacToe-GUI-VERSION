@@ -24,7 +24,7 @@ class LoggerThreadManager:
     def debug(cls, message):
         current_stack = stack()[1]  # list of named tuples
 
-        t = Thread(
+        thread = Thread(
             target=lambda: cls.__logger_thread.debug(
                 f"\n\tFILE NAME: {basename(current_stack.filename)}"
                 f"\n\tFUNC NAME: {current_stack.function}"
@@ -33,14 +33,14 @@ class LoggerThreadManager:
             ),
             args=())
 
-        cls.__threads_list.append(t)
-        t.start()
+        cls.__threads_list.append(thread)
+        thread.start()
 
     @classmethod
     def info(cls, message):
         current_stack = stack()[1]
 
-        t = Thread(
+        thread = Thread(
             target=lambda: cls.__logger_thread.info(
                 f"\n\tFILE NAME: {basename(current_stack.filename)}"
                 f"\n\tFUNC NAME: {current_stack.function}"
@@ -49,14 +49,14 @@ class LoggerThreadManager:
             ),
             args=())
 
-        cls.__threads_list.append(t)
-        t.start()
+        cls.__threads_list.append(thread)
+        thread.start()
 
     @classmethod
     def warning(cls, message):
         current_stack = stack()[1]
 
-        t = Thread(
+        thread = Thread(
             target=lambda: cls.__logger_thread.warning(
                 f"\n\tFILE NAME: {basename(current_stack.filename)}"
                 f"\n\tFUNC NAME: {current_stack.function}"
@@ -65,14 +65,14 @@ class LoggerThreadManager:
             ),
             args=())
 
-        cls.__threads_list.append(t)
-        t.start()
+        cls.__threads_list.append(thread)
+        thread.start()
 
     @classmethod
     def exception(cls, message):
         current_stack = stack()[1]
 
-        t = Thread(
+        thread = Thread(
             target=lambda: cls.__logger_thread.exception(
                 f"\n\tFILE NAME: {basename(current_stack.filename)}"
                 f"\n\tFUNC NAME: {current_stack.function}"
@@ -81,14 +81,14 @@ class LoggerThreadManager:
             ),
             args=())
 
-        cls.__threads_list.append(t)
-        t.start()
+        cls.__threads_list.append(thread)
+        thread.start()
 
     @classmethod
     def critical(cls, message):
         current_stack = stack()[1]
 
-        t = Thread(
+        thread = Thread(
             target=lambda: cls.__logger_thread.critical(
                 f"\n\tFILE NAME: {basename(current_stack.filename)}"
                 f"\n\tFUNC NAME: {current_stack.function}"
@@ -97,5 +97,5 @@ class LoggerThreadManager:
             ),
             args=())
 
-        cls.__threads_list.append(t)
-        t.start()
+        cls.__threads_list.append(thread)
+        thread.start()

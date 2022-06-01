@@ -10,8 +10,8 @@ class InfoDisplay(QDialog):
         self.__prev_window = prev_window
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\info_display_window.ui", self)
 
-        self.__infoLabel = self.findChild(QtWidgets.QLabel, "infoLabel")
-        self.__infoLabel.setText(message)
+        self.__info_label = self.findChild(QtWidgets.QLabel, "infoLabel")
+        self.__info_label.setText(message)
 
         self.accepted.connect(self.__close_and_show_prev_window)
 
