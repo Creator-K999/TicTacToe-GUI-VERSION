@@ -3,6 +3,9 @@ This is the MainClass, it gets called by the main function.
 The main menu gets called and displayed from here.
 """
 
+# Built-ins
+from sys import exit as sys_exit
+
 # 3rd party Libs
 from PyQt6.QtWidgets import QApplication
 
@@ -13,7 +16,8 @@ from src.mwindows.main_menu_window_controller import MainMenu
 
 class MainClass:
     """
-    This is the MainClass class, It creates an application, initiate the main menu, then displays it.
+    This is the MainClass class, It creates an application,
+    initiate the main menu, then displays it.
     SystemExit error thrown on main menu close.
     """
 
@@ -58,10 +62,13 @@ class MainClass:
 
         try:
             self.__logger.debug("Executing the Application...")
-            exit_code = self.__app.exec()  # executes the application and waits for the window close.
+
+            # executes the application and waits for the window close.
+            exit_code = self.__app.exec()
+
             self.__logger.info("User Closed Window Successfully!")
 
-            exit(exit_code)
+            sys_exit(exit_code)
 
         except SystemExit:
             self.__logger.info("Cleaning things up")
