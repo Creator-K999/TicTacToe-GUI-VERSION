@@ -2,4 +2,4 @@
 *.log
 
 # ignore "to do list.txt"
-"to do list.txt"
+to_do_list.txt
