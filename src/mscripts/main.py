@@ -13,6 +13,9 @@ Last Modified Date: 23/05/2022
 Version: 0.3
 """
 
+# Built-ins
+from sys import exit
+
 # Custom Libs
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 from processing.management.objects.objects_manager import ObjectsManager
@@ -37,9 +40,10 @@ def main():
         logger.error("Failed to Create MainClass object")
         return 1
 
-    main_class.run()
+    exit_code = main_class.run()
     logger.info("Application Closed!")
     objects_manager.delete_object("MainClass")
+    exit(exit_code)
 
 
 if __name__ == "__main__":

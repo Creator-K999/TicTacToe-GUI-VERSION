@@ -125,6 +125,5 @@ class MainGameWindow(QMainWindow):
         self.close()
 
         self.__logger.debug("Creating and Re-Displaying the MainMenu")
-
         main_window = self.__objects_manager.create_object(self.__main_window)
         main_window.show()

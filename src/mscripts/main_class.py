@@ -3,9 +3,6 @@ This is the MainClass, it gets called by the main function.
 The main menu gets called and displayed from here.
 """
 
-# Built-ins
-from sys import exit as sys_exit
-
 # 3rd party Libs
 from PyQt6.QtWidgets import QApplication
 
@@ -44,8 +41,8 @@ class MainClass:
         self.__logger.info("'self.__window.show()' has been called Successfully!")
 
     def __del__(self):
-        self.__objects_manager.delete_object("QApplication")
         self.__objects_manager.delete_object("MainMenu")
+        self.__objects_manager.delete_object("QApplication")
 
     def __new__(cls):
 
@@ -57,27 +54,20 @@ class MainClass:
 #
 #   PUBLIC SECTION
 #
-    def run(self) -> None:
+    def run(self) -> int:
 
         """
         This method gets called in the main function, it runs the application.
         :return: None
         """
+        self.__logger.debug("Executing the Application...")
 
-        try:
-            self.__logger.debug("Executing the Application...")
+        # executes the application and waits for the window close.
+        exit_code = self.__app.exec()
 
-            # executes the application and waits for the window close.
-            exit_code = self.__app.exec()
+        self.__logger.info("Cleaning things up")
+        for thread in self.__logger.threads_list:
+            thread.join()
+        self.__logger.info("User Closed Window Successfully!")
 
-            self.__logger.info("User Closed Window Successfully!")
-
-            sys_exit(exit_code)
-
-        except SystemExit:
-            self.__logger.info("Cleaning things up")
-
-            for thread in self.__logger.threads_list:
-                thread.join()
-
-            self.__logger.info("Closing Application...")
+        return exit_code
