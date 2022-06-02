@@ -1,5 +1,5 @@
 # ignore all logs
 *.log
 
-# ignore "to do list.txt"
+# ignore "to_do_list.txt"
 to_do_list.txt
