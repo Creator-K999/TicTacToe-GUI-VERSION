@@ -1,8 +1,9 @@
 from random import randint
 
+from src import PLAYERS_INFO
 from processing.management.objects.objects_manager import ObjectsManager
 from src.pobject.player_class import Player
-from src.subwindows.info_display_controller import InfoDisplay
+from windows.subwindows.info_display_controller import InfoDisplay
 
 
 class MainGameProcessing:
@@ -17,12 +18,26 @@ class MainGameProcessing:
         self.__buttons = self.__main_game_window_object.buttons
         self.__player_labels = self.__main_game_window_object.player_labels
 
-        self.__player1 = Player("Player1", marks[0])
-        self.__player2 = Player("Player2", marks[1])
+        self.__player_1_name = PLAYERS_INFO["player1"]["name"]
+        self.__player_1_pass = PLAYERS_INFO["player1"]["password"]
+
+        self.__player_2_name = PLAYERS_INFO["player2"]["name"]
+        self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
+
+        self.__player_labels["Player1"].setObjectName(self.__player_1_name)
+        self.__player_labels["Player2"].setObjectName(self.__player_2_name)
+
+        self.__player1 = self.__objects_manager.create_object(Player, self.__player_1_name, self.__player_1_pass, marks[0])
+        self.__player2 = self.__objects_manager.create_object(Player, self.__player_2_name, self.__player_2_pass, marks[1])
+
         self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
 
-        self.__player_labels["Player1"].setText(f"Player1 ({self.__player1.mark}): {self.__player1.score}")
-        self.__player_labels["Player2"].setText(f"Player2 ({self.__player2.mark}): {self.__player2.score}")
+        self.__player_labels[self.__player1.name].setText(
+            f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
+        )
+        self.__player_labels[self.__player2.name].setText(
+            f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
+        )
 
         self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
@@ -89,8 +104,8 @@ class MainGameProcessing:
 
         self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "black")
 
-        self.__player1 = Player("Player1", marks[0], self.__player1.score)
-        self.__player2 = Player("Player2", marks[1], self.__player2.score)
+        self.__player1.mark = marks[0]
+        self.__player2.mark = marks[1]
         self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
 
         self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")

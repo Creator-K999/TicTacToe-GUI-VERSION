@@ -61,6 +61,9 @@ class MainGameWindow(QMainWindow):
             self.__logger.info("Connected all buttons to 'self.__button_press' Successfully!")
 
     def init(self):
+
+        self.__logger.debug("getting the instance of ")
+
         self.__logger.debug("Initiating a MainGameProcessing object!")
         self.__game_processor = self.__objects_manager.create_object(MainGameProcessing)
         self.__logger.info("Finished Initiating a MainGameProcessing object!")

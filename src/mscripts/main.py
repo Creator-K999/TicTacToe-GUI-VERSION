@@ -43,6 +43,9 @@ def main():
     exit_code = main_class.run()
     logger.info("Application Closed!")
     objects_manager.delete_object("MainClass")
+
+    del objects_manager
+
     exit(exit_code)
 
 

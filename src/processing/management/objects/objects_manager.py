@@ -36,6 +36,16 @@ class ObjectsManager:
             cls.__logger.debug(f"Found {repr_object_name}")
             return _object
 
+    def __del__(self):
+
+        self.__logger.debug("Cleaning Objects!")
+
+        for _object in self.__objects:
+            self.__logger.warning(f"Found a memory leak!, object is {_object}")
+            self.delete_object(_object)
+
+        self.__logger.info("Objects leaked has been deleted!")
+
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
 
@@ -43,7 +53,7 @@ class ObjectsManager:
 
         try:
             object_name = _object.__name__
-            repr_object_name = repr(object_name)
+            repr_object_name = f"'{object_name}'"
             cls.__objects[object_name] = _object(*args, **kwargs)
 
         except AttributeError:
