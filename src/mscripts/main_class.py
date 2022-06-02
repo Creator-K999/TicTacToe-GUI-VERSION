@@ -40,10 +40,6 @@ class MainClass:
         self.__window.show()
         self.__logger.info("'self.__window.show()' has been called Successfully!")
 
-    def __del__(self):
-        self.__objects_manager.delete_object("MainMenu")
-        self.__objects_manager.delete_object("QApplication")
-
     def __new__(cls):
 
         if cls.__instance is None:
@@ -65,9 +61,14 @@ class MainClass:
         # executes the application and waits for the window close.
         exit_code = self.__app.exec()
 
-        self.__logger.info("Cleaning things up")
+        self.__logger.info("Cleaning things up...")
+
         for thread in self.__logger.threads_list:
             thread.join()
-        self.__logger.info("User Closed Window Successfully!")
 
+        self.__app.quit()
+        self.__objects_manager.delete_object("MainMenu")
+        self.__objects_manager.delete_object("QApplication")
+
+        self.__logger.info("User Closed Window Successfully!")
         return exit_code
