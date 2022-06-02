@@ -1,2 +1,2 @@
 Python 3.6+ Installed
-PyQt6 Library
+PyQt6~=6.2.3

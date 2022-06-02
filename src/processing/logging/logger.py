@@ -44,6 +44,11 @@ class Logger:
             return self.__logger.warning
 
     @property
+    def error(self):
+        with self.__lock:
+            return self.__logger.error
+
+    @property
     def exception(self):
         with self.__lock:
             return self.__logger.exception

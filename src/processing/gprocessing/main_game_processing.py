@@ -1,6 +1,6 @@
 from random import randint
 
-from src import OBJECTS_MANAGER
+from processing.management.objects.objects_manager import ObjectsManager
 from src.pobject.player_class import Player
 from src.subwindows.info_display_controller import InfoDisplay
 
@@ -11,7 +11,8 @@ class MainGameProcessing:
 
         marks = self.__get_marks()
 
-        self.__main_game_window_object = OBJECTS_MANAGER["MainGameWindow"]
+        self.__objects_manager = ObjectsManager()
+        self.__main_game_window_object = self.__objects_manager["MainGameWindow"]
 
         self.__buttons = self.__main_game_window_object.buttons
         self.__player_labels = self.__main_game_window_object.player_labels
@@ -25,6 +26,9 @@ class MainGameProcessing:
 
         self.__change_object_color(self.__player_labels[self.__current_player.name], "foreground", "red")
 
+    def __del__(self):
+        self.__objects_manager.delete_object("MainGameProcessing")
+
 #
 #   PUBLIC SECTION
 #
@@ -34,8 +38,10 @@ class MainGameProcessing:
         return self.__main_game_window_object
 
     def button_clicked_process(self, button):
+        print("Here1")
         button.setText(self.__current_player.mark)
         button.setDisabled(True)
+        print("Here2")
 
         result = "None"
         print(f"[TURN]: {self.__current_player.name}")

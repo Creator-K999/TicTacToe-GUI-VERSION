@@ -15,6 +15,7 @@ Version: 0.3
 
 # Custom Libs
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.objects.objects_manager import ObjectsManager
 from src.mscripts.main_class import MainClass
 
 
@@ -25,16 +26,20 @@ def main():
     """
 
     logger = LoggerThreadManager()
-
     logger.info("Started The Application!")
 
-    logger.debug("Creating MainClass Object")
-    main_class = MainClass()
-    logger.info("MainClass Object has been created Successfully!")
+    objects_manager = ObjectsManager()
 
-    logger.debug("Displaying Window")
+    logger.debug("Creating MainClass Object")
+    main_class = objects_manager.create_object(MainClass)
+
+    if main_class is None:
+        logger.error("Failed to Create MainClass object")
+        return 1
+
     main_class.run()
     logger.info("Application Closed!")
+    objects_manager.delete_object("MainClass")
 
 
 if __name__ == "__main__":

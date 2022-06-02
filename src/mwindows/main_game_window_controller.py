@@ -1,9 +1,9 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from src import OBJECTS_MANAGER
-from processing.gprocessing import main_game_processing
+from processing.gprocessing.main_game_processing import MainGameProcessing
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.objects.objects_manager import ObjectsManager
 
 
 class MainGameWindow(QMainWindow):
@@ -12,14 +12,13 @@ class MainGameWindow(QMainWindow):
 
         super().__init__()
 
-        self.__logger = LoggerThreadManager()
+        self.__game_processor = None
 
-        self.__logger.debug("Adding MainGameWindow object to multi_access_objects Dict...!")
-        OBJECTS_MANAGER["MainGameWindow"] = self
+        self.__logger = LoggerThreadManager()
+        self.__objects_manager = ObjectsManager()
 
         self.__logger.debug("Storing 'MainMenu' instance in 'self.__main_window' attribute")
         self.__main_window = main_window
-        self.__logger.info("'MainMenu' instance has been successfully stored in 'self.__main_window' attribute")
 
         self.__logger.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\main_game_window.ui", self)
@@ -50,10 +49,6 @@ class MainGameWindow(QMainWindow):
         if None in self.__player_labels.values():
             self.__logger.warning("Couldn't find one or more players labels!")
 
-        self.__logger.debug("Initiating a MainGameProcessing object!")
-        self.__game_processor = main_game_processing.MainGameProcessing()
-        self.__logger.info("Finished Initiating a MainGameProcessing object!")
-
         self.__logger.debug("Connecting all buttons to 'self.__button_press' method...")
         try:
             for button in self.__buttons.values():
@@ -64,6 +59,11 @@ class MainGameWindow(QMainWindow):
                                     "'.clicked' attribute on a None object!")
         else:
             self.__logger.info("Connected all buttons to 'self.__button_press' Successfully!")
+
+    def init(self):
+        self.__logger.debug("Initiating a MainGameProcessing object!")
+        self.__game_processor = self.__objects_manager.create_object(MainGameProcessing)
+        self.__logger.info("Finished Initiating a MainGameProcessing object!")
 
 #
 #   PUBLIC SECTION
@@ -120,8 +120,11 @@ class MainGameWindow(QMainWindow):
 #
     def closeEvent(self, event):
         self.__logger.debug("Closing MainGameWindow...")
+        self.__objects_manager.delete_object("MainGameProcessing")
+        self.__objects_manager.delete_object("MainGameWindow")
         self.close()
 
         self.__logger.debug("Creating and Re-Displaying the MainMenu")
-        OBJECTS_MANAGER["MainMenu"] = self.__main_window()
-        OBJECTS_MANAGER["MainMenu"].show()
+
+        main_window = self.__objects_manager.create_object(self.__main_window)
+        main_window.show()

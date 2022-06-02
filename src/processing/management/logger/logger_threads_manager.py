@@ -69,6 +69,22 @@ class LoggerThreadManager:
         thread.start()
 
     @classmethod
+    def error(cls, message):
+        current_stack = stack()[1]
+
+        thread = Thread(
+            target=lambda: cls.__logger_thread.error(
+                f"\n\tFILE NAME: {basename(current_stack.filename)}"
+                f"\n\tFUNC NAME: {current_stack.function}"
+                f"\n\tLINE NUMBER: {current_stack.lineno}"
+                f"\n\tMESSAGE: {message}\n"
+            ),
+            args=())
+
+        cls.__threads_list.append(thread)
+        thread.start()
+
+    @classmethod
     def exception(cls, message):
         current_stack = stack()[1]
 

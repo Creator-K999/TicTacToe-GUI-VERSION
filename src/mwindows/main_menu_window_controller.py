@@ -7,7 +7,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 # Custom Libs
-from src import OBJECTS_MANAGER
+from processing.management.objects.objects_manager import ObjectsManager
 from src.mwindows.main_game_window_controller import MainGameWindow
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
@@ -27,9 +27,7 @@ class MainMenu(QMainWindow):
         super().__init__()  # calls the constructor of QMainWindow
 
         self.__logger = LoggerThreadManager()
-
-        self.__logger.debug("Adding MainMenu Object to OBJECTS_MANAGER!")
-        OBJECTS_MANAGER["MainMenu"] = self
+        self.__objects_manager = ObjectsManager()
 
         # loads the .UI file and sets "self" as its base object.
         self.__logger.debug("Loading The UI...")
@@ -62,15 +60,8 @@ class MainMenu(QMainWindow):
 
     def show(self):
 
-        self.__logger.debug("Trying to delete MainGameWindow from Object Life Extender!")
-        try:
-            del OBJECTS_MANAGER["MainGameWindow"]
-
-        except KeyError:
-            self.__logger.exception("Didn't find a MainGameWindow Object in OBJECTS_MANAGER")
-
-        else:
-            self.__logger.info("Successfully deleted MainGameWindow object from Object Life Extender!")
+        self.__logger.debug("Trying to delete MainGameWindow!")
+        self.__objects_manager.delete_object("MainGameWindow")
 
         super().show()
 
@@ -90,16 +81,16 @@ class MainMenu(QMainWindow):
         # closing the main menu
         self.__logger.debug("Calling 'self.__window.close()'...")
         self.__window.close()
-        self.__logger.info("self.__window has been closed Successfully!")
+        self.__logger.info("self.__window.close() has been closed Successfully!")
 
         # creating a game window objects and displaying it
         self.__logger.debug("Creating 'MainGameWindow' Object...")
-        main_game_window = MainGameWindow(MainMenu)
-        self.__logger.info("'MainGameWindow' Object has been created Successfully!")
-
-        self.__logger.info("Adding MainGameWindow to Object Life Extender!")
-        OBJECTS_MANAGER["MainGameWindow"] = main_game_window
+        main_game_window = self.__objects_manager.create_object(MainGameWindow, MainMenu)
+        main_game_window.init()
 
         self.__logger.debug("Calling 'main_game_window.show()'...")
         main_game_window.show()
         self.__logger.info("'main_game_window.show()' has been Called Successfully!")
+
+    def closeEvent(self, event):
+        self.close()

@@ -11,6 +11,7 @@ from PyQt6.QtWidgets import QApplication
 
 # Custom Libs
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.objects.objects_manager import ObjectsManager
 from src.mwindows.main_menu_window_controller import MainMenu
 
 
@@ -30,18 +31,21 @@ class MainClass:
         """
 
         self.__logger = LoggerThreadManager()
+        self.__objects_manager = ObjectsManager()
 
         self.__logger.debug("Creating QApplication Object...")
-        self.__app = QApplication([])  # main application
-        self.__logger.info("QApplication Object has been created Successfully!")
+        self.__app = self.__objects_manager.create_object(QApplication, [])  # main application
 
         self.__logger.debug("Creating MainMenu object...")
-        self.__window = MainMenu()  # main menu class
-        self.__logger.info("MainMenu Object has been created Successfully!")
+        self.__window = self.__objects_manager.create_object(MainMenu)  # main menu class
 
         self.__logger.debug("Calling 'self.__window.show()'...")
         self.__window.show()
         self.__logger.info("'self.__window.show()' has been called Successfully!")
+
+    def __del__(self):
+        self.__objects_manager.delete_object("QApplication")
+        self.__objects_manager.delete_object("MainMenu")
 
     def __new__(cls):
 
