@@ -28,13 +28,12 @@ class MainClass:
         """
 
         self.__logger = LoggerThreadManager()
-        self.__objects_manager = ObjectsManager()
 
         self.__logger.debug("Creating QApplication Object...")
-        self.__app = self.__objects_manager.create_object(QApplication, [])  # main application
+        self.__app = ObjectsManager.create_object(QApplication, [])  # main application
 
         self.__logger.debug("Creating MainMenu object...")
-        self.__window = self.__objects_manager.create_object(MainMenu)  # main menu class
+        self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
         self.__logger.debug("Calling 'self.__window.show()'...")
         self.__window.show()
@@ -67,8 +66,8 @@ class MainClass:
             thread.join()
 
         self.__app.quit()
-        self.__objects_manager.delete_object("MainMenu")
-        self.__objects_manager.delete_object("QApplication")
+        ObjectsManager.delete_object("MainMenu")
+        ObjectsManager.delete_object("QApplication")
 
         self.__logger.info("User Closed Window Successfully!")
         return exit_code

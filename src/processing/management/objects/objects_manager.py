@@ -3,19 +3,11 @@ from processing.management.logger.logger_threads_manager import LoggerThreadMana
 
 class ObjectsManager:
 
-    __instance = None
     __objects = {}
     __logger = LoggerThreadManager()
 
-    def __new__(cls):
-
-        if cls.__instance is None:
-            cls.__instance = super(ObjectsManager, cls).__new__(cls)
-
-        return cls.__instance
-
     @classmethod
-    def __getitem__(cls, object_name):
+    def get_object_by_name(cls, object_name):
 
         _object = None
         repr_object_name = None
@@ -36,15 +28,15 @@ class ObjectsManager:
             cls.__logger.debug(f"Found {repr_object_name}")
             return _object
 
-    def __del__(self):
+    @classmethod
+    def destruct_objects(cls):
+        cls.__logger.debug("Cleaning Objects!")
 
-        self.__logger.debug("Cleaning Objects!")
+        for _object in cls.__objects:
+            cls.__logger.warning(f"Found a memory leak!, object is {_object}")
+            cls.delete_object(_object)
 
-        for _object in self.__objects:
-            self.__logger.warning(f"Found a memory leak!, object is {_object}")
-            self.delete_object(_object)
-
-        self.__logger.info("Objects leaked has been deleted!")
+        cls.__logger.info("Objects leaked has been deleted!")
 
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
@@ -53,6 +45,7 @@ class ObjectsManager:
 
         try:
             object_name = _object.__name__
+
             repr_object_name = f"'{object_name}'"
             cls.__objects[object_name] = _object(*args, **kwargs)
 
@@ -74,10 +67,20 @@ class ObjectsManager:
         repr_object_name = repr(object_name)
 
         try:
+            try:
+                cls.__logger.debug(f"Trying to call the destructor manually on {repr_object_name}!")
+                cls.__objects[object_name].__del__()
+
+            except Exception:
+                cls.__logger.exception(f"Error! could not call the destructor manually on {repr_object_name}!")
+
             del cls.__objects[object_name]
 
         except KeyError:
             cls.__logger.exception(f"{repr_object_name} doesn't exist!")
+
+        except Exception:
+            cls.__logger.exception("Error happend!")
 
         else:
             cls.__logger.debug(f"Successfully deleted {repr_object_name}")

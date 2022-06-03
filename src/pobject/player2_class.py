@@ -1,12 +1,13 @@
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
-class Player:
+class Player2:
 
-    def __init__(self, name, _pass, mark, score=0):
+    def __init__(self, game_name, name, _pass, mark, score=0):
 
         self.__logger = LoggerThreadManager()
 
+        self.__game_name = game_name
         self.__name = name
         self.__pass = _pass
         self.__mark = mark
@@ -19,6 +20,10 @@ class Player:
 #
 #   PUBLIC SECTION
 #
+    @property
+    def game_name(self):
+        return self.__game_name
+
     @property
     def name(self):
         return self.__name

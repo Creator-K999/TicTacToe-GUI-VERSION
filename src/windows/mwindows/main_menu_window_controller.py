@@ -28,7 +28,6 @@ class MainMenu(QMainWindow):
         super().__init__()  # calls the constructor of QMainWindow
 
         self.__logger = LoggerThreadManager()
-        self.__objects_manager = ObjectsManager()
 
         # loads the .UI file and sets "self" as its base object.
         self.__logger.debug("Loading The UI...")
@@ -98,11 +97,11 @@ class MainMenu(QMainWindow):
         # closing the main menu
         self.__logger.debug("Calling 'self.__window.close()'...")
         self.__window.close()
-        self.__logger.info("self.__window.close() has been closed Successfully!")
+        self.__logger.info("self.__window has been closed Successfully!")
 
         # creating a game window objects and displaying it
         self.__logger.debug("Creating 'MainGameWindow' Object...")
-        main_game_window = self.__objects_manager.create_object(MainGameWindow, MainMenu)
+        main_game_window = ObjectsManager.create_object(MainGameWindow, MainMenu)
         main_game_window.init()
 
         self.__logger.debug("Calling 'main_game_window.show()'...")
@@ -117,7 +116,7 @@ class MainMenu(QMainWindow):
 
         # creating a game window objects and displaying it
         self.__logger.debug("Creating 'LoginWindow' Object...")
-        login_window = self.__objects_manager.create_object(LoginWindow)
+        login_window = ObjectsManager.create_object(LoginWindow)
 
         self.__logger.debug("Calling 'login_window.show()'...")
         login_window.show()

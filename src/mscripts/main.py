@@ -31,10 +31,8 @@ def main():
     logger = LoggerThreadManager()
     logger.info("Started The Application!")
 
-    objects_manager = ObjectsManager()
-
     logger.debug("Creating MainClass Object")
-    main_class = objects_manager.create_object(MainClass)
+    main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:
         logger.error("Failed to Create MainClass object")
@@ -42,10 +40,9 @@ def main():
 
     exit_code = main_class.run()
     logger.info("Application Closed!")
-    objects_manager.delete_object("MainClass")
+    ObjectsManager.delete_object("MainClass")
 
-    del objects_manager
-
+    ObjectsManager.destruct_objects()
     exit(exit_code)
 
 

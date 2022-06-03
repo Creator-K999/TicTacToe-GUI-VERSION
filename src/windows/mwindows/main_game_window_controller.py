@@ -15,7 +15,6 @@ class MainGameWindow(QMainWindow):
         self.__game_processor = None
 
         self.__logger = LoggerThreadManager()
-        self.__objects_manager = ObjectsManager()
 
         self.__logger.debug("Storing 'MainMenu' instance in 'self.__main_window' attribute")
         self.__main_window = main_window
@@ -62,11 +61,8 @@ class MainGameWindow(QMainWindow):
 
     def init(self):
 
-        self.__logger.debug("getting the instance of ")
-
         self.__logger.debug("Initiating a MainGameProcessing object!")
-        self.__game_processor = self.__objects_manager.create_object(MainGameProcessing)
-        self.__logger.info("Finished Initiating a MainGameProcessing object!")
+        self.__game_processor = ObjectsManager.create_object(MainGameProcessing)
 
 #
 #   PUBLIC SECTION
@@ -123,10 +119,10 @@ class MainGameWindow(QMainWindow):
 #
     def closeEvent(self, event):
         self.__logger.debug("Closing MainGameWindow...")
-        self.__objects_manager.delete_object("MainGameProcessing")
-        self.__objects_manager.delete_object("MainGameWindow")
+        ObjectsManager.delete_object("MainGameProcessing")
+        ObjectsManager.delete_object("MainGameWindow")
         self.close()
 
         self.__logger.debug("Creating and Re-Displaying the MainMenu")
-        main_window = self.__objects_manager.create_object(self.__main_window)
+        main_window = ObjectsManager.create_object(self.__main_window)
         main_window.show()

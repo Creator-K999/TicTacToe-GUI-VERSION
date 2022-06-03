@@ -2,7 +2,6 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit
 
 from src import PLAYERS_INFO
-from pobject.player_class import Player
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 from processing.management.objects.objects_manager import ObjectsManager
 
@@ -13,7 +12,6 @@ class LoginWindow(QDialog):
         super().__init__()
 
         self.__logger = LoggerThreadManager()
-        self.__objects_manager = ObjectsManager()
 
         self.__logger.debug("Loading UI...")
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\login_window.ui", self)
@@ -50,6 +48,10 @@ class LoginWindow(QDialog):
         self.close()
 
     def closeEvent(self, event):
-        self.close()
-        self.__objects_manager["MainMenu"].show()
-        self.__objects_manager.delete_object("LoginWindow")
+        try:
+            self.close()
+            ObjectsManager.get_object_by_name("MainMenu").show()
+            ObjectsManager.delete_object("LoginWindow")
+
+        except Exception:
+            self.__logger.exception("Error LOL!")
