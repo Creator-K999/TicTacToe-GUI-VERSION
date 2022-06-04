@@ -1,21 +1,21 @@
 from os import chdir, getcwd
-from threading import Lock
-from logging import getLogger, config, basicConfig
+from threading import Lock, Thread
+from queue import Queue
+from logging import getLogger, config
 
 
 class Logger:
 
     __instance = None
+    __log_queue = Queue()
 
     def __init__(self):
         self.__lock = Lock()
 
         cwd = getcwd()
         chdir("..\\..")
-
         config.fileConfig(fname="logger.config")
         self.__logger = getLogger(__name__)
-
         chdir(cwd)
 
     def __new__(cls):
@@ -24,36 +24,91 @@ class Logger:
 
         return cls.__instance
 
-    @staticmethod
-    def set_level(level_name) -> None:
-        basicConfig(level=level_name)
-
     @property
-    def debug(self):
+    def log_queue(self):
         with self.__lock:
-            return self.__logger.debug
+            return self.__log_queue
 
-    @property
-    def info(self):
-        with self.__lock:
-            return self.__logger.info
+    def debug(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.debug(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
 
-    @property
-    def warning(self):
-        with self.__lock:
-            return self.__logger.warning
+        thread.daemon = True
+        self.__log_queue.put(thread)
 
-    @property
-    def error(self):
-        with self.__lock:
-            return self.__logger.error
+    def info(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.info(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
 
-    @property
-    def exception(self):
-        with self.__lock:
-            return self.__logger.exception
+        thread.daemon = True
+        self.__log_queue.put(thread)
 
-    @property
-    def critical(self):
-        with self.__lock:
-            return self.__logger.critical
+    def warning(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.warning(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
+
+        thread.daemon = True
+        self.__log_queue.put(thread)
+
+    def error(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.error(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
+
+        thread.daemon = True
+        self.__log_queue.put(thread)
+
+    def exception(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.exception(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
+
+        thread.daemon = True
+        self.__log_queue.put(thread)
+
+    def critical(self, **kwargs):
+        thread = Thread(
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            target=lambda: self.__logger.critical(
+                f"\n\tFILE NAME: {kwargs['filename']}"
+                f"\n\tFUNC NAME: {kwargs['function']}"
+                f"\n\tLINE NUMBER: {kwargs['line']}"
+                f"\n\tMESSAGE: {kwargs['message']}\n"
+            ),
+            args=())
+
+        thread.daemon = True
+        self.__log_queue.put(thread)

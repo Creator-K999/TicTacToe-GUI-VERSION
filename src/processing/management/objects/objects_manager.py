@@ -1,3 +1,4 @@
+from gc import collect
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
@@ -30,13 +31,10 @@ class ObjectsManager:
 
     @classmethod
     def destruct_objects(cls):
-        cls.__logger.debug("Cleaning Objects!")
-
-        for _object in cls.__objects:
+        collect()
+        for _object in [*cls.__objects]:
             cls.__logger.warning(f"Found a memory leak!, object is {_object}")
-            cls.delete_object(_object)
-
-        cls.__logger.info("Objects leaked has been deleted!")
+            del cls.__objects[_object]
 
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
@@ -67,13 +65,6 @@ class ObjectsManager:
         repr_object_name = repr(object_name)
 
         try:
-            try:
-                cls.__logger.debug(f"Trying to call the destructor manually on {repr_object_name}!")
-                cls.__objects[object_name].__del__()
-
-            except Exception:
-                cls.__logger.exception(f"Error! could not call the destructor manually on {repr_object_name}!")
-
             del cls.__objects[object_name]
 
         except KeyError:

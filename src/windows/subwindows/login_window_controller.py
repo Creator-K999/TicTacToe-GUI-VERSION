@@ -49,7 +49,7 @@ class LoginWindow(QDialog):
 
     def closeEvent(self, event):
         try:
-            self.close()
+            self.destroy()
             ObjectsManager.get_object_by_name("MainMenu").show()
             ObjectsManager.delete_object("LoginWindow")
 

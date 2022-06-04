@@ -62,7 +62,7 @@ class MainClass:
 
         self.__logger.info("Cleaning things up...")
 
-        for thread in self.__logger.threads_list:
+        for thread in self.__logger.get_threads_list():
             thread.join()
 
         self.__app.quit()

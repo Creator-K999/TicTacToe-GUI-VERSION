@@ -16,102 +16,77 @@ class LoggerThreadManager:
         return cls.__instance
 
     @classmethod
-    @property
-    def threads_list(cls):
+    def get_threads_list(cls):
         return cls.__threads_list
 
     @classmethod
     def debug(cls, message):
         current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.debug(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.debug(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
 
     @classmethod
     def info(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.info(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.info(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
 
     @classmethod
     def warning(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.warning(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.warning(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
 
     @classmethod
     def error(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.error(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.error(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
 
     @classmethod
     def exception(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.exception(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.exception(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
 
     @classmethod
     def critical(cls, message):
-        current_stack = stack()[1]
+        current_stack = stack()[1]  # list of named tuples
 
-        thread = Thread(
-            target=lambda: cls.__logger_thread.critical(
-                f"\n\tFILE NAME: {basename(current_stack.filename)}"
-                f"\n\tFUNC NAME: {current_stack.function}"
-                f"\n\tLINE NUMBER: {current_stack.lineno}"
-                f"\n\tMESSAGE: {message}\n"
-            ),
-            args=())
+        cls.__logger_thread.critical(
+            filename=basename(current_stack.filename),
+            function=current_stack.function,
+            line=current_stack.lineno,
+            message=message)
 
-        cls.__threads_list.append(thread)
-        thread.start()
+        cls.__logger_thread.log_queue.get(True).start()
