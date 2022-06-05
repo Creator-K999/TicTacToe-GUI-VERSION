@@ -1,4 +1,3 @@
-from os import chdir, getcwd
 from threading import Lock, Thread
 from queue import Queue
 from logging import getLogger, config
@@ -12,11 +11,8 @@ class Logger:
     def __init__(self):
         self.__lock = Lock()
 
-        cwd = getcwd()
-        chdir("../../..")
         config.fileConfig(fname="logger.config")
         self.__logger = getLogger(__name__)
-        chdir(cwd)
 
     def __new__(cls):
         if cls.__instance is None:

@@ -30,10 +30,15 @@ class ObjectsManager:
 
     @classmethod
     def destruct_objects(cls):
-        # collect()
+        leak_found = False
+        cls.__logger.debug("Looking for memory leaks!")
         for _object in [*cls.__objects]:
+            leak_found = True
             cls.__logger.warning(f"Found a memory leak!, object is {_object}")
             del cls.__objects[_object]
+
+        if leak_found:
+            cls.__logger.warning("Found some leaks but cleaned them up!")
 
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
