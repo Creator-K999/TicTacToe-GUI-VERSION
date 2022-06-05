@@ -31,7 +31,7 @@ class ObjectsManager:
 
     @classmethod
     def destruct_objects(cls):
-        collect()
+        # collect()
         for _object in [*cls.__objects]:
             cls.__logger.warning(f"Found a memory leak!, object is {_object}")
             del cls.__objects[_object]

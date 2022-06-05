@@ -38,10 +38,6 @@ class MainGameProcessing:
 
         self.__change_object_color(self.__player_labels[self.__current_player.game_name], "foreground", "red")
 
-    def __del__(self):
-        ObjectsManager.delete_object("Player1")
-        ObjectsManager.delete_object("Player2")
-
 #
 #   PUBLIC SECTION
 #

@@ -99,6 +99,10 @@ class MainMenu(QMainWindow):
         self.__window.close()
         self.__logger.info("self.__window has been closed Successfully!")
 
+        self.__logger.debug("Deleting MainMenu...")
+        ObjectsManager.delete_object("MainMenu")
+        self.__logger.info("MainMenu has been Deleted Successfully!")
+
         # creating a game window objects and displaying it
         self.__logger.debug("Creating 'MainGameWindow' Object...")
         main_game_window = ObjectsManager.create_object(MainGameWindow, MainMenu)

@@ -119,6 +119,8 @@ class MainGameWindow(QMainWindow):
 #
     def closeEvent(self, event):
         self.__logger.debug("Closing MainGameWindow...")
+        ObjectsManager.delete_object("Player1")
+        ObjectsManager.delete_object("Player2")
         ObjectsManager.delete_object("MainGameProcessing")
         ObjectsManager.delete_object("MainGameWindow")
         self.close()

@@ -14,7 +14,6 @@ Version: 0.3
 """
 
 # Built-ins
-from gc import disable
 from sys import exit
 from threading import active_count, enumerate as threads_enumerate
 
@@ -29,7 +28,6 @@ def main():
     """
     This is the main function, the program starts from here!
     """
-    disable()
 
     logger = LoggerThreadManager()
     logger.info("Started The Application!")
@@ -43,13 +41,16 @@ def main():
 
     exit_code = main_class.run()
     logger.info("Application Closed!")
+    del main_class
     ObjectsManager.delete_object("MainClass")
 
     ObjectsManager.destruct_objects()
     print(f"Current working threads: {active_count()}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
-            thread.join(0)
+            print(thread.name)
+            thread.join()
+
     exit(exit_code)
 
 
