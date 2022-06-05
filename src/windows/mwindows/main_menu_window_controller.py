@@ -54,11 +54,11 @@ class MainMenu(QMainWindow):
 
             except AttributeError:
                 LoggerThreadManager.exception("Couldn't connect 'self.__local_game_button' with "
-                                        "'self.__show_local_game_window'")
+                                              "'self.__show_local_game_window'")
 
             else:
                 LoggerThreadManager.info("Successfully connected 'self.__local_game_button' with "
-                                   "'self.__show_local_game_window'")
+                                         "'self.__show_local_game_window'")
 
         # checks if we succeeded getting the button object
         if self.__login_button is None:
@@ -73,11 +73,11 @@ class MainMenu(QMainWindow):
 
             except AttributeError:
                 LoggerThreadManager.exception("Couldn't connect 'self.__login_button' with "
-                                        "'self.__show_login_window'")
+                                              "'self.__show_login_window'")
 
             else:
                 LoggerThreadManager.info("Successfully connected 'self.__login_button' with "
-                                   "'self.__show_login_window'")
+                                         "'self.__show_login_window'")
 
     #
     #   PRIVATE SECTION
