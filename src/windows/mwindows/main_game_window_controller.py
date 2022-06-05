@@ -1,9 +1,9 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from processing.gprocessing.main_game_processing import MainGameProcessing
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
-from processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.gprocessing.main_game_processing import MainGameProcessing
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from scripts.processing.management.objects.objects_manager import ObjectsManager
 
 
 class MainGameWindow(QMainWindow):

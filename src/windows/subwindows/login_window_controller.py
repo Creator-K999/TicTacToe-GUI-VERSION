@@ -2,8 +2,8 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit
 
 from src import PLAYERS_INFO
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
-from processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from scripts.processing.management.objects.objects_manager import ObjectsManager
 
 
 class LoginWindow(QDialog):

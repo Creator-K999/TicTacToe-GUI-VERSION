@@ -13,7 +13,7 @@ class Logger:
         self.__lock = Lock()
 
         cwd = getcwd()
-        chdir("..\\..")
+        chdir("../../..")
         config.fileConfig(fname="logger.config")
         self.__logger = getLogger(__name__)
         chdir(cwd)

@@ -1,5 +1,4 @@
-from gc import collect
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class ObjectsManager:

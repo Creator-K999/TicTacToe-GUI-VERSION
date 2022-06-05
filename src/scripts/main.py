@@ -18,8 +18,8 @@ from sys import exit
 from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
-from processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from scripts.processing.management.objects.objects_manager import ObjectsManager
 from src.mscripts.main_class import MainClass
 
 

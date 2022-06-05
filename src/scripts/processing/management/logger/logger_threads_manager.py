@@ -1,7 +1,6 @@
 from os.path import basename
-from threading import Thread
 from inspect import stack
-from processing.logging.logger import Logger
+from scripts.processing.logging.logger import Logger
 
 
 class LoggerThreadManager:

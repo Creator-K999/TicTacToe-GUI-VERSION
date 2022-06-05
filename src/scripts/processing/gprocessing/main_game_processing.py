@@ -1,9 +1,9 @@
 from random import randint
 
 from src import PLAYERS_INFO
-from processing.management.objects.objects_manager import ObjectsManager
-from src.pobject.player1_class import Player1
-from src.pobject.player2_class import Player2
+from scripts.processing.management.objects.objects_manager import ObjectsManager
+from scripts.pobject.player1_class import Player1
+from scripts.pobject.player2_class import Player2
 from windows.subwindows.info_display_controller import InfoDisplay
 
 

@@ -7,9 +7,9 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
-from processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.objects.objects_manager import ObjectsManager
 from windows.mwindows.main_game_window_controller import MainGameWindow
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
 from windows.subwindows.login_window_controller import LoginWindow
 
 
