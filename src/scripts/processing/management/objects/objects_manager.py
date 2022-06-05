@@ -4,7 +4,6 @@ from scripts.processing.management.logger.logger_threads_manager import LoggerTh
 class ObjectsManager:
 
     __objects = {}
-    __logger = LoggerThreadManager()
 
     @classmethod
     def get_object_by_name(cls, object_name):
@@ -17,28 +16,28 @@ class ObjectsManager:
             _object = cls.__objects[object_name]
 
         except KeyError:
-            cls.__logger.exception(f"{repr_object_name} doesn't exist!")
+            LoggerThreadManager.exception(f"{repr_object_name} doesn't exist!")
             return None
 
         except AttributeError as E:
-            cls.__logger.exception(f"_object is not a class! - {E}")
+            LoggerThreadManager.exception(f"_object is not a class! - {E}")
             return None
 
         else:
-            cls.__logger.debug(f"Found {repr_object_name}")
+            LoggerThreadManager.debug(f"Found {repr_object_name}")
             return _object
 
     @classmethod
     def destruct_objects(cls):
         leak_found = False
-        cls.__logger.debug("Looking for memory leaks!")
+        LoggerThreadManager.debug("Looking for memory leaks!")
         for _object in [*cls.__objects]:
             leak_found = True
-            cls.__logger.warning(f"Found a memory leak!, object is {_object}")
+            LoggerThreadManager.warning(f"Found a memory leak!, object is {_object}")
             del cls.__objects[_object]
 
         if leak_found:
-            cls.__logger.warning("Found some leaks but cleaned them up!")
+            LoggerThreadManager.warning("Found some leaks but cleaned them up!")
 
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
@@ -52,15 +51,15 @@ class ObjectsManager:
             cls.__objects[object_name] = _object(*args, **kwargs)
 
         except AttributeError:
-            cls.__logger.exception("'_object' is not a class!")
+            LoggerThreadManager.exception("'_object' is not a class!")
             return None
 
         except Exception:
-            cls.__logger.exception(f"Some Error occurred while creating object {repr_object_name}!")
+            LoggerThreadManager.exception(f"Some Error occurred while creating object {repr_object_name}!")
             return None
 
         else:
-            cls.__logger.debug(f"Successfully created Object {repr_object_name}!")
+            LoggerThreadManager.debug(f"Successfully created Object {repr_object_name}!")
             return cls.__objects[object_name]
 
     @classmethod
@@ -72,10 +71,10 @@ class ObjectsManager:
             del cls.__objects[object_name]
 
         except KeyError:
-            cls.__logger.exception(f"{repr_object_name} doesn't exist!")
+            LoggerThreadManager.exception(f"{repr_object_name} doesn't exist!")
 
         except Exception:
-            cls.__logger.exception("Error happend!")
+            LoggerThreadManager.exception("Error happened!")
 
         else:
-            cls.__logger.debug(f"Successfully deleted {repr_object_name}")
+            LoggerThreadManager.debug(f"Successfully deleted {repr_object_name}")

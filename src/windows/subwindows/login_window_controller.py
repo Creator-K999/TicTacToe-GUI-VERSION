@@ -11,11 +11,9 @@ class LoginWindow(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.__logger = LoggerThreadManager()
-
-        self.__logger.debug("Loading UI...")
+        LoggerThreadManager.debug("Loading UI...")
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\login_window.ui", self)
-        self.__logger.info("UI has been loaded Successfully!")
+        LoggerThreadManager.info("UI has been loaded Successfully!")
 
         self.__player1_fields = {
             "name": self.findChild(QLineEdit, "player1Name"),
@@ -54,4 +52,4 @@ class LoginWindow(QDialog):
             ObjectsManager.delete_object("LoginWindow")
 
         except Exception:
-            self.__logger.exception("Error LOL!")
+            LoggerThreadManager.exception("Error LOL!")

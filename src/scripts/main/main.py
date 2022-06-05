@@ -29,18 +29,17 @@ def main():
     This is the main function, the program starts from here!
     """
 
-    logger = LoggerThreadManager()
-    logger.info("Started The Application!")
+    LoggerThreadManager.info("Started The Application!")
 
-    logger.debug("Creating MainClass Object")
+    LoggerThreadManager.debug("Creating MainClass Object")
     main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:
-        logger.error("Failed to Create MainClass object")
+        LoggerThreadManager.error("Failed to Create MainClass object")
         return 1
 
     exit_code = main_class.run()
-    logger.info("Application Closed!")
+    LoggerThreadManager.info("Application Closed!")
     del main_class
     ObjectsManager.delete_object("MainClass")
 

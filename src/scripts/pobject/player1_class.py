@@ -5,8 +5,6 @@ class Player1:
 
     def __init__(self, game_name, name, _pass, mark, score=0):
 
-        self.__logger = LoggerThreadManager()
-
         self.__game_name = game_name
         self.__name = name
         self.__pass = _pass
@@ -44,7 +42,7 @@ class Player1:
                 raise ValueError(f"value has to be a either X or O. Got {value!r} instead!")
 
         except ValueError:
-            self.__logger.exception("Error!")
+            LoggerThreadManager.exception("Error!")
 
         else:
             self.__mark = value

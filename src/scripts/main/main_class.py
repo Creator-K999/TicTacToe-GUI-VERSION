@@ -27,17 +27,15 @@ class MainClass:
         This is the constructor of the MainClass.
         """
 
-        self.__logger = LoggerThreadManager()
-
-        self.__logger.debug("Creating QApplication Object...")
+        LoggerThreadManager.debug("Creating QApplication Object...")
         self.__app = ObjectsManager.create_object(QApplication, [])  # main application
 
-        self.__logger.debug("Creating MainMenu object...")
+        LoggerThreadManager.debug("Creating MainMenu object...")
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
-        self.__logger.debug("Calling 'self.__window.show()'...")
+        LoggerThreadManager.debug("Calling 'self.__window.show()'...")
         self.__window.show()
-        self.__logger.info("'self.__window.show()' has been called Successfully!")
+        LoggerThreadManager.info("'self.__window.show()' has been called Successfully!")
 
     def __new__(cls):
 
@@ -55,19 +53,19 @@ class MainClass:
         This method gets called in the main function, it runs the application.
         :return: None
         """
-        self.__logger.debug("Executing the Application...")
+        LoggerThreadManager.debug("Executing the Application...")
 
         # executes the application and waits for the window close.
         exit_code = self.__app.exec()
 
-        self.__logger.info("Cleaning things up...")
+        LoggerThreadManager.info("Cleaning things up...")
 
-        for thread in self.__logger.get_threads_list():
+        for thread in LoggerThreadManager.get_threads_list():
             thread.join()
 
         self.__app.quit()
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 
-        self.__logger.info("User Closed Window Successfully!")
+        LoggerThreadManager.info("User Closed Window Successfully!")
         return exit_code
