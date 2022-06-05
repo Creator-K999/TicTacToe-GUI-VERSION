@@ -28,7 +28,6 @@ class MainMenu(QMainWindow):
         super().__init__()  # calls the constructor of QMainWindow
 
         self.__logger = LoggerThreadManager()
-        print(self.children())
 
         # loads the .UI file and sets "self" as its base object.
         self.__logger.debug("Loading The UI...")
