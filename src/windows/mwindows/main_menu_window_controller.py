@@ -7,7 +7,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
-from src import connect_object
+from src import PLAYERS_INFO, connect_object
 from src.windows.subwindows.login_window_controller import LoginWindow
 from src.windows.mwindows.main_game_window_controller import MainGameWindow
 from processing.management.objects.objects_manager import ObjectsManager
@@ -37,6 +37,9 @@ class MainMenu(QMainWindow):
         LoggerThreadManager.debug("Looking for 'local_game_button'")
         self.__local_game_button = self.findChild(QPushButton, "local_game_button")
         connect_object(self.__local_game_button, self.__show_local_game_window)
+
+        if PLAYERS_INFO:
+            self.__local_game_button.setDisabled(False)
 
         LoggerThreadManager.debug("Looking for 'login_button'...")
         self.__login_button = self.findChild(QPushButton, "login_button")
