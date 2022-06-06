@@ -44,7 +44,6 @@ class MainGameWindow(QMainWindow):
             LoggerThreadManager.warning("Couldn't find one or more players labels!")
 
     def init(self):
-        LoggerThreadManager.debug("Initiating a MainGameProcessing object!")
         self.__game_processor = ObjectsManager.create_object(MainGameProcessing)
 
     #
@@ -107,8 +106,6 @@ class MainGameWindow(QMainWindow):
         ObjectsManager.delete_object("Player2")
         ObjectsManager.delete_object("MainGameProcessing")
         ObjectsManager.delete_object("MainGameWindow")
-        self.close()
 
-        LoggerThreadManager.debug("Creating and Re-Displaying the MainMenu")
-        main_window = ObjectsManager.create_object(self.__main_window)
-        main_window.show()
+        LoggerThreadManager.debug("Re-Displaying a closed MainMenu window...")
+        ObjectsManager.create_object(self.__main_window).show()

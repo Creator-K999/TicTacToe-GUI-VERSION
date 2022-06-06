@@ -27,10 +27,7 @@ class MainClass:
         This is the constructor of the MainClass.
         """
 
-        LoggerThreadManager.debug("Creating QApplication Object...")
         self.__app = ObjectsManager.create_object(QApplication, [])  # main application
-
-        LoggerThreadManager.debug("Creating MainMenu object...")
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
         LoggerThreadManager.debug("Calling 'MainMenu.show()'...")
@@ -57,17 +54,9 @@ class MainClass:
 
         # executes the application and waits for the window close.
         exit_code = self.__app.exec()
-
-        LoggerThreadManager.info("Cleaning things up...")
-
-        for thread in LoggerThreadManager.get_threads_list():
-            LoggerThreadManager.debug(f"Waiting for {thread.name}...")
-            thread.join()
-            LoggerThreadManager.debug(f"{thread.name} is finished!")
-
         self.__app.quit()
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 
-        LoggerThreadManager.info("User Closed Window Successfully!")
+        LoggerThreadManager.info("User Quit App Successfully!")
         return exit_code

@@ -56,15 +56,11 @@ class MainMenu(QMainWindow):
         """
 
         # closing the main menu
-        LoggerThreadManager.debug("Calling 'MainMenu.close()'...")
         self.close()
         LoggerThreadManager.info("MainMenu has been closed Successfully!")
 
-        LoggerThreadManager.debug("Deleting MainMenu...")
         ObjectsManager.delete_object("MainMenu")
-
         # creating a game window objects and displaying it
-        LoggerThreadManager.debug("Creating 'MainGameWindow' Object...")
         main_game_window = ObjectsManager.create_object(MainGameWindow, MainMenu)
         LoggerThreadManager.debug("Calling MainGameWindow.init() to create a game processor!")
         main_game_window.init()
@@ -80,7 +76,6 @@ class MainMenu(QMainWindow):
         LoggerThreadManager.info("self.__window has been hidden Successfully!")
 
         # creating a game window objects and displaying it
-        LoggerThreadManager.debug("Creating 'LoginWindow' Object...")
         login_window = ObjectsManager.create_object(LoginWindow)
 
         LoggerThreadManager.debug("Calling 'login_window.show()'...")
@@ -88,4 +83,4 @@ class MainMenu(QMainWindow):
         LoggerThreadManager.info("'login_window.show()' has been Called Successfully!")
 
     def closeEvent(self, event):
-        self.close()
+        LoggerThreadManager.debug("MainMenu has been closed!")

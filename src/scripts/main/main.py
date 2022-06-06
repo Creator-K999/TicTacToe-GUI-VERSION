@@ -31,7 +31,6 @@ def main():
 
     LoggerThreadManager.info("Started The Application!")
 
-    LoggerThreadManager.debug("Creating MainClass Object")
     main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:

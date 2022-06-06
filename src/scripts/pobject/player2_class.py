@@ -48,4 +48,5 @@ class Player2:
             self.__mark = value
 
     def increment_score(self):
+        LoggerThreadManager.info(f"Incrementing {self.__name} score by 1")
         self.__score += 1

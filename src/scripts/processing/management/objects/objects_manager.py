@@ -8,6 +8,8 @@ class ObjectsManager:
     @classmethod
     def get_object_by_name(cls, object_name):
 
+        LoggerThreadManager.info(f"Trying to get {object_name} instance...")
+
         _object = None
         repr_object_name = None
 
@@ -42,6 +44,8 @@ class ObjectsManager:
     @classmethod
     def create_object(cls, _object, *args, **kwargs):
 
+        LoggerThreadManager.info(f"Trying to create {_object} instance...!")
+
         repr_object_name = None
 
         try:
@@ -65,6 +69,7 @@ class ObjectsManager:
     @classmethod
     def delete_object(cls, object_name):
 
+        LoggerThreadManager.info(f"Trying to delete {object_name} instance...!")
         repr_object_name = repr(object_name)
 
         try:
