@@ -7,9 +7,9 @@ The main menu gets called and displayed from here.
 from PyQt6.QtWidgets import QApplication
 
 # Custom Libs
-from windows.mwindows.main_menu_window_controller import MainMenu
-from scripts.processing.management.objects.objects_manager import ObjectsManager
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from src.windows.mwindows.main_menu_window_controller import MainMenu
+from processing.management.objects.objects_manager import ObjectsManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainClass:

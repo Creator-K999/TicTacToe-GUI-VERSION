@@ -8,10 +8,10 @@ from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
 from src import connect_object
-from windows.subwindows.login_window_controller import LoginWindow
-from windows.mwindows.main_game_window_controller import MainGameWindow
-from scripts.processing.management.objects.objects_manager import ObjectsManager
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from src.windows.subwindows.login_window_controller import LoginWindow
+from src.windows.mwindows.main_game_window_controller import MainGameWindow
+from processing.management.objects.objects_manager import ObjectsManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainMenu(QMainWindow):
@@ -30,7 +30,7 @@ class MainMenu(QMainWindow):
 
         # loads the .UI file and sets "self" as its base object.
         LoggerThreadManager.debug("Loading The UI...")
-        self.__window = uic.loadUi("..\\..\\Dep\\ui\\main_menu_window.ui", self)
+        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_menu_window.ui", self)
         LoggerThreadManager.info("UI has been Loaded Successfully!")
 
         # gets the object of the "Vs. Local Player" button.

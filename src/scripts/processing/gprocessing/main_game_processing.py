@@ -1,11 +1,11 @@
 from random import randint
 
 from src import PLAYERS_INFO
-from scripts.pobject.player1_class import Player1
-from scripts.pobject.player2_class import Player2
-from windows.subwindows.info_display_controller import InfoDisplay
-from scripts.processing.management.objects.objects_manager import ObjectsManager
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from pobject.player1_class import Player1
+from pobject.player2_class import Player2
+from src.windows.subwindows.info_display_controller import InfoDisplay
+from processing.management.objects.objects_manager import ObjectsManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainGameProcessing:

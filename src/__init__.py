@@ -1,4 +1,4 @@
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 PLAYERS_INFO = {}
@@ -9,7 +9,7 @@ def connect_object(_object, method_to_connect):
         LoggerThreadManager.warning(f"Couldn't Find '{_object.__name__}'!")
 
     else:
-        object_name = _object.__name__
+        object_name = _object.objectName()
         method_to_connect_name = method_to_connect.__name__
         LoggerThreadManager.info(f"Found '{object_name}'")
 

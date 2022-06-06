@@ -2,9 +2,9 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from src import connect_object
-from scripts.processing.management.objects.objects_manager import ObjectsManager
-from scripts.processing.gprocessing.main_game_processing import MainGameProcessing
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.objects.objects_manager import ObjectsManager
+from processing.gprocessing.main_game_processing import MainGameProcessing
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainGameWindow(QMainWindow):
@@ -22,7 +22,7 @@ class MainGameWindow(QMainWindow):
         second_players_label_object_name = "Player2"
 
         LoggerThreadManager.debug("Loading The UI...")
-        self.__window = uic.loadUi("..\\..\\Dep\\ui\\main_game_window.ui", self)
+        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_game_window.ui", self)
         LoggerThreadManager.info("UI has been loaded successfully!")
 
         LoggerThreadManager.debug("Looking for the 9 TicTacToe buttons (buttons are named from b1 to b9)")

@@ -1,5 +1,5 @@
-from threading import Lock, Thread
 from queue import Queue
+from threading import Lock, Thread
 from logging import getLogger, config
 
 

@@ -8,7 +8,7 @@ class InfoDisplay(QDialog):
 
         super().__init__()
         self.__prev_window = prev_window
-        self.__window = uic.loadUi("..\\..\\Dep\\ui\\info_display_window.ui", self)
+        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\info_display_window.ui", self)
 
         self.__info_label = self.findChild(QtWidgets.QLabel, "infoLabel")
         self.__info_label.setText(message)

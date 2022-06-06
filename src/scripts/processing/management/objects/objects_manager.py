@@ -1,4 +1,4 @@
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class ObjectsManager:
@@ -51,7 +51,7 @@ class ObjectsManager:
             cls.__objects[object_name] = _object(*args, **kwargs)
 
         except AttributeError:
-            LoggerThreadManager.exception("'_object' is not a class!")
+            LoggerThreadManager.exception(f"object '{_object}' is not a class!")
             return None
 
         except Exception:

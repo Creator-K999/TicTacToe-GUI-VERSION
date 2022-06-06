@@ -1,4 +1,4 @@
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class Player2:

@@ -2,8 +2,8 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit
 
 from src import PLAYERS_INFO
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
-from scripts.processing.management.objects.objects_manager import ObjectsManager
+from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.objects.objects_manager import ObjectsManager
 
 
 class LoginWindow(QDialog):
@@ -12,7 +12,7 @@ class LoginWindow(QDialog):
         super().__init__()
 
         LoggerThreadManager.debug("Loading UI...")
-        self.__window = uic.loadUi("..\\..\\Dep\\ui\\login_window.ui", self)
+        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\login_window.ui", self)
         LoggerThreadManager.info("UI has been loaded Successfully!")
 
         self.__player1_fields = {
