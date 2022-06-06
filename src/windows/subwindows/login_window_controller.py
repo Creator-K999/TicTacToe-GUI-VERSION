@@ -1,5 +1,5 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog, QLineEdit
+from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
 
 from src import PLAYERS_INFO
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
@@ -8,8 +8,10 @@ from processing.management.objects.objects_manager import ObjectsManager
 
 class LoginWindow(QDialog):
 
-    def __init__(self):
+    def __init__(self, disabled_buttons):
         super().__init__()
+
+        self.__disabled_buttons = disabled_buttons
 
         LoggerThreadManager.debug("Loading UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\login_window.ui", self)
@@ -51,10 +53,21 @@ class LoginWindow(QDialog):
             "password": self.__player2_fields["password"].text()
         }
 
+        for player_1, player_2 in zip(self.__player1_info.values(), self.__player2_info.values()):
+            if not all({player_1, player_2}):
+                LoggerThreadManager.info("Provided wrong information!")
+                QMessageBox.critical(self, "Error", "Please provide valid info!")
+                self.show()
+                return
+
         LoggerThreadManager.info(f"Storing {self.__player1_info['name']} and {self.__player2_info['name']} "
                                  f"information in PLAYERS_INFO global dictionary!")
         PLAYERS_INFO["player1"] = self.__player1_info
         PLAYERS_INFO["player2"] = self.__player2_info
+
+        for button in self.__disabled_buttons:
+            button.setDisabled(False)
+
         self.close()
 
     def closeEvent(self, event):

@@ -43,6 +43,12 @@ class MainMenu(QMainWindow):
         connect_object(self.__login_button, self.__show_login_window)
 
     #
+    # PUBLIC SECTION
+    #
+    def get_menu_buttons(self):
+        return [self.__local_game_button]
+
+    #
     #   PRIVATE SECTION
     #
 
@@ -76,7 +82,7 @@ class MainMenu(QMainWindow):
         LoggerThreadManager.info("self.__window has been hidden Successfully!")
 
         # creating a game window objects and displaying it
-        login_window = ObjectsManager.create_object(LoginWindow)
+        login_window = ObjectsManager.create_object(LoginWindow, self.get_menu_buttons())
 
         LoggerThreadManager.debug("Calling 'login_window.show()'...")
         login_window.show()
