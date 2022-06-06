@@ -98,7 +98,7 @@ class MainGameProcessing:
 #
     @staticmethod
     def __get_marks():
-        return 'X', 'O' if randint(0, 100) % 2 else 'O', 'X'
+        return ('X', 'O') if randint(0, 100) & 1 else ('O', 'X')
 
     def __win_tie_process(self):
 
