@@ -39,7 +39,8 @@ class MainMenu(QMainWindow):
         connect_object(self.__local_game_button, self.__show_local_game_window)
 
         if PLAYERS_INFO:
-            self.__local_game_button.setDisabled(False)
+            for button in self.get_menu_buttons():
+                button.setDisabled(False)
 
         LoggerThreadManager.debug("Looking for 'login_button'...")
         self.__login_button = self.findChild(QPushButton, "login_button")
