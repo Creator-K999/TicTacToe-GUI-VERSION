@@ -1,9 +1,9 @@
 from random import randint
+from PyQt6.QtWidgets import QMessageBox
 
 from src import PLAYERS_INFO
 from pobject.player1_class import Player1
 from pobject.player2_class import Player2
-from src.windows.subwindows.info_display_controller import InfoDisplay
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger_threads_manager import LoggerThreadManager
 
@@ -65,7 +65,7 @@ class MainGameProcessing:
         if self.__win_check():
             LoggerThreadManager.info(f"{self.__current_player.name} has Won, Displaying InfoDisplay to let the player "
                                      "know!")
-            InfoDisplay(self.__main_game_window_object, f"{self.__current_player.name} has Won!")
+            QMessageBox.information(self.__main_game_window_object, "Win", f"{self.__current_player.name} has Won!")
 
             self.__current_player.increment_score()
             result = "Win"
@@ -76,7 +76,7 @@ class MainGameProcessing:
         elif self.__tie_check():
             LoggerThreadManager.info("Tie game, Displaying InfoDisplay to let the player "
                                      "know!")
-            InfoDisplay(self.__main_game_window_object, "Tie Game!")
+            QMessageBox.information(self.__main_game_window_object, "Tie", "Tie Game!")
 
             result = "Tie"
             LoggerThreadManager.debug("Calling 'self.__win_tie_process'...")
