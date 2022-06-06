@@ -1,9 +1,10 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
+from src import connect_object
+from scripts.processing.management.objects.objects_manager import ObjectsManager
 from scripts.processing.gprocessing.main_game_processing import MainGameProcessing
 from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
-from scripts.processing.management.objects.objects_manager import ObjectsManager
 
 
 class MainGameWindow(QMainWindow):
@@ -14,8 +15,11 @@ class MainGameWindow(QMainWindow):
 
         self.__game_processor = None
 
-        LoggerThreadManager.debug("Storing 'MainMenu' instance in 'self.__main_window' attribute")
+        LoggerThreadManager.debug("Storing 'MainMenu' class in 'self.__main_window' attribute")
         self.__main_window = main_window
+
+        first_players_label_object_name = "Player1"
+        second_players_label_object_name = "Player2"
 
         LoggerThreadManager.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\Dep\\ui\\main_game_window.ui", self)
@@ -26,41 +30,20 @@ class MainGameWindow(QMainWindow):
             (button_name := f"b{i}"): self.findChild(QtWidgets.QPushButton, button_name)
             for i in range(1, 10)
         }
-        LoggerThreadManager.info("Finished looking for 9 TicTacToe buttons and stored the result in self.__buttons "
-                                 "attribute")
 
-        LoggerThreadManager.debug("Initiating 'first_players_label_object_name' and "
-                                  "'second_players_label_object_name' ( "
-                                  "Usage: finding players_labels on the UI)...")
-        first_players_label_object_name = "Player1"
-        second_players_label_object_name = "Player2"
+        for button in self.__buttons.values():
+            connect_object(button, self.__button_press)
 
         LoggerThreadManager.debug("Looking for the players labels objects...")
         self.__player_labels = {
             first_players_label_object_name: self.findChild(QtWidgets.QLabel, first_players_label_object_name),
             second_players_label_object_name: self.findChild(QtWidgets.QLabel, second_players_label_object_name)
         }
-        LoggerThreadManager.info("Finished Looking for the players labels objects")
-
-        if None in self.__buttons.values():
-            LoggerThreadManager.warning("Couldn't find one or more of the 9 game buttons!")
 
         if None in self.__player_labels.values():
             LoggerThreadManager.warning("Couldn't find one or more players labels!")
 
-        LoggerThreadManager.debug("Connecting all buttons to 'self.__button_press' method...")
-        try:
-            for button in self.__buttons.values():
-                button.clicked.connect(self.__button_press)
-
-        except AttributeError:
-            LoggerThreadManager.exception("Probably couldn't find one or more buttons, hence we've tried to access "
-                                          "'.clicked' attribute on a None object!")
-        else:
-            LoggerThreadManager.info("Connected all buttons to 'self.__button_press' Successfully!")
-
     def init(self):
-
         LoggerThreadManager.debug("Initiating a MainGameProcessing object!")
         self.__game_processor = ObjectsManager.create_object(MainGameProcessing)
 

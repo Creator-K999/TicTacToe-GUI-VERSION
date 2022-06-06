@@ -7,10 +7,11 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
-from scripts.processing.management.objects.objects_manager import ObjectsManager
-from windows.mwindows.main_game_window_controller import MainGameWindow
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
+from src import connect_object
 from windows.subwindows.login_window_controller import LoginWindow
+from windows.mwindows.main_game_window_controller import MainGameWindow
+from scripts.processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainMenu(QMainWindow):
@@ -35,49 +36,11 @@ class MainMenu(QMainWindow):
         # gets the object of the "Vs. Local Player" button.
         LoggerThreadManager.debug("Looking for 'local_game_button'")
         self.__local_game_button = self.findChild(QPushButton, "local_game_button")
-        LoggerThreadManager.info("Finished Looking for 'local_game_button'!")
+        connect_object(self.__local_game_button, self.__show_local_game_window)
 
         LoggerThreadManager.debug("Looking for 'login_button'...")
         self.__login_button = self.findChild(QPushButton, "login_button")
-        LoggerThreadManager.info("Finished Looking for 'login_button'...")
-
-        # checks if we succeeded getting the button object
-        if self.__local_game_button is None:
-            LoggerThreadManager.warning("Couldn't Find 'local_game_button'!")
-
-        else:
-            LoggerThreadManager.info("Found 'local_game_button'")
-
-            LoggerThreadManager.debug("Connecting 'self.__local_game_button' with 'self.__show_local_game_window'")
-            try:
-                self.__local_game_button.clicked.connect(self.__show_local_game_window)
-
-            except AttributeError:
-                LoggerThreadManager.exception("Couldn't connect 'self.__local_game_button' with "
-                                              "'self.__show_local_game_window'")
-
-            else:
-                LoggerThreadManager.info("Successfully connected 'self.__local_game_button' with "
-                                         "'self.__show_local_game_window'")
-
-        # checks if we succeeded getting the button object
-        if self.__login_button is None:
-            LoggerThreadManager.warning("Couldn't Find 'login_button'!")
-
-        else:
-            LoggerThreadManager.info("Found 'login_button'")
-
-            LoggerThreadManager.debug("Connecting 'self.__login_button' with 'self.__show_login_window'")
-            try:
-                self.__login_button.clicked.connect(self.__show_login_window)
-
-            except AttributeError:
-                LoggerThreadManager.exception("Couldn't connect 'self.__login_button' with "
-                                              "'self.__show_login_window'")
-
-            else:
-                LoggerThreadManager.info("Successfully connected 'self.__login_button' with "
-                                         "'self.__show_login_window'")
+        connect_object(self.__login_button, self.__show_login_window)
 
     #
     #   PRIVATE SECTION
@@ -93,22 +56,22 @@ class MainMenu(QMainWindow):
         """
 
         # closing the main menu
-        LoggerThreadManager.debug("Calling 'self.__window.close()'...")
-        self.__window.close()
-        LoggerThreadManager.info("self.__window has been closed Successfully!")
+        LoggerThreadManager.debug("Calling 'MainMenu.close()'...")
+        self.close()
+        LoggerThreadManager.info("MainMenu has been closed Successfully!")
 
         LoggerThreadManager.debug("Deleting MainMenu...")
         ObjectsManager.delete_object("MainMenu")
-        LoggerThreadManager.info("MainMenu has been Deleted Successfully!")
 
         # creating a game window objects and displaying it
         LoggerThreadManager.debug("Creating 'MainGameWindow' Object...")
         main_game_window = ObjectsManager.create_object(MainGameWindow, MainMenu)
+        LoggerThreadManager.debug("Calling MainGameWindow.init() to create a game processor!")
         main_game_window.init()
 
-        LoggerThreadManager.debug("Calling 'main_game_window.show()'...")
+        LoggerThreadManager.debug("Calling 'MainGameWindow.show()'...")
         main_game_window.show()
-        LoggerThreadManager.info("'main_game_window.show()' has been Called Successfully!")
+        LoggerThreadManager.info("'MainGameWindow.show()' has been Called Successfully!")
 
     def __show_login_window(self):
         # closing the main menu

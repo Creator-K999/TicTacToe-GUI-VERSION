@@ -7,9 +7,9 @@ The main menu gets called and displayed from here.
 from PyQt6.QtWidgets import QApplication
 
 # Custom Libs
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
-from scripts.processing.management.objects.objects_manager import ObjectsManager
 from windows.mwindows.main_menu_window_controller import MainMenu
+from scripts.processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 class MainClass:
@@ -33,9 +33,9 @@ class MainClass:
         LoggerThreadManager.debug("Creating MainMenu object...")
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
-        LoggerThreadManager.debug("Calling 'self.__window.show()'...")
+        LoggerThreadManager.debug("Calling 'MainMenu.show()'...")
         self.__window.show()
-        LoggerThreadManager.info("'self.__window.show()' has been called Successfully!")
+        LoggerThreadManager.info("'MainMenu.show()' has been called Successfully!")
 
     def __new__(cls):
 
@@ -61,7 +61,9 @@ class MainClass:
         LoggerThreadManager.info("Cleaning things up...")
 
         for thread in LoggerThreadManager.get_threads_list():
+            LoggerThreadManager.debug(f"Waiting for {thread.name}...")
             thread.join()
+            LoggerThreadManager.debug(f"{thread.name} is finished!")
 
         self.__app.quit()
         ObjectsManager.delete_object("MainMenu")

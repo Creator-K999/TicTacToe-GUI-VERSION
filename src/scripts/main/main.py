@@ -18,9 +18,9 @@ from sys import exit
 from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
-from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
-from scripts.processing.management.objects.objects_manager import ObjectsManager
 from scripts.main.main_class import MainClass
+from scripts.processing.management.objects.objects_manager import ObjectsManager
+from scripts.processing.management.logger.logger_threads_manager import LoggerThreadManager
 
 
 def main():
@@ -35,20 +35,19 @@ def main():
     main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:
-        LoggerThreadManager.error("Failed to Create MainClass object")
         return 1
 
     exit_code = main_class.run()
     LoggerThreadManager.info("Application Closed!")
-    del main_class
     ObjectsManager.delete_object("MainClass")
-
     ObjectsManager.destruct_objects()
-    print(f"Current working threads: {active_count()}")
+
+    LoggerThreadManager.info(f"Current working threads: {active_count()}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
-            print(thread.name)
+            LoggerThreadManager.warning(f"waiting for thread {thread.name}...!")
             thread.join()
+            LoggerThreadManager.info(f"{thread.name} has finished executing!")
 
     exit(exit_code)
 
