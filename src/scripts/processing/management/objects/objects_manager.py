@@ -42,21 +42,30 @@ class ObjectsManager:
             LoggerThreadManager.warning("Found some leaks but cleaned them up!")
 
     @classmethod
-    def create_object(cls, _object, *args, **kwargs):
-
-        LoggerThreadManager.info(f"Trying to create {_object} instance...!")
-
-        repr_object_name = None
+    def create_object(cls, _object, *args, singleton=True, **kwargs):
 
         try:
             object_name = _object.__name__
-
             repr_object_name = f"'{object_name}'"
-            cls.__objects[object_name] = _object(*args, **kwargs)
 
         except AttributeError:
             LoggerThreadManager.exception(f"object '{_object}' is not a class!")
             return None
+
+        else:
+
+            if singleton:
+                LoggerThreadManager.debug(f"Looking for an instance of {repr_object_name}")
+
+                if object_name in cls.__objects:
+                    LoggerThreadManager.info(f"Found an instance of {object_name}")
+                    return cls.__objects[object_name]
+
+                else:
+                    LoggerThreadManager.info(f"Couldn't find an instance of {object_name}, Trying to create one...")
+
+        try:
+            cls.__objects[object_name] = _object(*args, **kwargs)
 
         except Exception:
             LoggerThreadManager.exception(f"Some Error occurred while creating object {repr_object_name}!")

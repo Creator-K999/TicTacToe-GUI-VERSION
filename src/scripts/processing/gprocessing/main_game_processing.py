@@ -12,9 +12,9 @@ class MainGameProcessing:
 
     def __init__(self):
 
-        LoggerThreadManager.debug("calling 'self.__get_marks()'...")
-        marks = self.__get_marks()
-        LoggerThreadManager.info(f"Marks are {marks[0]}, {marks[1]}")
+        self.__player2 = None
+        self.__player1 = None
+        self.__current_player = None
 
         self.__main_game_window_object = ObjectsManager.get_object_by_name("MainGameWindow")
         self.__buttons = self.__main_game_window_object.buttons
@@ -27,23 +27,6 @@ class MainGameProcessing:
         self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
         LoggerThreadManager.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
-        self.__player1 = ObjectsManager.create_object(Player1, "Player1", self.__player_1_name, self.__player_1_pass, marks[0])
-        self.__player2 = ObjectsManager.create_object(Player2, "Player2", self.__player_2_name, self.__player_2_pass, marks[1])
-
-        self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
-        LoggerThreadManager.info(f"{self.__current_player.name} will play first with mark of {self.__current_player.mark}!")
-
-        LoggerThreadManager.debug("Changing Players Labels Info...")
-        self.__player_labels["Player1"].setText(
-            f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
-        )
-        self.__player_labels["Player2"].setText(
-            f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
-        )
-        LoggerThreadManager.info("Successfully Changed Players Labels Info!")
-        LoggerThreadManager.info(f"setting {self.__current_player.name} label color or red!")
-        self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
-
 #
 #   PUBLIC SECTION
 #
@@ -52,6 +35,31 @@ class MainGameProcessing:
     def game_instance(self):
         LoggerThreadManager.info("'game_instance' getter has been called!")
         return self.__main_game_window_object
+
+    def pick_first_player(self):
+        LoggerThreadManager.debug("calling 'self.__get_marks()'...")
+        marks = self.__get_marks()
+        LoggerThreadManager.info(f"Marks are {marks[0]}, {marks[1]}")
+
+        self.__player1 = ObjectsManager.create_object(Player1, "Player1", self.__player_1_name, self.__player_1_pass,
+                                                      marks[0])
+        self.__player2 = ObjectsManager.create_object(Player2, "Player2", self.__player_2_name, self.__player_2_pass,
+                                                      marks[1])
+
+        self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
+        LoggerThreadManager.info(
+            f"{self.__current_player.name} will play first with mark of {self.__current_player.mark}!")
+
+        LoggerThreadManager.debug("Changing Players Labels Info...")
+
+        self.__player_labels["Player1"].setText(
+            f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}")
+        self.__player_labels["Player2"].setText(
+            f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}")
+
+        LoggerThreadManager.info("Successfully Changed Players Labels Info!")
+        LoggerThreadManager.info(f"setting {self.__current_player.name} label color or red!")
+        self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
 
     def button_clicked_process(self, button):
         LoggerThreadManager.debug(f"{button.objectName()} has been pressed, current player is "

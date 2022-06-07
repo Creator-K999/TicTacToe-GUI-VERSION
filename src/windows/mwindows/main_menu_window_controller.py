@@ -69,9 +69,9 @@ class MainMenu(QMainWindow):
         self.close()
         LoggerThreadManager.info("MainMenu has been closed Successfully!")
 
-        ObjectsManager.delete_object("MainMenu")
+        # ObjectsManager.delete_object("MainMenu")
         # creating a game window objects and displaying it
-        main_game_window = ObjectsManager.create_object(MainGameWindow, MainMenu)
+        main_game_window = ObjectsManager.create_object(MainGameWindow)
         LoggerThreadManager.debug("Calling MainGameWindow.init() to create a game processor!")
         main_game_window.init()
 
@@ -93,4 +93,4 @@ class MainMenu(QMainWindow):
         LoggerThreadManager.info("'login_window.show()' has been Called Successfully!")
 
     def closeEvent(self, event):
-        LoggerThreadManager.debug("MainMenu has been closed!")
+        ...

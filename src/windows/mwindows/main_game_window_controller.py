@@ -9,14 +9,14 @@ from processing.management.logger.logger_threads_manager import LoggerThreadMana
 
 class MainGameWindow(QMainWindow):
 
-    def __init__(self, main_window):
+    def __init__(self):
 
         super().__init__()
 
         self.__game_processor = None
 
         LoggerThreadManager.debug("Storing 'MainMenu' class in 'self.__main_window' attribute")
-        self.__main_window = main_window
+        self.__main_window = ObjectsManager.get_object_by_name("MainMenu")
 
         first_players_label_object_name = "Player1"
         second_players_label_object_name = "Player2"
@@ -68,6 +68,9 @@ class MainGameWindow(QMainWindow):
     #
     #   PRIVATE SECTION
     #
+    def __pick_first_player(self):
+        self.__game_processor.pick_first_player()
+
     def __button_press(self):
         LoggerThreadManager.info("A button has been pressed!")
 
@@ -100,12 +103,17 @@ class MainGameWindow(QMainWindow):
     #
     #   OverLoaded SECTION
     #
+    def showEvent(self, event):
+        for label in self.__player_labels.values():
+            label.setStyleSheet("color: black;")
+
+        self.__pick_first_player()
+
     def closeEvent(self, event):
         LoggerThreadManager.debug("Closing MainGameWindow...")
         ObjectsManager.delete_object("Player1")
         ObjectsManager.delete_object("Player2")
         ObjectsManager.delete_object("MainGameProcessing")
-        ObjectsManager.delete_object("MainGameWindow")
 
         LoggerThreadManager.debug("Re-Displaying a closed MainMenu window...")
-        ObjectsManager.create_object(self.__main_window).show()
+        self.__main_window.show()

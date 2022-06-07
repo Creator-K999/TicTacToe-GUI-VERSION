@@ -55,6 +55,8 @@ class MainClass:
         # executes the application and waits for the window close.
         exit_code = self.__app.exec()
         self.__app.quit()
+        LoggerThreadManager.debug("MainMenu has been closed!")
+        ObjectsManager.delete_object("MainGameWindow")
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 

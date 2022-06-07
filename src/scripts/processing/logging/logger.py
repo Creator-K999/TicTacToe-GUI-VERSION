@@ -11,6 +11,8 @@ class Logger:
     def __init__(self):
         self.__lock = Lock()
 
+        self.__thread_counter = 0
+
         config.fileConfig(fname="logger.config")
         self.__logger = getLogger(__name__)
 
@@ -26,8 +28,10 @@ class Logger:
             return self.__log_queue
 
     def debug(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.debug(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"
@@ -40,8 +44,10 @@ class Logger:
         self.__log_queue.put(thread)
 
     def info(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.info(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"
@@ -54,8 +60,10 @@ class Logger:
         self.__log_queue.put(thread)
 
     def warning(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.warning(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"
@@ -68,8 +76,10 @@ class Logger:
         self.__log_queue.put(thread)
 
     def error(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.error(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"
@@ -82,8 +92,10 @@ class Logger:
         self.__log_queue.put(thread)
 
     def exception(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.exception(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"
@@ -96,8 +108,10 @@ class Logger:
         self.__log_queue.put(thread)
 
     def critical(self, **kwargs):
+        self.__thread_counter += 1
         thread = Thread(
-            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - line No. {kwargs['line']}",
+            name=f"{kwargs['function']} - Thread from {kwargs['filename']} - "
+                 f"line No. {kwargs['line']}. THREAD NO. {self.__thread_counter}",
             target=lambda: self.__logger.critical(
                 f"\n\tFILE NAME: {kwargs['filename']}"
                 f"\n\tFUNC NAME: {kwargs['function']}"

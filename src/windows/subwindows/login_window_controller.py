@@ -36,6 +36,12 @@ class LoginWindow(QDialog):
         LoggerThreadManager.info("Connecting the 'ok' button with 'self.__register_user' method")
         self.accepted.connect(self.__register_user)
 
+    @staticmethod
+    def clean_things_up():
+        LoggerThreadManager.info("LoginWindow ha been closed!")
+        ObjectsManager.get_object_by_name("MainMenu").show()
+        ObjectsManager.delete_object("LoginWindow")
+
     def __register_user(self):
 
         # BUILD_DICT
@@ -68,9 +74,7 @@ class LoginWindow(QDialog):
         for button in self.__disabled_buttons:
             button.setDisabled(False)
 
-        self.close()
+        self.clean_things_up()
 
     def closeEvent(self, event):
-        LoggerThreadManager.info("LoginWindow ha been closed!")
-        ObjectsManager.get_object_by_name("MainMenu").show()
-        ObjectsManager.delete_object("LoginWindow")
+        self.clean_things_up()
