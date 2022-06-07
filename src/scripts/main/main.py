@@ -15,6 +15,7 @@ Version: 0.8
 
 # Built-ins
 from sys import exit
+from gc import disable
 from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
@@ -28,6 +29,8 @@ def main():
     """
     This is the main function, the program starts from here!
     """
+
+    disable()
 
     LoggerThreadManager.info("Started The Application!")
 
