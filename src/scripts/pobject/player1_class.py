@@ -1,4 +1,4 @@
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import Log
 
 
 class Player1:
@@ -42,11 +42,11 @@ class Player1:
                 raise ValueError(f"value has to be a either X or O. Got {value!r} instead!")
 
         except ValueError:
-            LoggerThreadManager.exception("Error!")
+            Log.exception("Error!")
 
         else:
             self.__mark = value
 
     def increment_score(self):
-        LoggerThreadManager.info(f"Incrementing {self.__name} score by 1")
+        Log.info(f"Incrementing {self.__name} score by 1")
         self.__score += 1

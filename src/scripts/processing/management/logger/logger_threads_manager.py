@@ -1,87 +1,57 @@
+from logging import config, getLogger
 from os.path import basename
 from inspect import stack
-from processing.logging.logger import Logger
+
+from threading import Lock, Thread
 
 
-class LoggerThreadManager:
-    __logger_thread = Logger()
-    __threads_list = []
+class Log:
+    __lock = Lock()
+
+    config.fileConfig(fname="logger.config")
+    __logger = getLogger(__name__)
 
     def __init__(self):
-        raise NotImplementedError("LoggerThreadManager cannot be instantiated!")
+        raise NotImplementedError("Log cannot be instantiated!")
 
     @classmethod
-    def get_threads_list(cls):
-        return cls.__threads_list
+    def __log(cls, target, message):
+        caller_info = stack()[2]  # list of named tuples
+        Thread(
+            daemon=True,
+            target=target,
+            args=(f"\n\tFILE: {basename(caller_info.filename)}"
+                  f"\n\tFUNC: {caller_info.function}"
+                  f"\n\tLINE: {caller_info.lineno}"
+                  f"\n\tMESSAGE: {message}\n",)
+        ).start()
 
     @classmethod
     def debug(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.debug(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.debug, message)
 
     @classmethod
     def info(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.info(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.info, message)
 
     @classmethod
     def warning(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.warning(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.warning, message)
 
     @classmethod
     def error(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.error(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.error, message)
 
     @classmethod
     def exception(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.exception(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.exception, message)
 
     @classmethod
     def critical(cls, message):
-        current_stack = stack()[1]  # list of named tuples
-
-        cls.__logger_thread.critical(
-            filename=basename(current_stack.filename),
-            function=current_stack.function,
-            line=current_stack.lineno,
-            message=message)
-
-        cls.__logger_thread.log_queue.get(True).start()
+        with cls.__lock:
+            cls.__log(cls.__logger.critical, message)

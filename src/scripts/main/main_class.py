@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import QApplication
 # Custom Libs
 from src.windows.mwindows.main_menu_window_controller import MainMenu
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import Log
 
 
 class MainClass:
@@ -30,9 +30,9 @@ class MainClass:
         self.__app = ObjectsManager.create_object(QApplication, [])  # main application
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
-        LoggerThreadManager.debug("Calling 'MainMenu.show()'...")
+        Log.debug("Calling 'MainMenu.show()'...")
         self.__window.show()
-        LoggerThreadManager.info("'MainMenu.show()' has been called Successfully!")
+        Log.info("'MainMenu.show()' has been called Successfully!")
 
     def __new__(cls):
 
@@ -50,15 +50,15 @@ class MainClass:
         This method gets called in the main function, it runs the application.
         :return: None
         """
-        LoggerThreadManager.debug("Executing the Application...")
+        Log.debug("Executing the Application...")
 
         # executes the application and waits for the window close.
         exit_code = self.__app.exec()
         self.__app.quit()
-        LoggerThreadManager.debug("MainMenu has been closed!")
+        Log.debug("MainMenu has been closed!")
         ObjectsManager.delete_object("MainGameWindow")
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 
-        LoggerThreadManager.info("User Quit App Successfully!")
+        Log.info("User Quit App Successfully!")
         return exit_code

@@ -11,7 +11,7 @@ from src import PLAYERS_INFO, connect_object
 from src.windows.subwindows.login_window_controller import LoginWindow
 from src.windows.mwindows.main_game_window_controller import MainGameWindow
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import Log
 
 
 class MainMenu(QMainWindow):
@@ -29,12 +29,12 @@ class MainMenu(QMainWindow):
         super().__init__()  # calls the constructor of QMainWindow
 
         # loads the .UI file and sets "self" as its base object.
-        LoggerThreadManager.debug("Loading The UI...")
+        Log.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_menu_window.ui", self)
-        LoggerThreadManager.info("UI has been Loaded Successfully!")
+        Log.info("UI has been Loaded Successfully!")
 
         # gets the object of the "Vs. Local Player" button.
-        LoggerThreadManager.debug("Looking for 'local_game_button'")
+        Log.debug("Looking for 'local_game_button'")
         self.__local_game_button = self.findChild(QPushButton, "local_game_button")
         connect_object(self.__local_game_button, self.__show_local_game_window)
 
@@ -42,7 +42,7 @@ class MainMenu(QMainWindow):
             for button in self.get_menu_buttons():
                 button.setDisabled(False)
 
-        LoggerThreadManager.debug("Looking for 'login_button'...")
+        Log.debug("Looking for 'login_button'...")
         self.__login_button = self.findChild(QPushButton, "login_button")
         connect_object(self.__login_button, self.__show_login_window)
 
@@ -67,30 +67,30 @@ class MainMenu(QMainWindow):
 
         # closing the main menu
         self.close()
-        LoggerThreadManager.info("MainMenu has been closed Successfully!")
+        Log.info("MainMenu has been closed Successfully!")
 
         # ObjectsManager.delete_object("MainMenu")
         # creating a game window objects and displaying it
         main_game_window = ObjectsManager.create_object(MainGameWindow)
-        LoggerThreadManager.debug("Calling MainGameWindow.init() to create a game processor!")
+        Log.debug("Calling MainGameWindow.init() to create a game processor!")
         main_game_window.init()
 
-        LoggerThreadManager.debug("Calling 'MainGameWindow.show()'...")
+        Log.debug("Calling 'MainGameWindow.show()'...")
         main_game_window.show()
-        LoggerThreadManager.info("'MainGameWindow.show()' has been Called Successfully!")
+        Log.info("'MainGameWindow.show()' has been Called Successfully!")
 
     def __show_login_window(self):
         # closing the main menu
-        LoggerThreadManager.debug("Calling 'self.__window.hide()'...")
+        Log.debug("Calling 'self.__window.hide()'...")
         self.__window.hide()
-        LoggerThreadManager.info("self.__window has been hidden Successfully!")
+        Log.info("self.__window has been hidden Successfully!")
 
         # creating a game window objects and displaying it
         login_window = ObjectsManager.create_object(LoginWindow, self.get_menu_buttons())
 
-        LoggerThreadManager.debug("Calling 'login_window.show()'...")
+        Log.debug("Calling 'login_window.show()'...")
         login_window.show()
-        LoggerThreadManager.info("'login_window.show()' has been Called Successfully!")
+        Log.info("'login_window.show()' has been Called Successfully!")
 
     def closeEvent(self, event):
         ...

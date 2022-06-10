@@ -21,7 +21,7 @@ from threading import active_count, enumerate as threads_enumerate
 # Custom Libs
 from main_class import MainClass
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import LoggerThreadManager
+from processing.management.logger.logger_threads_manager import Log
 
 
 def main():
@@ -32,7 +32,7 @@ def main():
 
     disable()
 
-    LoggerThreadManager.info("Started The Application!")
+    Log.info("Started The Application!")
 
     main_class = ObjectsManager.create_object(MainClass)
 
@@ -40,16 +40,16 @@ def main():
         return 1
 
     exit_code = main_class.run()
-    LoggerThreadManager.info("Application Closed!")
+    Log.info("Application Closed!")
     ObjectsManager.delete_object("MainClass")
     ObjectsManager.destruct_objects()
 
-    LoggerThreadManager.info(f"Current working threads: {active_count()}")
+    Log.info(f"Current working threads: {active_count()}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
-            LoggerThreadManager.warning(f"waiting for thread {thread.name}...!")
+            Log.warning(f"waiting for thread {thread.name}...!")
             thread.join()
-            LoggerThreadManager.info(f"{thread.name} has finished executing!")
+            Log.info(f"{thread.name} has finished executing!")
 
     exit(exit_code)
 
