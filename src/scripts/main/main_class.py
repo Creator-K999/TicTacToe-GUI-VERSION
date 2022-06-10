@@ -30,9 +30,8 @@ class MainClass:
         self.__app = ObjectsManager.create_object(QApplication, [])  # main application
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
 
-        Log.debug("Calling 'MainMenu.show()'...")
+        Log.info("Displaying MainMenu...")
         self.__window.show()
-        Log.info("'MainMenu.show()' has been called Successfully!")
 
     def __new__(cls):
 
@@ -60,5 +59,4 @@ class MainClass:
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 
-        Log.info("User Quit App Successfully!")
         return exit_code

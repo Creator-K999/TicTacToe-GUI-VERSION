@@ -47,9 +47,9 @@ def main():
     Log.info(f"Current working threads: {active_count()}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
-            Log.warning(f"waiting for thread {thread.name}...!")
+            print(f"waiting for thread {thread.name}...!")
             thread.join()
-            Log.info(f"{thread.name} has finished executing!")
+            print(f"{thread.name} has finished executing!")
 
     exit(exit_code)
 

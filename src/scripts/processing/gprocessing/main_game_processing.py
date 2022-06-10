@@ -12,8 +12,6 @@ class MainGameProcessing:
 
     def __init__(self):
 
-        self.__player2 = None
-        self.__player1 = None
         self.__current_player = None
 
         self.__main_game_window_object = ObjectsManager.get_object_by_name("MainGameWindow")
@@ -27,43 +25,39 @@ class MainGameProcessing:
         self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
-#
-#   PUBLIC SECTION
-#
+        self.__player1 = ObjectsManager.create_object(Player1, "Player1", self.__player_1_name, self.__player_1_pass)
+        self.__player2 = ObjectsManager.create_object(Player2, "Player2", self.__player_2_name, self.__player_2_pass)
+
+    #
+    #   PUBLIC SECTION
+    #
+    @property
+    def player_1(self):
+        return self.__player1
 
     @property
-    def game_instance(self):
-        Log.info("'game_instance' getter has been called!")
-        return self.__main_game_window_object
+    def player_2(self):
+        return self.__player2
 
-    def pick_first_player(self):
-        Log.debug("calling 'self.__get_marks()'...")
-        marks = self.__get_marks()
-        Log.info(f"Marks are {marks[0]}, {marks[1]}")
+    @property
+    def current_player(self):
+        return self.__current_player
 
-        self.__player1 = ObjectsManager.create_object(Player1, "Player1", self.__player_1_name, self.__player_1_pass,
-                                                      marks[0])
-        self.__player2 = ObjectsManager.create_object(Player2, "Player2", self.__player_2_name, self.__player_2_pass,
-                                                      marks[1])
+    @current_player.setter
+    def current_player(self, value):
+        if not isinstance(value, Player1) and not isinstance(value, Player2):
+            Log.error(f"Expected a Player class, got '{type(value)}'")
+        elif self.__current_player is not None:
+            Log.info(f"Changing color of {self.__current_player.game_name} label to black!")
+            self.__player_labels[self.__current_player.game_name].setStyleSheet("color: black;")
 
-        self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
-        Log.info(
-            f"{self.__current_player.name} will play first with mark of {self.__current_player.mark}!")
-
-        Log.debug("Changing Players Labels Info...")
-
-        self.__player_labels["Player1"].setText(
-            f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}")
-        self.__player_labels["Player2"].setText(
-            f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}")
-
-        Log.info("Successfully Changed Players Labels Info!")
-        Log.info(f"setting {self.__current_player.name} label color or red!")
+        self.__current_player = value
+        Log.info(f"Changing color of {self.__current_player.name} label to red!")
         self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
 
     def button_clicked_process(self, button):
         Log.debug(f"{button.objectName()} has been pressed, current player is "
-                                  f"{self.__current_player.name} playing as {self.__current_player.mark}!")
+                  f"{self.__current_player.name} playing as {self.__current_player.mark}!")
         button.setText(self.__current_player.mark)
         button.setDisabled(True)
 
@@ -71,8 +65,8 @@ class MainGameProcessing:
         Log.info(f"[TURN]: {self.__current_player.name}")
 
         if self.__win_check():
-            Log.info(f"{self.__current_player.name} has Won, Displaying InfoDisplay to let the player "
-                                     "know!")
+            Log.info(f"{self.__current_player.name} has Won, Displaying MessageBox to let the player "
+                     "know!")
             QMessageBox.information(self.__main_game_window_object, "Win", f"{self.__current_player.name} has Won!")
 
             self.__current_player.increment_score()
@@ -83,7 +77,7 @@ class MainGameProcessing:
 
         elif self.__tie_check():
             Log.info("Tie game, Displaying InfoDisplay to let the player "
-                                     "know!")
+                     "know!")
             QMessageBox.information(self.__main_game_window_object, "Tie", "Tie Game!")
 
             result = "Tie"
@@ -92,38 +86,25 @@ class MainGameProcessing:
             Log.debug("'self.__win_tie_process' has been called Successfully!")
 
         else:
-            Log.info(f"Changing color of {self.__current_player.name} label to black!")
-            self.__player_labels[self.__current_player.game_name].setStyleSheet("color: black;")
-            self.__current_player = self.__player1 if self.__current_player is self.__player2 else self.__player2
-            Log.info(f"The new current player is {self.__current_player.name}")
-            self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
-            Log.info(f"Changing color of {self.__current_player.name} label to red!")
+            self.current_player = self.__player1 if self.__current_player is self.__player2 else self.__player2
 
         return result
 
-#
-#   PRIVATE SECTION
-#
-    @staticmethod
-    def __get_marks():
-        return ('X', 'O') if randint(0, 100) & 1 else ('O', 'X')
-
-    def __win_tie_process(self):
-
-        Log.debug("calling 'self.__get_marks()'...")
-        marks = self.__get_marks()
+    def randomize_player(self):
+        marks = ('X', 'O') if randint(0, 100) & 1 else ('O', 'X')
         Log.info(f"Marks are {marks[0]}, {marks[1]}")
 
         Log.info("Distributing players marks")
         self.__player1.mark = marks[0]
         self.__player2.mark = marks[1]
-
-        Log.info(f"Changing color of {self.__current_player.name} label to black!")
-        self.__player_labels[self.__current_player.game_name].setStyleSheet("color: black;")
-        self.__current_player = self.__player1 if marks[0] == 'X' else self.__player2
+        self.current_player = self.__player1 if marks[0] == 'X' else self.__player2
         Log.info(f"The new current player is {self.__current_player.name}")
-        self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
-        Log.info(f"Changing color of {self.__current_player.name} label to red!")
+
+    #
+    #   PRIVATE SECTION
+    #
+    def __win_tie_process(self):
+        self.randomize_player()
 
         Log.debug("Changing Players Labels Info...")
         self.__player_labels["Player1"].setText(

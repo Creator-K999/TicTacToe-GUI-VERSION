@@ -3,7 +3,7 @@ from processing.management.logger.logger_threads_manager import Log
 
 class Player1:
 
-    def __init__(self, game_name, name, _pass, mark, score=0):
+    def __init__(self, game_name, name, _pass, mark=None, score=0):
 
         self.__game_name = game_name
         self.__name = name
@@ -12,7 +12,6 @@ class Player1:
         self.__score = score
 
     def __str__(self):
-
         return f"Player({self.__name}, {self.__mark}, {self.__score})"
 
 #
@@ -37,13 +36,8 @@ class Player1:
     @mark.setter
     def mark(self, value):
 
-        try:
-            if not isinstance(value, str) or value not in frozenset({'X', 'O'}):
-                raise ValueError(f"value has to be a either X or O. Got {value!r} instead!")
-
-        except ValueError:
-            Log.exception("Error!")
-
+        if not isinstance(value, str) or value not in frozenset({'X', 'O'}):
+            Log.error("value has to be a either X or O. Got '{value}' instead!")
         else:
             self.__mark = value
 

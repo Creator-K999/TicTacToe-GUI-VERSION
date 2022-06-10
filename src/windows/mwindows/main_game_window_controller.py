@@ -69,7 +69,19 @@ class MainGameWindow(QMainWindow):
     #   PRIVATE SECTION
     #
     def __pick_first_player(self):
-        self.__game_processor.pick_first_player()
+        self.__game_processor.randomize_player()
+
+        player_1 = self.__game_processor.player_1
+        player_2 = self.__game_processor.player_2
+        current_player = self.__game_processor.current_player
+
+        Log.debug("Changing Players Labels text...")
+        self.__player_labels["Player1"].setText(f"{player_1.name} ({player_1.mark}): {player_1.score}")
+        self.__player_labels["Player2"].setText(f"{player_2.name} ({player_2.mark}): {player_2.score}")
+        Log.info("Successfully Changed Players Labels text!")
+
+        Log.info(f"setting {current_player.name} label color or red!")
+        self.__player_labels[current_player.game_name].setStyleSheet("color: red;")
 
     def __button_press(self):
         Log.info("A button has been pressed!")
