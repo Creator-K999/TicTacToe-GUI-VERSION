@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import QApplication
 # Custom Libs
 from src.windows.mwindows.main_menu_window_controller import MainMenu
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 
 
 class MainClass:

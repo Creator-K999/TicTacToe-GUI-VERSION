@@ -21,7 +21,7 @@ from threading import active_count, enumerate as threads_enumerate
 # Custom Libs
 from main_class import MainClass
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 
 
 def main():

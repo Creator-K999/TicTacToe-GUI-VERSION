@@ -5,7 +5,7 @@ from src import PLAYERS_INFO
 from pobject.player1_class import Player1
 from pobject.player2_class import Player2
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 
 
 class MainGameProcessing:

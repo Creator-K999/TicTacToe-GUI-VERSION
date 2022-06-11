@@ -11,7 +11,7 @@ from src import PLAYERS_INFO, connect_object
 from src.windows.subwindows.login_window_controller import LoginWindow
 from src.windows.mwindows.main_game_window_controller import MainGameWindow
 from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 
 
 class MainMenu(QMainWindow):

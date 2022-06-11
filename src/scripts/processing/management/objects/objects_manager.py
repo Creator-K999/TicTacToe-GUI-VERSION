@@ -1,4 +1,4 @@
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 
 
 class ObjectsManager:

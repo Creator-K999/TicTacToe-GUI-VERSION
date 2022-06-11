@@ -2,7 +2,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
 
 from src import PLAYERS_INFO
-from processing.management.logger.logger_threads_manager import Log
+from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 
 
