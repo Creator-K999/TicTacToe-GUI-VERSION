@@ -14,8 +14,8 @@ class Log:
     def __init__(self):
         raise NotImplementedError("Log cannot be instantiated!")
 
-    @classmethod
-    def __log(cls, target, message):
+    @staticmethod
+    def __log(target, message):
         caller_info = stack()[2]  # list of named tuples
         Thread(
             daemon=True,

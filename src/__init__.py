@@ -1,6 +1,5 @@
 from processing.management.logger.logger_threads_manager import Log
 
-
 PLAYERS_INFO = {}
 
 
@@ -19,12 +18,12 @@ def connect_object(_object, method_to_connect):
 
         except AttributeError:
             Log.exception(f"Couldn't connect '{object_name}' with "
-                                          f"'{method_to_connect_name}'")
+                          f"'{method_to_connect_name}'")
 
         except Exception:
             Log.exception(f"Something went wrong "
-                                          f"while connecting {object_name} with {method_to_connect_name}")
+                          f"while connecting {object_name} with {method_to_connect_name}")
 
         else:
             Log.info(f"Successfully connected '{object_name}' with "
-                                     f"'{method_to_connect_name}'")
+                     f"'{method_to_connect_name}'")
