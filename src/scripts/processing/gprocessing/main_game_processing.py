@@ -24,8 +24,13 @@ class MainGameProcessing:
         self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
-        self.__player1 = ObjectsManager.create_object(Player, "Player", self.__player_1_name, self.__player_1_pass)
-        self.__player2 = ObjectsManager.create_object(Player, "Player", self.__player_2_name, self.__player_2_pass)
+        self.__player1 = ObjectsManager.create_object(
+                Player, "Player", self.__player_1_name, self.__player_1_pass, custom_name="Player1"
+            )
+
+        self.__player2 = ObjectsManager.create_object(
+                Player, "Player", self.__player_2_name, self.__player_2_pass, custom_name="Player2"
+            )
 
     #
     #   PUBLIC SECTION

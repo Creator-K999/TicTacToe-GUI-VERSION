@@ -45,12 +45,12 @@ class ObjectsManager:
             Log.info("No leaks found!")
 
     @classmethod
-    def create_object(cls, _object, *args, **kwargs):
+    def create_object(cls, _object, *args, custom_name=None, **kwargs):
 
         repr_object_name = None
 
         try:
-            object_name = _object.__name__
+            object_name = custom_name if custom_name else _object.__name__
             repr_object_name = f"'{object_name}'"
             cls.__objects[object_name] = _object(*args, **kwargs)
 
