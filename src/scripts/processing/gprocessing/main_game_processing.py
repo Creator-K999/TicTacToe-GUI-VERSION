@@ -62,6 +62,12 @@ class MainGameProcessing:
 
     @staticmethod
     def set_label_text(label, text):
+
+        if None in frozenset({label, text}):
+            Log.error("Tried to change text of None object!")
+            return
+
+        Log.info("set_label_text has been called!")
         object_name = label.objectName()
         Log.info(f"Changing text of label {object_name} to {text}")
         label.setText(text)
@@ -76,8 +82,6 @@ class MainGameProcessing:
         Log.info(f"[TURN]: {self.__current_player.name}")
 
         if self.__win_check():
-            Log.info(f"{self.__current_player.name} has Won, Displaying MessageBox to let the player "
-                     "know!")
             QMessageBox.information(self.__main_game_window_object, "Win", f"{self.__current_player.name} has Won!")
 
             self.__current_player.increment_score()
@@ -87,8 +91,6 @@ class MainGameProcessing:
             Log.debug("'self.__win_tie_process' has been called Successfully!")
 
         elif self.__tie_check():
-            Log.info("Tie game, Displaying InfoDisplay to let the player "
-                     "know!")
             QMessageBox.information(self.__main_game_window_object, "Tie", "Tie Game!")
 
             result = "Tie"
@@ -105,7 +107,6 @@ class MainGameProcessing:
         marks = ('X', 'O') if randint(0, 100) & 1 else ('O', 'X')
         Log.info(f"Marks are {marks[0]}, {marks[1]}")
 
-        Log.info("Distributing players marks")
         self.__player1.mark = marks[0]
         self.__player2.mark = marks[1]
         self.current_player = self.__player1 if marks[0] == 'X' else self.__player2
@@ -129,13 +130,9 @@ class MainGameProcessing:
 
     def __win_check(self):
         Log.debug("Checking for win...")
-
-        Log.debug("getting all the buttons text...")
         buttons = [button.text() for button in self.__buttons.values()]
-        Log.debug("all the buttons text has been retrieved Successfully!")
-
         current_player_mark = self.__current_player.mark
-        Log.debug(f"Checking if {self.__current_player.name} playing as {current_player_mark} has won!")
+
         return (
                 (buttons[0] == buttons[1] == buttons[2] == current_player_mark) or
                 (buttons[3] == buttons[4] == buttons[5] == current_player_mark) or
@@ -148,5 +145,4 @@ class MainGameProcessing:
         )
 
     def __tie_check(self):
-        Log.info("Checking for a tie!")
         return all(not button.isEnabled() for button in self.__buttons.values())
