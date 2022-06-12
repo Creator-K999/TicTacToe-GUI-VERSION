@@ -49,8 +49,9 @@ class MainGameProcessing:
 
     @current_player.setter
     def current_player(self, value):
-        if not isinstance(value, Player) and not isinstance(value, Player):
+        if not isinstance(value, Player):
             Log.error(f"Expected a Player class, got '{type(value)}'")
+
         elif self.__current_player is not None:
             Log.info(f"Changing color of {self.__current_player.game_name} label to black!")
             self.__player_labels[self.__current_player.game_name].setStyleSheet("color: black;")
@@ -58,6 +59,12 @@ class MainGameProcessing:
         self.__current_player = value
         Log.info(f"Changing color of {self.__current_player.name} label to red!")
         self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
+
+    @staticmethod
+    def set_label_text(label, text):
+        object_name = label.objectName()
+        Log.info(f"Changing text of label {object_name} to {text}")
+        label.setText(text)
 
     def button_clicked_process(self, button):
         Log.debug(f"{button.objectName()} has been pressed, current player is "
@@ -110,14 +117,15 @@ class MainGameProcessing:
     def __win_tie_process(self):
         self.randomize_player()
 
-        Log.debug("Changing Players Labels Info...")
-        self.__player_labels[self.__player1.game_name].setText(
+        self.set_label_text(
+            self.__player_labels[self.__player1.game_name],
             f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
         )
-        self.__player_labels[self.__player2.game_name].setText(
+
+        self.set_label_text(
+            self.__player_labels[self.__player2.game_name],
             f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
         )
-        Log.info("Successfully Changed Players Labels Info!")
 
     def __win_check(self):
         Log.debug("Checking for win...")
