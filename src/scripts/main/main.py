@@ -24,6 +24,15 @@ from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
 
 
+def wait_for_all_threads():
+    Log.info(f"Current working threads: {active_count()}")
+    for thread in threads_enumerate():
+        if thread.name != "MainThread":
+            print(f"waiting for thread {thread.name}...!")
+            thread.join()
+            print(f"{thread.name} has finished executing!")
+
+
 def main():
 
     """
@@ -44,12 +53,7 @@ def main():
     ObjectsManager.delete_object("MainClass")
     ObjectsManager.destruct_objects()
 
-    Log.info(f"Current working threads: {active_count()}")
-    for thread in threads_enumerate():
-        if thread.name != "MainThread":
-            print(f"waiting for thread {thread.name}...!")
-            thread.join()
-            print(f"{thread.name} has finished executing!")
+    wait_for_all_threads()
 
     exit(exit_code)
 
