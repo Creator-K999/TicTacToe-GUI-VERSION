@@ -41,39 +41,29 @@ class ObjectsManager:
         if leak_found:
             Log.warning("Found some leaks but cleaned them up!")
 
+        else:
+            Log.info("No leaks found!")
+
     @classmethod
-    def create_object(cls, _object, *args, singleton=True, **kwargs):
+    def create_object(cls, _object, *args, **kwargs):
+
+        repr_object_name = None
 
         try:
             object_name = _object.__name__
             repr_object_name = f"'{object_name}'"
+            cls.__objects[object_name] = _object(*args, **kwargs)
 
         except AttributeError:
             Log.exception(f"object '{_object}' is not a class!")
             return None
 
-        else:
-
-            if singleton:
-                Log.debug(f"Looking for an instance of {repr_object_name}")
-
-                if object_name in cls.__objects:
-                    Log.info(f"Found an instance of {object_name}")
-                    return cls.__objects[object_name]
-
-                else:
-                    Log.info(f"Couldn't find an instance of {object_name}, Trying to create one...")
-
-        try:
-            cls.__objects[object_name] = _object(*args, **kwargs)
-
         except Exception:
             Log.exception(f"Some Error occurred while creating object {repr_object_name}!")
             return None
 
-        else:
-            Log.debug(f"Successfully created Object {repr_object_name}!")
-            return cls.__objects[object_name]
+        Log.debug(f"Successfully created Object {repr_object_name}!")
+        return cls.__objects[object_name]
 
     @classmethod
     def delete_object(cls, object_name):
