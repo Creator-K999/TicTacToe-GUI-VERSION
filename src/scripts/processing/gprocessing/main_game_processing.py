@@ -25,11 +25,11 @@ class MainGameProcessing:
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
         self.__player1 = ObjectsManager.create_object(
-                Player, "Player", self.__player_1_name, self.__player_1_pass, custom_name="Player1"
+                Player, "Player1", self.__player_1_name, self.__player_1_pass, custom_name="Player1"
             )
 
         self.__player2 = ObjectsManager.create_object(
-                Player, "Player", self.__player_2_name, self.__player_2_pass, custom_name="Player2"
+                Player, "Player2", self.__player_2_name, self.__player_2_pass, custom_name="Player2"
             )
 
     #
@@ -111,10 +111,10 @@ class MainGameProcessing:
         self.randomize_player()
 
         Log.debug("Changing Players Labels Info...")
-        self.__player_labels["Player"].setText(
+        self.__player_labels[self.__player1.game_name].setText(
             f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
         )
-        self.__player_labels["Player"].setText(
+        self.__player_labels[self.__player2.game_name].setText(
             f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
         )
         Log.info("Successfully Changed Players Labels Info!")

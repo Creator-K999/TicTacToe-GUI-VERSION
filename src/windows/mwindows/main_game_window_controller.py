@@ -18,9 +18,6 @@ class MainGameWindow(QMainWindow):
         Log.debug("Storing 'MainMenu' class in 'self.__main_window' attribute")
         self.__main_window = ObjectsManager.get_object_by_name("MainMenu")
 
-        first_players_label_object_name = "Player"
-        second_players_label_object_name = "Player"
-
         Log.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_game_window.ui", self)
         Log.info("UI has been loaded successfully!")
@@ -36,8 +33,8 @@ class MainGameWindow(QMainWindow):
 
         Log.debug("Looking for the players labels objects...")
         self.__player_labels = {
-            first_players_label_object_name: self.findChild(QtWidgets.QLabel, first_players_label_object_name),
-            second_players_label_object_name: self.findChild(QtWidgets.QLabel, second_players_label_object_name)
+            "Player1": self.findChild(QtWidgets.QLabel, "Player1"),
+            "Player2": self.findChild(QtWidgets.QLabel, "Player2")
         }
 
         if None in self.__player_labels.values():
@@ -76,8 +73,8 @@ class MainGameWindow(QMainWindow):
         current_player = self.__game_processor.current_player
 
         Log.debug("Changing Players Labels text...")
-        self.__player_labels["Player"].setText(f"{player_1.name} ({player_1.mark}): {player_1.score}")
-        self.__player_labels["Player"].setText(f"{player_2.name} ({player_2.mark}): {player_2.score}")
+        self.__player_labels["Player1"].setText(f"{player_1.name} ({player_1.mark}): {player_1.score}")
+        self.__player_labels["Player2"].setText(f"{player_2.name} ({player_2.mark}): {player_2.score}")
         Log.info("Successfully Changed Players Labels text!")
 
         Log.info(f"setting {current_player.name} label color or red!")
