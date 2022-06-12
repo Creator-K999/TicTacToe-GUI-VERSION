@@ -3,7 +3,6 @@ from PyQt6.QtWidgets import QMessageBox
 
 from src import PLAYERS_INFO
 from pobject.player_class import Player
-from pobject.player2_class import Player
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
 
