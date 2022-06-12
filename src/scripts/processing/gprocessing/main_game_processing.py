@@ -2,8 +2,8 @@ from random import randint
 from PyQt6.QtWidgets import QMessageBox
 
 from src import PLAYERS_INFO
-from pobject.player1_class import Player1
-from pobject.player2_class import Player2
+from pobject.player_class import Player
+from pobject.player2_class import Player
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
 
@@ -25,8 +25,8 @@ class MainGameProcessing:
         self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
-        self.__player1 = ObjectsManager.create_object(Player1, "Player1", self.__player_1_name, self.__player_1_pass)
-        self.__player2 = ObjectsManager.create_object(Player2, "Player2", self.__player_2_name, self.__player_2_pass)
+        self.__player1 = ObjectsManager.create_object(Player, "Player", self.__player_1_name, self.__player_1_pass)
+        self.__player2 = ObjectsManager.create_object(Player, "Player", self.__player_2_name, self.__player_2_pass)
 
     #
     #   PUBLIC SECTION
@@ -45,7 +45,7 @@ class MainGameProcessing:
 
     @current_player.setter
     def current_player(self, value):
-        if not isinstance(value, Player1) and not isinstance(value, Player2):
+        if not isinstance(value, Player) and not isinstance(value, Player):
             Log.error(f"Expected a Player class, got '{type(value)}'")
         elif self.__current_player is not None:
             Log.info(f"Changing color of {self.__current_player.game_name} label to black!")
@@ -107,10 +107,10 @@ class MainGameProcessing:
         self.randomize_player()
 
         Log.debug("Changing Players Labels Info...")
-        self.__player_labels["Player1"].setText(
+        self.__player_labels["Player"].setText(
             f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
         )
-        self.__player_labels["Player2"].setText(
+        self.__player_labels["Player"].setText(
             f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
         )
         Log.info("Successfully Changed Players Labels Info!")

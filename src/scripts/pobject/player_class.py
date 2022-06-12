@@ -1,7 +1,7 @@
 from processing.management.logger.logger import Log
 
 
-class Player2:
+class Player:
 
     def __init__(self, game_name, name, _pass, mark=None, score=0):
 

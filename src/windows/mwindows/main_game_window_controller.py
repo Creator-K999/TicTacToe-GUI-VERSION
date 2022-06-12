@@ -18,8 +18,8 @@ class MainGameWindow(QMainWindow):
         Log.debug("Storing 'MainMenu' class in 'self.__main_window' attribute")
         self.__main_window = ObjectsManager.get_object_by_name("MainMenu")
 
-        first_players_label_object_name = "Player1"
-        second_players_label_object_name = "Player2"
+        first_players_label_object_name = "Player"
+        second_players_label_object_name = "Player"
 
         Log.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_game_window.ui", self)
@@ -76,8 +76,8 @@ class MainGameWindow(QMainWindow):
         current_player = self.__game_processor.current_player
 
         Log.debug("Changing Players Labels text...")
-        self.__player_labels["Player1"].setText(f"{player_1.name} ({player_1.mark}): {player_1.score}")
-        self.__player_labels["Player2"].setText(f"{player_2.name} ({player_2.mark}): {player_2.score}")
+        self.__player_labels["Player"].setText(f"{player_1.name} ({player_1.mark}): {player_1.score}")
+        self.__player_labels["Player"].setText(f"{player_2.name} ({player_2.mark}): {player_2.score}")
         Log.info("Successfully Changed Players Labels text!")
 
         Log.info(f"setting {current_player.name} label color or red!")
@@ -123,8 +123,8 @@ class MainGameWindow(QMainWindow):
 
     def closeEvent(self, event):
         Log.debug("Closing MainGameWindow...")
-        ObjectsManager.delete_object("Player1")
-        ObjectsManager.delete_object("Player2")
+        ObjectsManager.delete_object("Player")
+        ObjectsManager.delete_object("Player")
         ObjectsManager.delete_object("MainGameProcessing")
 
         Log.debug("Re-Displaying a closed MainMenu window...")
