@@ -7,6 +7,7 @@ from src import Log
 class DBManager:
     DB_LOCATION = f"{expanduser('~')}\\TicTacToe.db"
 
+    opened = True
     __db = connect(DB_LOCATION)
     __db.execute("CREATE TABLE IF NOT EXISTS Credentials(ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, "
                  "Password TEXT)")
@@ -17,9 +18,22 @@ class DBManager:
     def log_in(cls, username, password):
 
         try:
-            db_data = cls.__db.execute("SELECT * FROM Credentials WHERE Name = ?", (username,))
-            if any(name[1] == username for name in db_data):
-                Log.info("User Found!")
+            db_data = cls.__db.execute("SELECT * FROM Credentials WHERE Name = ? OR Password = ?", (username, password))
+
+            users = set()
+            passwords = set()
+
+            for _, user, _pass in db_data:
+                users.add(user)
+                passwords.add(_pass)
+
+            if username in users:
+                if password in passwords:
+                    Log.info(f"{username} Found! wrote the right password!")
+
+                else:
+                    Log.info(f"{username} Found! wrote the wrong password!")
+                    return "Wrong"
 
             else:
                 Log.info(f"Registering {username} as a new User!")
@@ -28,14 +42,15 @@ class DBManager:
 
         except Exception as E:
             Log.exception(E)
-            return False
+            return "Error"
 
-        return True
+        return "LoggedIn"
 
     @classmethod
-    def re_open(cls):
+    def re_connect(cls):
         cls.__db = connect(cls.DB_LOCATION)
 
     @classmethod
     def close_db(cls):
+        cls.opened = False
         cls.__db.close()

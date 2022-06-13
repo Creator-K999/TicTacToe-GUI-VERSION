@@ -37,9 +37,23 @@ class LoginWindow(QDialog):
         Log.info("Connecting the 'ok' button with 'self.__register_user' method")
         self.accepted.connect(self.__register_user)
 
+    def __check_login_result(self, result):
+        if result == "LoggedIn":
+            return True
+
+        elif result == "Wrong":
+            QMessageBox.warning(self, "Warning", "Possible wrong password!")
+            self.show()
+            return False
+
+        else:
+            QMessageBox.critical(self, "Error", "Possible Error happened!\nPlease try again!")
+            return False
+
     @staticmethod
-    def clean_things_up():
+    def __clean_things_up():
         Log.info("LoginWindow ha been closed!")
+        DBManager.close_db()
         ObjectsManager.delete_object("LoginWindow")
         ObjectsManager.get_object_by_name("MainMenu").show()
 
@@ -47,12 +61,14 @@ class LoginWindow(QDialog):
 
         Log.info("'self.__register_user' has been called!")
 
-        Log.info("Getting the data user provided us...")
+        if not DBManager.opened:
+            DBManager.re_connect()
 
+        Log.info("Getting the data user provided us...")
         player_1_name = self.__player1_fields["name"].text()
-        player_1_pass = self.__player1_fields["name"].text()
+        player_1_pass = self.__player1_fields["password"].text()
         player_2_name = self.__player2_fields["name"].text()
-        player_2_pass = self.__player2_fields["name"].text()
+        player_2_pass = self.__player2_fields["password"].text()
 
         if not all({player_1_name, player_1_pass, player_2_name, player_2_pass}):
             Log.info("Provided wrong information!")
@@ -60,8 +76,13 @@ class LoginWindow(QDialog):
             self.show()
             return
 
-        DBManager.log_in(player_1_name, player_1_pass)
-        DBManager.log_in(player_2_name, player_2_pass)
+        registered_1 = DBManager.log_in(player_1_name, player_1_pass)
+        if not self.__check_login_result(registered_1):
+            return None
+
+        registered_2 = DBManager.log_in(player_2_name, player_2_pass)
+        if not self.__check_login_result(registered_2):
+            return None
 
         ObjectsManager.create_object(Player, "Player1", player_1_name, custom_name="Player1")
         ObjectsManager.create_object(Player, "Player2", player_2_name, custom_name="Player2")
@@ -69,7 +90,7 @@ class LoginWindow(QDialog):
         for button in self.__disabled_buttons:
             button.setDisabled(False)
 
-        self.clean_things_up()
+        self.__clean_things_up()
 
     def closeEvent(self, event):
-        self.clean_things_up()
+        self.__clean_things_up()
