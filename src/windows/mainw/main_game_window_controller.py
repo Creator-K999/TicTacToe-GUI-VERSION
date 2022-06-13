@@ -124,9 +124,11 @@ class MainGameWindow(QMainWindow):
         self.__pick_first_player()
 
     def closeEvent(self, event):
+
+        self.__game_processor.player_1.score = 0
+        self.__game_processor.player_2.score = 0
+
         Log.debug("Closing MainGameWindow...")
-        ObjectsManager.delete_object("Player")
-        ObjectsManager.delete_object("Player")
         ObjectsManager.delete_object("MainGameProcessing")
 
         Log.debug("Re-Displaying a closed MainMenu window...")

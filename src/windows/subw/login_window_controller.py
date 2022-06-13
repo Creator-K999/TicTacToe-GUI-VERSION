@@ -1,7 +1,8 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
 
-from src import PLAYERS_INFO
+from pobject.player_class import Player
+from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 
@@ -39,37 +40,31 @@ class LoginWindow(QDialog):
     @staticmethod
     def clean_things_up():
         Log.info("LoginWindow ha been closed!")
-        ObjectsManager.get_object_by_name("MainMenu").show()
         ObjectsManager.delete_object("LoginWindow")
+        ObjectsManager.get_object_by_name("MainMenu").show()
 
     def __register_user(self):
-
-        # BUILD_DICT
 
         Log.info("'self.__register_user' has been called!")
 
         Log.info("Getting the data user provided us...")
-        self.__player1_info = {
-            "name": self.__player1_fields["name"].text(),
-            "password": self.__player1_fields["password"].text()
-        }
 
-        self.__player2_info = {
-            "name": self.__player2_fields["name"].text(),
-            "password": self.__player2_fields["password"].text()
-        }
+        player_1_name = self.__player1_fields["name"].text()
+        player_1_pass = self.__player1_fields["name"].text()
+        player_2_name = self.__player2_fields["name"].text()
+        player_2_pass = self.__player2_fields["name"].text()
 
-        for player_1, player_2 in zip(self.__player1_info.values(), self.__player2_info.values()):
-            if not all({player_1, player_2}):
-                Log.info("Provided wrong information!")
-                QMessageBox.critical(self, "Error", "Please provide valid info!")
-                self.show()
-                return
+        if not all({player_1_name, player_1_pass, player_2_name, player_2_pass}):
+            Log.info("Provided wrong information!")
+            QMessageBox.critical(self, "Error", "Please provide valid info!")
+            self.show()
+            return
 
-        Log.info(f"Storing {self.__player1_info['name']} and {self.__player2_info['name']} "
-                                 f"information in PLAYERS_INFO global dictionary!")
-        PLAYERS_INFO["player1"] = self.__player1_info
-        PLAYERS_INFO["player2"] = self.__player2_info
+        DBManager.log_in(player_1_name, player_1_pass)
+        DBManager.log_in(player_2_name, player_2_pass)
+
+        ObjectsManager.create_object(Player, "Player1", player_1_name, custom_name="Player1")
+        ObjectsManager.create_object(Player, "Player2", player_2_name, custom_name="Player2")
 
         for button in self.__disabled_buttons:
             button.setDisabled(False)

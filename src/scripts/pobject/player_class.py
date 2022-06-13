@@ -3,11 +3,10 @@ from processing.management.logger.logger import Log
 
 class Player:
 
-    def __init__(self, game_name, name, _pass, mark=None, score=0):
+    def __init__(self, game_name, name, mark=None, score=0):
 
         self.__game_name = game_name
         self.__name = name
-        self.__pass = _pass
         self.__mark = mark
         self.__score = score
 
@@ -38,8 +37,18 @@ class Player:
 
         if not isinstance(value, str) or value not in frozenset({'X', 'O'}):
             Log.error("value has to be a either X or O. Got '{value}' instead!")
+
         else:
             self.__mark = value
+
+    @score.setter
+    def score(self, value):
+
+        if not isinstance(value, int):
+            Log.error("Tried to set score to a non-int value!")
+
+        else:
+            self.__score = value
 
     def increment_score(self):
         Log.info(f"Incrementing {self.__name} score by 1")

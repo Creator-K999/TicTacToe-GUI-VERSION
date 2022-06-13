@@ -1,7 +1,6 @@
 from random import randint
 from PyQt6.QtWidgets import QMessageBox
 
-from src import PLAYERS_INFO
 from pobject.player_class import Player
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
@@ -18,19 +17,9 @@ class MainGameProcessing:
         self.__player_labels = self.__main_game_window_object.player_labels
 
         Log.debug("Getting players info through PLAYERS_INFO global dictionary...")
-        self.__player_1_name = PLAYERS_INFO["player1"]["name"]
-        self.__player_1_pass = PLAYERS_INFO["player1"]["password"]
-        self.__player_2_name = PLAYERS_INFO["player2"]["name"]
-        self.__player_2_pass = PLAYERS_INFO["player2"]["password"]
+        self.__player1 = ObjectsManager.get_object_by_name("Player1")
+        self.__player2 = ObjectsManager.get_object_by_name("Player2")
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
-
-        self.__player1 = ObjectsManager.create_object(
-                Player, "Player1", self.__player_1_name, self.__player_1_pass, custom_name="Player1"
-            )
-
-        self.__player2 = ObjectsManager.create_object(
-                Player, "Player2", self.__player_2_name, self.__player_2_pass, custom_name="Player2"
-            )
 
     #
     #   PUBLIC SECTION

@@ -7,7 +7,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
-from src import PLAYERS_INFO, connect_object
+from src import connect_object
 from src.windows.subw.login_window_controller import LoginWindow
 from src.windows.mainw.main_game_window_controller import MainGameWindow
 from processing.management.objects.objects_manager import ObjectsManager
@@ -38,7 +38,9 @@ class MainMenu(QMainWindow):
         self.__local_game_button = self.findChild(QPushButton, "local_game_button")
         connect_object(self.__local_game_button, self.__show_local_game_window)
 
-        if PLAYERS_INFO:
+        if None not in frozenset(
+                {ObjectsManager.get_object_by_name("Player1"), ObjectsManager.get_object_by_name("Player2")}
+        ):
             for button in self.get_menu_buttons():
                 button.setDisabled(False)
 

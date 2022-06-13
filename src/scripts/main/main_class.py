@@ -56,6 +56,8 @@ class MainClass:
         self.__app.quit()
         Log.debug("MainMenu has been closed!")
         ObjectsManager.delete_object("MainGameWindow")
+        ObjectsManager.delete_object("Player1")
+        ObjectsManager.delete_object("Player2")
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 
