@@ -58,8 +58,8 @@ class ObjectsManager:
             Log.exception(f"object '{_object}' is not a class!")
             return None
 
-        except Exception:
-            Log.exception(f"Some Error occurred while creating object {repr_object_name}!")
+        except Exception as E:
+            Log.exception(f"Some Error occurred while creating object {repr_object_name}!{E}")
             return None
 
         Log.debug(f"Successfully created Object {repr_object_name}!")
@@ -77,8 +77,8 @@ class ObjectsManager:
         except KeyError:
             Log.exception(f"{repr_object_name} doesn't exist!")
 
-        except Exception:
-            Log.exception("Error happened!")
+        except Exception as E:
+            Log.exception(f"Error happened!{E}")
 
         else:
             Log.debug(f"Successfully deleted {repr_object_name}")

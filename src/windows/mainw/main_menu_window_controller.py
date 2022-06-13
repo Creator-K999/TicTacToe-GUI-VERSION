@@ -8,8 +8,8 @@ from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 # Custom Libs
 from src import PLAYERS_INFO, connect_object
-from src.windows.subwindows.login_window_controller import LoginWindow
-from src.windows.mwindows.main_game_window_controller import MainGameWindow
+from src.windows.subw.login_window_controller import LoginWindow
+from src.windows.mainw.main_game_window_controller import MainGameWindow
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
 
