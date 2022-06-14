@@ -48,6 +48,7 @@ class LoginWindow(QDialog):
 
         else:
             QMessageBox.critical(self, "Error", "Possible Error happened!\nPlease try again!")
+            self.show()
             return False
 
     @staticmethod
