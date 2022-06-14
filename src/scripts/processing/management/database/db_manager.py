@@ -1,6 +1,7 @@
 from os.path import expanduser
 from sqlite3 import connect
 
+from processing.cryptography.cryptomanager import CryptoManager
 from src import Log
 
 
@@ -25,7 +26,8 @@ class DBManager:
 
             for _, user, _pass in db_data:
                 users.add(user)
-                passwords.add(_pass)
+                *_pass, key = [int(x.replace('[', '').replace(']', '')) for x in _pass.split(', ')]
+                passwords.add(CryptoManager.decrypt(_pass, key))
 
             if username in users:
                 if password in passwords:
@@ -37,7 +39,10 @@ class DBManager:
 
             else:
                 Log.info(f"Registering {username} as a new User!")
-                cls.__db.execute("INSERT INTO Credentials(Name, Password) VALUES(?, ?)", (username, password))
+                cls.__db.execute(
+                    "INSERT INTO Credentials(Name, Password) VALUES(?, ?)",
+                    (username, f"[{', '.join([*CryptoManager.encrypt(password), f'{CryptoManager.get_key()}'])}]")
+                )
                 cls.__db.commit()
 
         except Exception as E:
