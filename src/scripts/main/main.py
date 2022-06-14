@@ -20,6 +20,7 @@ from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
 from main_class import MainClass
+from processing.cryptography.cryptomanager import CryptoManager
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.management.logger.logger import Log
 
@@ -42,7 +43,6 @@ def main():
     disable()
 
     Log.info("Started The Application!")
-
     main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:
