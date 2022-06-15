@@ -10,7 +10,7 @@ It contains 3 modes to play.
 
 Made by: Ahmed Zaki Marei.
 Last Modified Date: 23/05/2022
-Version: 0.8
+Version: 1.0
 """
 
 # Built-ins
