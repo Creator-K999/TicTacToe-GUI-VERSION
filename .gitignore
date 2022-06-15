@@ -3,3 +3,6 @@
 
 # ignore "to_do_list.txt"
 to_do_list.txt
+/Dep/ui/login_window - Copy.ui
+/Dep/ui/main_menu_window - Copy.ui
+/.idea/discord.xml
