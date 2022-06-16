@@ -5,6 +5,9 @@ class ObjectsManager:
 
     __objects = {}
 
+    def __init__(self):
+        raise NotImplementedError("Cannot Instantiate ObjectsManager!")
+
     @classmethod
     def get_object_by_name(cls, object_name):
 
