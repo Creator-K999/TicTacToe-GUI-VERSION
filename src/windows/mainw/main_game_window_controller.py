@@ -1,6 +1,7 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
+from processing.management.database.db_manager import DBManager
 from src import connect_object
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.gprocessing.main_game_processing import MainGameProcessing
@@ -125,11 +126,24 @@ class MainGameWindow(QMainWindow):
 
     def closeEvent(self, event):
 
-        self.__game_processor.player_1.score = 0
-        self.__game_processor.player_2.score = 0
+        try:
+            Log.info("Checking if DB is Opened")
+            if not DBManager.is_open():
+                Log.info("Reconnecting to DB")
+                DBManager.re_connect()
 
-        Log.debug("Closing MainGameWindow...")
-        ObjectsManager.delete_object("MainGameProcessing")
+            Log.info("Connected! Storing Players scores...")
 
-        Log.debug("Re-Displaying a closed MainMenu window...")
-        self.__main_window.show()
+            DBManager.update_players_scores(self.__game_processor.player_1, self.__game_processor.player_2)
+
+            self.__game_processor.player_1.score = 0
+            self.__game_processor.player_2.score = 0
+
+            Log.debug("Closing MainGameWindow...")
+            ObjectsManager.delete_object("MainGameProcessing")
+
+            Log.debug("Re-Displaying a closed MainMenu window...")
+            self.__main_window.show()
+
+        except Exception as E:
+            Log.exception(E)

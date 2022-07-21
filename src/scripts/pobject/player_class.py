@@ -21,7 +21,7 @@ class Player:
         return self.__game_name
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @property

@@ -62,7 +62,7 @@ class LoginWindow(QDialog):
 
         Log.info("'self.__register_user' has been called!")
 
-        if not DBManager.opened:
+        if not DBManager.is_open():
             DBManager.re_connect()
 
         Log.info("Getting the data user provided us...")
