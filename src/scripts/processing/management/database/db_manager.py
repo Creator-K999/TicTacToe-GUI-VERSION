@@ -45,9 +45,12 @@ class DBManager:
 
             else:
                 Log.info(f"Registering {username} as a new User!")
+
+                key = CryptoManager.get_new_key()
+
                 cls.__db.execute(
                     "INSERT INTO Credentials(Name, Password) VALUES(?, ?)",
-                    (username, f"[{', '.join([*CryptoManager.encrypt(password), f'{CryptoManager.get_key()}'])}]")
+                    (username, f"[{', '.join(CryptoManager.encrypt(password, key))}]")
                 )
                 cls.__db.execute(
                     "INSERT INTO Scoreboard(Name, Score) VALUES(?, ?)",
