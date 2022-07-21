@@ -25,7 +25,7 @@ from processing.management.logger.logger import Log
 
 
 def wait_for_all_threads():
-    Log.info(f"Current working threads: {active_count()}")
+    Log.info(f"Current working sub-threads: {active_count() - 1}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
             print(f"waiting for thread {thread.name}...!")
