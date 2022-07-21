@@ -54,6 +54,7 @@ class DBManager:
     @classmethod
     def re_connect(cls):
         cls.__db = connect(cls.DB_LOCATION)
+        cls.opened = True
 
     @classmethod
     def close_db(cls):
