@@ -15,7 +15,7 @@ Version: 1.0
 
 # Built-ins
 from sys import exit
-from gc import disable
+from gc import disable, collect
 from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
@@ -53,6 +53,8 @@ def main():
     ObjectsManager.destruct_objects()
 
     wait_for_all_threads()
+
+    collect()
 
     exit(exit_code)
 
