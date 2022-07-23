@@ -22,21 +22,18 @@ class DBManager:
         return cls.__opened
 
     @classmethod
-    def log_in(cls, username, password):
+    def register_login(cls, username, password):
 
         try:
-            db_data = cls.__db.execute("SELECT * FROM Credentials WHERE Name = ? OR Password = ?", (username, password))
+            data = cls.__db.execute("SELECT * FROM Credentials WHERE Name = ?", (username,)).fetchall()
 
-            users = set()
-            passwords = set()
+            if data:
+                _, user, _encrypted_pass_as_string_list = data[0]
 
-            for _, user, _pass in db_data:
-                users.add(user)
-                *_pass, key = [int(x.replace('[', '').replace(']', '')) for x in _pass.split(', ')]
-                passwords.add(CryptoManager.decrypt(_pass, key))
+                *_encrypted_pass_as_list, key = \
+                    (int(x.replace('[', '').replace(']', '')) for x in _encrypted_pass_as_string_list.split(', '))
 
-            if username in users:
-                if password in passwords:
+                if password == CryptoManager.decrypt(_encrypted_pass_as_list, key):
                     Log.info(f"{username} Found! wrote the right password!")
 
                 else:

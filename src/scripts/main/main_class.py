@@ -3,7 +3,7 @@ This is the MainClass, it gets called by the main function.
 The main menu gets called and displayed from here.
 """
 
-# 3rd party Libs
+# 3rd Party Libs
 from PyQt6.QtWidgets import QApplication
 
 # Custom Libs
@@ -55,9 +55,9 @@ class MainClass:
         exit_code = self.__app.exec()
         self.__app.quit()
         Log.debug("MainMenu has been closed!")
-        ObjectsManager.delete_object("MainGameWindow")
         ObjectsManager.delete_object("Player1")
         ObjectsManager.delete_object("Player2")
+        ObjectsManager.delete_object("MainGameWindow")
         ObjectsManager.delete_object("MainMenu")
         ObjectsManager.delete_object("QApplication")
 

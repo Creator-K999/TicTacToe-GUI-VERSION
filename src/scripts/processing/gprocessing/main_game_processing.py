@@ -40,6 +40,7 @@ class MainGameProcessing:
     def current_player(self, value):
         if not isinstance(value, Player):
             Log.error(f"Expected a Player class, got '{type(value)}'")
+            return
 
         elif self.__current_player is not None:
             Log.info(f"Changing color of {self.__current_player.game_name} label to black!")
@@ -53,12 +54,11 @@ class MainGameProcessing:
     def set_label_text(label, text):
 
         if None in frozenset({label, text}):
-            Log.error("Tried to change text of None object!")
+            Log.error("Either the object or the text is 'None'!")
             return
 
         Log.info("set_label_text has been called!")
-        object_name = label.objectName()
-        Log.info(f"Changing text of label {object_name} to {text}")
+        Log.info(f"Changing text of label {label.objectName()} to {text}")
         label.setText(text)
 
     def button_clicked_process(self, button):

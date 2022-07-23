@@ -1,7 +1,7 @@
 from sys import exit as _exit
 from inspect import stack
 
-from logger.logger import Log
+from ..logger.logger import Log
 
 
 class ObjectsManager:
@@ -10,6 +10,10 @@ class ObjectsManager:
 
     def __init__(self):
         raise NotImplementedError("Cannot Instantiate ObjectsManager!")
+
+    @classmethod
+    def get_objects(cls):
+        return cls.__objects
 
     @classmethod
     def get_object_by_name(cls, object_name):
@@ -67,7 +71,7 @@ class ObjectsManager:
         object_name = custom_name or _object.__name__
 
         if object_name in cls.__objects:
-            Log.error(f"{object_name} already exist, please use a custom name for it!")
+            Log.error(f"{object_name} already exist, please use a custom name for it!", current_stack)
             cls.destruct_objects()
             _exit(-1)
 

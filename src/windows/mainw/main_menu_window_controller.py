@@ -73,7 +73,13 @@ class MainMenu(QMainWindow):
 
         # ObjectsManager.delete_object("MainMenu")
         # creating a game window objects and displaying it
-        main_game_window = ObjectsManager.create_object(MainGameWindow)
+
+        if "MainGameWindow" not in ObjectsManager.get_objects():
+            main_game_window = ObjectsManager.create_object(MainGameWindow)
+
+        else:
+            main_game_window = ObjectsManager.get_object_by_name("MainGameWindow")
+
         Log.debug("Calling MainGameWindow.init() to create a game processor!")
         main_game_window.init()
 

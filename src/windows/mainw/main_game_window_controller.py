@@ -136,10 +136,9 @@ class MainGameWindow(QMainWindow):
 
             DBManager.update_players_scores(self.__game_processor.player_1, self.__game_processor.player_2)
 
-            self.__game_processor.player_1.score = 0
-            self.__game_processor.player_2.score = 0
-
             Log.debug("Closing MainGameWindow...")
+            ObjectsManager.delete_object("Player2")
+            ObjectsManager.delete_object("Player1")
             ObjectsManager.delete_object("MainGameProcessing")
 
             Log.debug("Re-Displaying a closed MainMenu window...")

@@ -77,11 +77,11 @@ class LoginWindow(QDialog):
             self.show()
             return
 
-        registered_1 = DBManager.log_in(player_1_name, player_1_pass)
+        registered_1 = DBManager.register_login(player_1_name, player_1_pass)
         if not self.__check_login_result(registered_1):
             return None
 
-        registered_2 = DBManager.log_in(player_2_name, player_2_pass)
+        registered_2 = DBManager.register_login(player_2_name, player_2_pass)
         if not self.__check_login_result(registered_2):
             return None
 
