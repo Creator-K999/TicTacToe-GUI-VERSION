@@ -14,7 +14,7 @@ Version: 1.0
 """
 
 # Built-ins
-from sys import exit
+from sys import exit as _exit
 from gc import disable, collect
 from threading import active_count, enumerate as threads_enumerate
 
@@ -25,7 +25,7 @@ from processing.management.logger.logger import Log
 
 
 def wait_for_all_threads():
-    Log.info(f"Current working sub-threads: {active_count() - 1}")
+    Log.info(f"Currently working sub-threads: {active_count() - 1}")
     for thread in threads_enumerate():
         if thread.name != "MainThread":
             print(f"waiting for thread {thread.name}...!")
@@ -45,19 +45,20 @@ def main():
     main_class = ObjectsManager.create_object(MainClass)
 
     if main_class is None:
-        return 1
+        ObjectsManager.destruct_objects()
+        wait_for_all_threads()
+        collect()
+        return -100
 
     exit_code = main_class.run()
     Log.info("Application Closed!")
     ObjectsManager.delete_object("MainClass")
+
     ObjectsManager.destruct_objects()
-
     wait_for_all_threads()
-
     collect()
-
-    exit(exit_code)
+    return exit_code
 
 
 if __name__ == "__main__":
-    main()
+    _exit(main())
