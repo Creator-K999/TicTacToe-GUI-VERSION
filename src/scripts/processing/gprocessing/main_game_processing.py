@@ -53,7 +53,7 @@ class MainGameProcessing:
     @staticmethod
     def set_label_text(label, text):
 
-        if None in frozenset({label, text}):
+        if None in {label, text}:
             Log.error("Either the object or the text is 'None'!")
             return
 

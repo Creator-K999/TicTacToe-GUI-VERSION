@@ -21,11 +21,11 @@ class Log:
             target=target,
             args=(
                 f"""
-                FILE: {basename(stack_info.filename)}
-                FUNC: {stack_info.function}
-                LINE: {stack_info.lineno}
-                MASG: {message}
-            """,)
+    FILE: {basename(stack_info.filename)}
+    FUNC: {stack_info.function}
+    LINE: {stack_info.lineno}
+    MASG: {message}
+""",)
         ).start()
 
     @classmethod
