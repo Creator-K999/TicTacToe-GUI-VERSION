@@ -1,6 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
 
+from src import last_login_info
 from pobject.player_class import Player
 from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
@@ -35,7 +36,7 @@ class LoginWindow(QDialog):
             Log.info("Found login objects!")
 
         Log.info("Connecting the 'ok' button with 'self.__register_user' method")
-        self.accepted.connect(self.__register_user)
+        self.accepted.connect(self.__process_login_info)
 
     def __check_login_result(self, result):
         if result == "LoggedIn":
@@ -58,7 +59,7 @@ class LoginWindow(QDialog):
         ObjectsManager.delete_object("LoginWindow")
         ObjectsManager.get_object_by_name("MainMenu").show()
 
-    def __register_user(self):
+    def __process_login_info(self):
 
         Log.info("'self.__register_user' has been called!")
 
@@ -77,16 +78,17 @@ class LoginWindow(QDialog):
             self.show()
             return
 
-        registered_1 = DBManager.register_login(player_1_name, player_1_pass)
-        if not self.__check_login_result(registered_1):
+        if not self.__check_login_result(DBManager.register_login(player_1_name, player_1_pass)):
             return None
 
-        registered_2 = DBManager.register_login(player_2_name, player_2_pass)
-        if not self.__check_login_result(registered_2):
+        if not self.__check_login_result(DBManager.register_login(player_2_name, player_2_pass)):
             return None
 
         ObjectsManager.create_object(Player, "Player1", player_1_name, custom_name="Player1")
         ObjectsManager.create_object(Player, "Player2", player_2_name, custom_name="Player2")
+
+        last_login_info["Player1"] = player_1_name
+        last_login_info["Player2"] = player_2_name
 
         for button in self.__disabled_buttons:
             button.setDisabled(False)

@@ -80,9 +80,6 @@ class MainMenu(QMainWindow):
         else:
             main_game_window = ObjectsManager.get_object_by_name("MainGameWindow")
 
-        Log.debug("Calling MainGameWindow.init() to create a game processor!")
-        main_game_window.init()
-
         Log.debug("Calling 'MainGameWindow.show()'...")
         main_game_window.show()
         Log.info("'MainGameWindow.show()' has been Called Successfully!")

@@ -1,8 +1,9 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
+from pobject.player_class import Player
+from src import connect_object, last_login_info
 from processing.management.database.db_manager import DBManager
-from src import connect_object
 from processing.management.objects.objects_manager import ObjectsManager
 from processing.gprocessing.main_game_processing import MainGameProcessing
 from processing.management.logger.logger import Log
@@ -119,6 +120,14 @@ class MainGameWindow(QMainWindow):
     #   OverLoaded SECTION
     #
     def showEvent(self, event):
+        current_existing_objects = ObjectsManager.get_objects()
+
+        if "Player1" not in current_existing_objects and "Player2" not in current_existing_objects:
+            ObjectsManager.create_object(Player, "Player1", last_login_info["Player1"], custom_name="Player1")
+            ObjectsManager.create_object(Player, "Player2", last_login_info["Player2"], custom_name="Player2")
+
+        self.init()
+
         for label in self.__player_labels.values():
             label.setStyleSheet("color: black;")
 

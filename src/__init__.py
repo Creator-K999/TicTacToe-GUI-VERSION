@@ -1,6 +1,9 @@
 from processing.management.logger.logger import Log
 
 
+last_login_info = {}
+
+
 def connect_object(_object, method_to_connect):
     if _object is None:
         Log.warning(f"Couldn't Find '{_object.__name__}'!")
