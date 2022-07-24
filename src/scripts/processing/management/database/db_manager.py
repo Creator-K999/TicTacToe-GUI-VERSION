@@ -1,9 +1,9 @@
 from os.path import expanduser
 from sqlite3 import connect
 
+from src import Log
 from pobject.player_class import Player
 from processing.cryptography.cryptomanager import CryptoManager
-from src import Log
 
 
 class DBManager:
