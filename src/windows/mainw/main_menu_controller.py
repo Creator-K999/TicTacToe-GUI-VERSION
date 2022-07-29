@@ -44,7 +44,7 @@ class MainMenu(QMainWindow):
         self.__action_sign_in = self.findChild(QAction, "action_sign_in")
 
         connect_object(self.__action_sign_up, self.get_menu_buttons, custom_connect="triggered")
-        connect_object(self.__action_sign_in, self.get_menu_buttons, custom_connect="triggered")
+        connect_object(self.__action_sign_in, self.__show_login_window, custom_connect="triggered")
 
     #
     # PUBLIC SECTION
