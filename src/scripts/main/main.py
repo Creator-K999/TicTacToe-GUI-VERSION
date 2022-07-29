@@ -13,15 +13,15 @@ Last Modified Date: 15/06/2022
 Version: 1.0
 """
 
+from gc import disable, collect
 # Built-ins
 from sys import exit as _exit
-from gc import disable, collect
 from threading import active_count, enumerate as threads_enumerate
 
 # Custom Libs
-from main_class import MainClass
-from processing.management.objects.objects_manager import ObjectsManager
+from classes.main.main_class import MainClass
 from processing.management.logger.logger import Log
+from processing.management.objects.objects_manager import ObjectsManager
 
 
 def wait_for_all_threads():

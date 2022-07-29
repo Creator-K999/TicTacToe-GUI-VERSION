@@ -1,12 +1,12 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from pobject.player_class import Player
-from src import connect_object, last_login_info
-from processing.management.database.db_manager import DBManager
-from processing.management.objects.objects_manager import ObjectsManager
+from classes.player.player_class import Player
 from processing.gprocessing.main_game_processing import MainGameProcessing
+from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
+from processing.management.objects.objects_manager import ObjectsManager
+from src import connect_object, last_login_info
 
 
 class MainGameWindow(QMainWindow):

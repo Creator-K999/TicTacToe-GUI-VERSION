@@ -6,10 +6,10 @@ The main menu gets called and displayed from here.
 # 3rd Party Libs
 from PyQt6.QtWidgets import QApplication
 
+from processing.management.logger.logger import Log
+from processing.management.objects.objects_manager import ObjectsManager
 # Custom Libs
 from src.windows.mainw.main_menu_window_controller import MainMenu
-from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger import Log
 
 
 class MainClass:

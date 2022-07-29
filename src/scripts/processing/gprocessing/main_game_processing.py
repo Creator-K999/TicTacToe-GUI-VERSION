@@ -1,9 +1,10 @@
 from random import randint
+
 from PyQt6.QtWidgets import QMessageBox
 
-from pobject.player_class import Player
-from processing.management.objects.objects_manager import ObjectsManager
+from classes.player.player_class import Player
 from processing.management.logger.logger import Log
+from processing.management.objects.objects_manager import ObjectsManager
 
 
 class MainGameProcessing:

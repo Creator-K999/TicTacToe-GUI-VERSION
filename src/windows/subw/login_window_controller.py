@@ -1,11 +1,11 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
 
-from src import last_login_info
-from pobject.player_class import Player
+from classes.player.player_class import Player
 from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
+from src import last_login_info
 
 
 class LoginWindow(QDialog):
