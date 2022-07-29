@@ -4,14 +4,15 @@ This is the file that contains the code which controls the main menu window.
 
 # 3rd party Libs
 from PyQt6 import uic
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
+from processing.management.logger.logger import Log
+from processing.management.objects.objects_manager import ObjectsManager
 # Custom Libs
 from src import connect_object
-from src.windows.subw.login_window_controller import LoginWindow
-from src.windows.mainw.main_game_window_controller import MainGameWindow
-from processing.management.objects.objects_manager import ObjectsManager
-from processing.management.logger.logger import Log
+from src.windows.mainw.main_game_controller import MainGameWindow
+from src.windows.subw.login_controller import LoginWindow
 
 
 class MainMenu(QMainWindow):
@@ -38,15 +39,12 @@ class MainMenu(QMainWindow):
         self.__local_game_button = self.findChild(QPushButton, "local_game_button")
         connect_object(self.__local_game_button, self.__show_local_game_window)
 
-        if None not in frozenset(
-                {ObjectsManager.get_object_by_name("Player1"), ObjectsManager.get_object_by_name("Player2")}
-        ):
-            for button in self.get_menu_buttons():
-                button.setDisabled(False)
+        Log.debug("Looking for 'QAction's")
+        self.__action_sign_up = self.findChild(QAction, "action_sign_up")
+        self.__action_sign_in = self.findChild(QAction, "action_sign_in")
 
-        Log.debug("Looking for 'login_button'...")
-        self.__login_button = self.findChild(QPushButton, "login_button")
-        connect_object(self.__login_button, self.__show_login_window)
+        connect_object(self.__action_sign_up, self.get_menu_buttons, custom_connect="triggered")
+        connect_object(self.__action_sign_in, self.get_menu_buttons, custom_connect="triggered")
 
     #
     # PUBLIC SECTION
