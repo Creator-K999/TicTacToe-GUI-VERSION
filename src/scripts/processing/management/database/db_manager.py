@@ -22,6 +22,10 @@ class DBManager:
         return cls.__opened
 
     @classmethod
+    def db(cls):
+        return cls.__db
+
+    @classmethod
     def register_login(cls, username, password):
 
         try:

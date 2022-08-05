@@ -13,6 +13,7 @@ from processing.management.objects.objects_manager import ObjectsManager
 from src import connect_object
 from src.windows.mainw.main_game_controller import MainGameWindow
 from src.windows.subw.login_controller import LoginWindow
+from src.windows.subw.signup_controller import SignUp
 
 
 class MainMenu(QMainWindow):
@@ -43,7 +44,7 @@ class MainMenu(QMainWindow):
         self.__action_sign_up = self.findChild(QAction, "action_sign_up")
         self.__action_sign_in = self.findChild(QAction, "action_sign_in")
 
-        connect_object(self.__action_sign_up, self.get_menu_buttons, custom_connect="triggered")
+        connect_object(self.__action_sign_up, self.__show_sign_up_window, custom_connect="triggered")
         connect_object(self.__action_sign_in, self.__show_login_window, custom_connect="triggered")
 
     #
@@ -81,6 +82,19 @@ class MainMenu(QMainWindow):
         Log.debug("Calling 'MainGameWindow.show()'...")
         main_game_window.show()
         Log.info("'MainGameWindow.show()' has been Called Successfully!")
+
+    def __show_sign_up_window(self):
+        # closing the main menu
+        Log.debug("Calling 'self.__window.hide()'...")
+        self.__window.hide()
+        Log.info("self.__window has been hidden Successfully!")
+
+        # creating a game window objects and displaying it
+        sign_up = ObjectsManager.create_object(SignUp)
+
+        Log.debug("Calling 'sign_up.show()'...")
+        sign_up.show()
+        Log.info("'sign_up.show()' has been Called Successfully!")
 
     def __show_login_window(self):
         # closing the main menu
