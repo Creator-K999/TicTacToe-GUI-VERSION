@@ -1,9 +1,15 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog, QPushButton, QLineEdit
+from PyQt6.QtWidgets import QDialog, QPushButton, QLineEdit, QMessageBox
 
+from processing.cryptography.cryptomanager import CryptoManager
 from processing.management.database.db_manager import DBManager
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
+
+
+def clear_entries(entry1, entry2):
+    entry1.clear()
+    entry2.clear()
 
 
 class SignUp(QDialog):
@@ -15,37 +21,44 @@ class SignUp(QDialog):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\sign_up_window.ui", self)
         Log.info("UI has been loaded Successfully!")
 
-        self.__acc_1_username_entry = self.findChild(QLineEdit, "account_1_username")
-        self.__acc_1_password_entry = self.findChild(QLineEdit, "account_1_password")
-        self.__acc_1_sign_up = self.findChild(QPushButton, "account_1_sign_up")
+        self.__username_entry = self.findChild(QLineEdit, "account_1_username")
+        self.__password_entry = self.findChild(QLineEdit, "account_1_password")
+        self.__sign_up_button = self.findChild(QPushButton, "account_1_sign_up")
 
-        self.__acc_2_username_entry = self.findChild(QLineEdit, "account_2_username")
-        self.__acc_2_password_entry = self.findChild(QLineEdit, "account_2_password")
-        self.__acc_2_sign_up = self.findChild(QPushButton, "account_2_sign_up")
+        self.__clear_button = self.findChild(QPushButton, "clear_button")
 
-        connect_object(self.__acc_1_sign_up,
-                       lambda: self.__sign_up(self.__acc_1_username_entry.text(), self.__acc_1_password_entry.text())
-                       )
+        connect_object(self.__sign_up_button, self.__sign_up)
+        connect_object(self.__clear_button, clear_entries)
 
-        connect_object(self.__acc_2_sign_up,
-                       lambda: self.__sign_up(self.__acc_2_username_entry.text(), self.__acc_2_password_entry.text())
-                       )
+    def __sign_up(self):
 
-        self.__cancel = self.findChild(QPushButton, "cancel_button")
-        self.__cancel_2 = self.findChild(QPushButton, "cancel_button_2")
+        username = self.__username_entry.text()
+        password = self.__password_entry.text()
 
-    def __sign_up(self, username, password):
+        if "" in {username, password}:
+            return
 
         if not DBManager.is_open():
             DBManager.re_connect()
 
-        data = DBManager.db().execute("SELECT * FROM Credentials WHERE Name = ?", (username,)).fetchall()
+        db = DBManager.db()
+
+        data = db.execute("SELECT * FROM Credentials WHERE Name = ?", (username,)).fetchall()
 
         if data:
-            print("Username Exist!")
+            QMessageBox.critical(self, "Error", f"Username {username} already exist!")
 
         else:
-            print("Signing Up..")
+
+            db.execute("INSERT INTO Credentials(Name, Password) VALUES(?, ?)",
+                       (username, f"[{', '.join(CryptoManager.encrypt(password, CryptoManager.get_new_key()))}]"))
+            db.execute("INSERT INTO Scoreboard(Name, Score) VALUES(?, ?)",
+                       (username, 0))
+            db.commit()
+
+            QMessageBox.information(self, "Info", f"User {username} registered successfully!")
+
+            DBManager.close_db()
 
     def closeEvent(self, event) -> None:
         ObjectsManager.delete_object("SignUp")

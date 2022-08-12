@@ -5,8 +5,8 @@ class CryptoManager:
 
     __CONSTANT = 100
 
-    @classmethod
-    def get_new_key(cls):
+    @staticmethod
+    def get_new_key():
         return randint(0, 255)
 
     @classmethod
