@@ -1,11 +1,12 @@
 from PyQt6 import uic
-from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox
+from PyQt6.QtWidgets import QDialog, QLineEdit, QMessageBox, QPushButton, QRadioButton
 
 from classes.player.player_class import Player
+from processing.cryptography.cryptomanager import CryptoManager
 from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
-from src import last_login_info
+from src import last_login_info, connect_object
 
 
 class LoginWindow(QDialog):
@@ -15,85 +16,86 @@ class LoginWindow(QDialog):
 
         self.__disabled_buttons = disabled_buttons
 
+        self.__current_player = None
+
         Log.debug("Loading UI...")
-        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\login_window.ui", self)
+        self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\log_in_window.ui", self)
         Log.info("UI has been loaded Successfully!")
 
-        Log.debug("Looking for login objects...")
-        self.__player1_fields = {
-            "name": self.findChild(QLineEdit, "player1Name"),
-            "password": self.findChild(QLineEdit, "player1Password")
-        }
-        self.__player2_fields = {
-            "name": self.findChild(QLineEdit, "player2Name"),
-            "password": self.findChild(QLineEdit, "player2Password")
-        }
+        self.__player_1_radio = self.findChild(QRadioButton, "Player1")
+        self.__player_2_radio = self.findChild(QRadioButton, "Player2")
 
-        if None in {self.__player1_fields.values(), self.__player2_fields.values()}:
-            Log.error("Failed to find login objects!")
+        self.__username_entry: QLineEdit = self.findChild(QLineEdit, "account_username")
+        self.__password_entry: QLineEdit = self.findChild(QLineEdit, "account_password")
+        self.__sign_in_button = self.findChild(QPushButton, "account_sign_in")
 
-        else:
-            Log.info("Found login objects!")
+        self.__clear_button = self.findChild(QPushButton, "clear_button")
 
-        Log.info("Connecting the 'ok' button with 'self.__register_user' method")
-        self.accepted.connect(self.__process_login_info)
+        connect_object(self.__player_1_radio, self.__on_select)
+        connect_object(self.__player_2_radio, self.__on_select)
+        connect_object(self.__sign_in_button, self.__sign_in)
+        connect_object(self.__clear_button, self.__clear_entries)
 
-    def __check_login_result(self, result):
-        if result == "LoggedIn":
-            return True
+    def __on_select(self):
+        self.__current_player = self.sender().objectName()
 
-        elif result == "Wrong":
-            QMessageBox.warning(self, "Warning", "Possible wrong password!")
-            self.show()
-            return False
+    def __clear_entries(self):
+        self.__username_entry.setText("")
+        self.__password_entry.setText("")
 
-        else:
-            QMessageBox.critical(self, "Error", "Possible Error happened!\nPlease try again!")
-            self.show()
-            return False
+    def __sign_in(self):
 
-    @staticmethod
-    def __clean_things_up():
-        Log.info("LoginWindow ha been closed!")
-        DBManager.close_db()
-        ObjectsManager.delete_object("LoginWindow")
-        ObjectsManager.get_object_by_name("MainMenu").show()
+        current_player = self.__current_player
 
-    def __process_login_info(self):
+        username = self.__username_entry.text()
+        password = self.__password_entry.text()
 
-        Log.info("'self.__register_user' has been called!")
+        self.__clear_entries()
+
+        if current_player is None:
+            QMessageBox.critical(self, "Error", "Please choose either (Player1, Player2) to log in with!")
+            return
+
+        if current_player in ObjectsManager.get_objects():
+            QMessageBox.critical(self, "Error", "Player logged in!")
+            return
+
+        if "" in {username, password}:
+            QMessageBox.critical(self, "Error", "Either username or password is empty!")
+            return
 
         if not DBManager.is_open():
             DBManager.re_connect()
 
-        Log.info("Getting the data user provided us...")
-        player_1_name = self.__player1_fields["name"].text()
-        player_1_pass = self.__player1_fields["password"].text()
-        player_2_name = self.__player2_fields["name"].text()
-        player_2_pass = self.__player2_fields["password"].text()
+        db = DBManager.db()
 
-        if not all({player_1_name, player_1_pass, player_2_name, player_2_pass}):
-            Log.info("Provided wrong information!")
-            QMessageBox.critical(self, "Error", "Please provide valid info!")
-            self.show()
-            return
+        data = db.execute("SELECT * FROM Credentials WHERE Name = ?", (username,)).fetchall()
 
-        if not self.__check_login_result(DBManager.register_login(player_1_name, player_1_pass)):
-            return None
+        if data:
+            _encrypted_pass_as_string_list = data[0][2]
 
-        if not self.__check_login_result(DBManager.register_login(player_2_name, player_2_pass)):
-            return None
+            *_encrypted_pass_as_list, key = \
+                (int(x) for x in _encrypted_pass_as_string_list[1:-1].split(', '))
 
-        ObjectsManager.create_object(Player, "Player1", player_1_name, custom_name="Player1")
-        ObjectsManager.create_object(Player, "Player2", player_2_name, custom_name="Player2")
+            if password == CryptoManager.decrypt(_encrypted_pass_as_list, key):
 
-        last_login_info["Player1"] = player_1_name
-        last_login_info["Player2"] = player_2_name
+                ObjectsManager.create_object(Player, current_player, username, custom_name=current_player)
 
-        for button in self.__disabled_buttons:
-            button.setDisabled(False)
+                QMessageBox.information(self, "Info", f"User {username} Logged-In successfully!")
 
-        self.__clean_things_up()
+                last_login_info[current_player] = username
+
+                for button in self.__disabled_buttons:
+                    button.setDisabled(False)
+
+            else:
+                QMessageBox.critical(self, "Error", "Wrong password!")
+
+        else:
+            QMessageBox.critical(self, "Error", f"Username {username} doesn't exist!")
 
     def closeEvent(self, event):
-        self.__clean_things_up()
+        Log.info("LoginWindow ha been closed!")
+        DBManager.close_db()
+        ObjectsManager.delete_object("LoginWindow")
+        ObjectsManager.get_object_by_name("MainMenu").show()

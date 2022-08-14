@@ -1,7 +1,6 @@
+from inspect import stack
 from logging import config, getLogger
 from os.path import basename
-from inspect import stack
-
 from threading import Lock, Thread
 
 
