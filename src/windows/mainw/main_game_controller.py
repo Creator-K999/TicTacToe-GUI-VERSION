@@ -2,7 +2,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from classes.player.player_class import Player
-from processing.gprocessing.main_game_processing import MainGameProcessing
+from processing.game.main_game_processing import MainGameProcessing
 from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
