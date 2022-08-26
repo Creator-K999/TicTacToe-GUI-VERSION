@@ -140,17 +140,29 @@
     </property>
     <addaction name="action_sign_up"/>
     <addaction name="action_sign_in"/>
+    <addaction name="separator"/>
+    <addaction name="action_settings"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
   <action name="action_sign_up">
    <property name="text">
-    <string>Sign-Up</string>
+    <string>Register</string>
    </property>
   </action>
   <action name="action_sign_in">
    <property name="text">
-    <string>Sign-In</string>
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="actionManagement">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

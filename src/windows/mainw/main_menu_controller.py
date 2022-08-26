@@ -13,6 +13,7 @@ from processing.management.objects.objects_manager import ObjectsManager
 from src import connect_object
 from src.windows.mainw.main_game_controller import MainGameWindow
 from src.windows.subw.login_controller import LoginWindow
+from src.windows.subw.settings_controller import Settings
 from src.windows.subw.signup_controller import SignUp
 
 
@@ -43,9 +44,11 @@ class MainMenu(QMainWindow):
         Log.debug("Looking for 'QAction's")
         self.__action_sign_up = self.findChild(QAction, "action_sign_up")
         self.__action_sign_in = self.findChild(QAction, "action_sign_in")
+        self.__action_settings = self.findChild(QAction, "action_settings")
 
         connect_object(self.__action_sign_up, self.__show_sign_up_window, custom_connect="triggered")
         connect_object(self.__action_sign_in, self.__show_login_window, custom_connect="triggered")
+        connect_object(self.__action_settings, self.__show_settings_window, custom_connect="triggered")
 
     #
     # PUBLIC SECTION
@@ -56,6 +59,19 @@ class MainMenu(QMainWindow):
     #
     #   PRIVATE SECTION
     #
+
+    def __show_settings_window(self):
+
+        # Hiding the main menu
+        Log.debug("Calling 'self.hide()'...")
+        self.hide()
+        Log.info("self.__window has been hidden Successfully!")
+
+        settings_window = ObjectsManager.create_object(Settings)
+
+        Log.debug("Calling 'sign_up.show()'...")
+        settings_window.show()
+        Log.info("'sign_up.show()' has been Called Successfully!")
 
     def __show_local_game_window(self):
 
@@ -84,9 +100,9 @@ class MainMenu(QMainWindow):
         Log.info("'MainGameWindow.show()' has been Called Successfully!")
 
     def __show_sign_up_window(self):
-        # closing the main menu
-        Log.debug("Calling 'self.__window.hide()'...")
-        self.__window.hide()
+        # Hiding the main menu
+        Log.debug("Calling 'self.hide()'...")
+        self.hide()
         Log.info("self.__window has been hidden Successfully!")
 
         # creating a game window objects and displaying it
@@ -97,9 +113,9 @@ class MainMenu(QMainWindow):
         Log.info("'sign_up.show()' has been Called Successfully!")
 
     def __show_login_window(self):
-        # closing the main menu
-        Log.debug("Calling 'self.__window.hide()'...")
-        self.__window.hide()
+        # Hiding the main menu
+        Log.debug("Calling 'self.hide()'...")
+        self.hide()
         Log.info("self.__window has been hidden Successfully!")
 
         # creating a game window objects and displaying it
