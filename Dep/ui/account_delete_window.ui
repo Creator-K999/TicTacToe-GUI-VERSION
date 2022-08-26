@@ -30,22 +30,22 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="password_entry"/>
      </item>
     </layout>
    </item>
    <item row="4" column="2">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="account_delete_button">
      <property name="text">
       <string>Delete</string>
      </property>
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QListView" name="listView"/>
+    <widget class="QListView" name="accounts_list_view"/>
    </item>
    <item row="0" column="2">
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="search_entry">
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
