@@ -22,6 +22,8 @@ class AccountDeletion(QDialog):
 
         self.__accounts_list_view: QListView = self.findChild(QListView, "accounts_list_view")
 
+        self.__accounts_list_view.clicked.connect(self.__item_selected)
+
         self.__account_delete_button = self.findChild(QPushButton, "account_delete_button")
 
         # move the condition into re_connect method.
@@ -40,6 +42,9 @@ class AccountDeletion(QDialog):
 
         self.__old_key_press_event = self.__search_entry.keyPressEvent
         self.__search_entry.keyPressEvent = self.__on_search
+
+    def __item_selected(self):
+        print(self.__accounts_list_view.model().data(self.__accounts_list_view.currentIndex()))
 
     def __on_search(self, event):
         self.__old_key_press_event(event)
