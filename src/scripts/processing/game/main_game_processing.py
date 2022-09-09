@@ -18,8 +18,19 @@ class MainGameProcessing:
         self.__player_labels = self.__main_game_window_object.player_labels
 
         Log.debug("Getting players info through PLAYERS_INFO global dictionary...")
-        self.__player1 = ObjectsManager.get_object_by_name("Player1")
-        self.__player2 = ObjectsManager.get_object_by_name("Player2")
+
+        __objects = ObjectsManager.get_objects()
+
+        if "Player1" in __objects:
+            self.__player1 = ObjectsManager.get_object_by_name("Player1")
+        else:
+            self.__player1 = ObjectsManager.create_object(Player, "Player1", "Player1", custom_name="Player1")
+
+        if "Player2" in __objects:
+            self.__player2 = ObjectsManager.get_object_by_name("Player2")
+        else:
+            self.__player2 = ObjectsManager.create_object(Player, "Player2", "Player2", custom_name="Player2")
+
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
     #

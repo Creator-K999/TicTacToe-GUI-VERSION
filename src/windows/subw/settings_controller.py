@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QDialog, QPushButton
 
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
-from src.windows.subw.account_deletion_controller import AccountDeletion
+from src.windows.subw.general_account_management_controller import AccountDeletion
 
 
 class Settings(QDialog):

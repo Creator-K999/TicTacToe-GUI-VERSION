@@ -68,16 +68,20 @@ class DBManager:
         player_1_name = player1.name
         player_2_name = player2.name
 
-        player_1_score = int(
-                cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_1_name,)).fetchall()[0][0]
-            ) + player1.score
+        player_1_score = cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_1_name,)).fetchall()
+        player_2_score = cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_2_name,)).fetchall()
 
-        player_2_score = int(
-            cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_2_name,)).fetchall()[0][0]
-        ) + player2.score
+        print(player_1_score)
+        print(player_2_score)
 
-        cls.__db.execute("UPDATE Scoreboard SET Score=? WHERE Name=?", (player_1_score, player_1_name))
-        cls.__db.execute("UPDATE Scoreboard SET Score=? WHERE Name=?", (player_2_score, player_2_name))
+        if len(player_1_score):
+            player_1_score = int(player_1_score[0][0]) + player1.score
+            cls.__db.execute("UPDATE Scoreboard SET Score=? WHERE Name=?", (player_1_score, player_1_name))
+
+        if len(player_2_score):
+            player_2_score = int(player_2_score[0][0]) + player2.score
+            cls.__db.execute("UPDATE Scoreboard SET Score=? WHERE Name=?", (player_2_score, player_2_name))
+
         cls.__db.commit()
 
     @classmethod

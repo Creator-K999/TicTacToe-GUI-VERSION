@@ -122,9 +122,11 @@ class MainGameWindow(QMainWindow):
     def showEvent(self, event):
         current_existing_objects = ObjectsManager.get_objects()
 
-        if "Player1" not in current_existing_objects and "Player2" not in current_existing_objects:
-            ObjectsManager.create_object(Player, "Player1", last_login_info["Player1"], custom_name="Player1")
-            ObjectsManager.create_object(Player, "Player2", last_login_info["Player2"], custom_name="Player2")
+        if "Player1" not in current_existing_objects:
+            ObjectsManager.create_object(Player, "Player1", last_login_info.get("Player1", "Player1"), custom_name="Player1")
+
+        if "Player2" not in current_existing_objects:
+            ObjectsManager.create_object(Player, "Player2", last_login_info.get("Player2", "Player2"), custom_name="Player2")
 
         self.init()
 

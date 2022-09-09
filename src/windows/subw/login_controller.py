@@ -71,7 +71,7 @@ class LoginWindow(QDialog):
 
         data = db.execute("SELECT * FROM Credentials WHERE Name = ?", (username,)).fetchall()
 
-        if data:
+        if len(data):
             _encrypted_pass_as_string_list = data[0][2]
 
             *_encrypted_pass_as_list, key = \
