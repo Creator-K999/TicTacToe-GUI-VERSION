@@ -4,13 +4,14 @@ This is the file that contains the code which controls the main menu window.
 
 # 3rd party Libs
 from PyQt6 import uic
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QFont
 from PyQt6.QtWidgets import QMainWindow, QPushButton
 
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 # Custom Libs
 from src import connect_object
+from src.windows import CURRENT_FONT
 from src.windows.mainw.main_game_controller import MainGameWindow
 from src.windows.subw.login_controller import LoginWindow
 from src.windows.subw.settings_controller import Settings
@@ -35,6 +36,9 @@ class MainMenu(QMainWindow):
         Log.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_menu_window.ui", self)
         Log.info("UI has been Loaded Successfully!")
+
+        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
+        ObjectsManager.get_object_by_name("QApplication").setFont(QFont(f"{CURRENT_FONT}", 13))
 
         # gets the object of the "Vs. Local Player" button.
         Log.debug("Looking for 'local_game_button'")

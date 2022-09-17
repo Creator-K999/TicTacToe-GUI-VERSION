@@ -10,6 +10,12 @@
     <height>532</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Poor Richard</family>
+    <pointsize>13</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -131,7 +137,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">

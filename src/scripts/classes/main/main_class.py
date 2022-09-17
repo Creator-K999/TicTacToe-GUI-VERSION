@@ -2,7 +2,6 @@
 This is the MainClass, it gets called by the main function.
 The main menu gets called and displayed from here.
 """
-
 # 3rd Party Libs
 from PyQt6.QtWidgets import QApplication
 
@@ -27,9 +26,8 @@ class MainClass:
         This is the constructor of the MainClass.
         """
 
-        self.__app = ObjectsManager.create_object(QApplication, [])  # main application
+        self.__app: QApplication = ObjectsManager.create_object(QApplication, [])  # main application
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
-
         Log.info("Displaying MainMenu...")
         self.__window.show()
 

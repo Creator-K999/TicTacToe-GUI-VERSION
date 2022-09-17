@@ -7,6 +7,7 @@ from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 from src import last_login_info, connect_object
+from src.windows import CURRENT_FONT
 
 
 class LoginWindow(QDialog):
@@ -21,6 +22,8 @@ class LoginWindow(QDialog):
         Log.debug("Loading UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\log_in_window.ui", self)
         Log.info("UI has been loaded Successfully!")
+
+        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
 
         self.__player_1_radio = self.findChild(QRadioButton, "Player1")
         self.__player_2_radio = self.findChild(QRadioButton, "Player2")

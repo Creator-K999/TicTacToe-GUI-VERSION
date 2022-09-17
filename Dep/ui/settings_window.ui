@@ -36,8 +36,27 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
         <widget class="QPushButton" name="delete_account_button">
+         <property name="font">
+          <font>
+           <family>Poor Richard</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Delete Account</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="change_font_button">
+         <property name="font">
+          <font>
+           <family>Poor Richard</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Change Font</string>
          </property>
         </widget>
        </item>

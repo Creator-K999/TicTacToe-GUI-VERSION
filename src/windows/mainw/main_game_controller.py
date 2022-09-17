@@ -7,6 +7,7 @@ from processing.management.database.db_manager import DBManager
 from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 from src import connect_object, last_login_info
+from src.windows import CURRENT_FONT
 
 
 class MainGameWindow(QMainWindow):
@@ -23,6 +24,8 @@ class MainGameWindow(QMainWindow):
         Log.debug("Loading The UI...")
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_game_window.ui", self)
         Log.info("UI has been loaded successfully!")
+
+        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
 
         Log.debug("Looking for the 9 TicTacToe buttons (buttons are named from b1 to b9)")
         self.__buttons = {
