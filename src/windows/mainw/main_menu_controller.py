@@ -11,7 +11,7 @@ from processing.management.logger.logger import Log
 from processing.management.objects.objects_manager import ObjectsManager
 # Custom Libs
 from src import connect_object
-from src.windows import CURRENT_FONT
+from src.windows import CURRENT_FONT, STYLE, WEIGHT
 from src.windows.mainw.main_game_controller import MainGameWindow
 from src.windows.subw.login_controller import LoginWindow
 from src.windows.subw.settings_controller import Settings
@@ -37,7 +37,7 @@ class MainMenu(QMainWindow):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\main_menu_window.ui", self)
         Log.info("UI has been Loaded Successfully!")
 
-        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
+        self.setStyleSheet(f"font-family: {CURRENT_FONT}; font-style: {STYLE}; font-weight: {WEIGHT};")
         ObjectsManager.get_object_by_name("QApplication").setFont(QFont(f"{CURRENT_FONT}", 13))
 
         # gets the object of the "Vs. Local Player" button.

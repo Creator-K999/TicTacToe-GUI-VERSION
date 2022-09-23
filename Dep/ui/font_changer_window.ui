@@ -111,7 +111,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Sample</string>
+        <string>This is a sample text.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -162,36 +162,49 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLineEdit" name="font_size_entry">
-       <property name="placeholderText">
-        <string>Font Size</string>
+      <widget class="QComboBox" name="style_box">
+       <property name="toolTip">
+        <string>Font Style</string>
        </property>
+       <property name="statusTip">
+        <string/>
+       </property>
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <property name="currentText">
+        <string>normal</string>
+       </property>
+       <property name="modelColumn">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>normal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>italic</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="is_italic_check_box">
-       <property name="font">
-        <font>
-         <family>Poor Richard</family>
-         <pointsize>14</pointsize>
-        </font>
+      <widget class="QComboBox" name="weight_box">
+       <property name="toolTip">
+        <string>Font Weight</string>
        </property>
-       <property name="text">
-        <string>Italic</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="is_bold_check_box">
-       <property name="font">
-        <font>
-         <family>Poor Richard</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Bold</string>
-       </property>
+       <item>
+        <property name="text">
+         <string>normal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bold</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

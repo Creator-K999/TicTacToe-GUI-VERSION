@@ -1,10 +1,10 @@
 from PyQt6 import uic
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QDialog, QFontComboBox, QLineEdit, QCheckBox, QLabel, QPushButton
+from PyQt6.QtCore import QObject
+from PyQt6.QtWidgets import QDialog, QFontComboBox, QLabel, QPushButton, QComboBox
 
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
-from src.windows import CURRENT_FONT
+from src.windows import CURRENT_FONT, STYLE, WEIGHT
 
 
 class FontChanger(QDialog):
@@ -16,12 +16,11 @@ class FontChanger(QDialog):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\font_changer_window.ui", self)
         Log.info("UI has been Loaded Successfully!")
 
-        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
+        self.setStyleSheet(f"font-family: {CURRENT_FONT}; font-style: {STYLE}; font-weight: {WEIGHT};")
 
         self.__font_box: QFontComboBox = self.findChild(QFontComboBox, "font_box")
-        self.__font_size: QLineEdit = self.findChild(QLineEdit, "font_size_entry")
-        self.__is_italic: QCheckBox = self.findChild(QCheckBox, "is_italic_check_box")
-        self.__is_bold: QCheckBox = self.findChild(QCheckBox, "is_bold_check_box")
+        self.__style_box: QFontComboBox = self.findChild(QComboBox, "style_box")
+        self.__weight_box: QFontComboBox = self.findChild(QComboBox, "weight_box")
 
         self.__sample_label = self.findChild(QLabel, "sample_label")
         self.__x_label = self.findChild(QLabel, "x_label")
@@ -33,30 +32,41 @@ class FontChanger(QDialog):
         self.__save_button = self.findChild(QPushButton, "save_button")
 
         if not all({
-            self.__font_box, self.__font_size, self.__is_italic, self.__sample_label, self.__x_label, self.__o_label,
-                self.__ok_button, self.__ok_apply_button, self.__upload_button, self.__save_button}):
+            self.__font_box, self.__style_box, self.__weight_box, self.__sample_label, self.__x_label, self.__o_label,
+            self.__ok_button, self.__ok_apply_button, self.__upload_button, self.__save_button}):
             Log.error("Couldn't find all objects!")
 
         else:
             connect_object(self.__ok_button, self.__change_sample_font)
+            connect_object(self.__ok_apply_button, self.__change_app_font)
 
     def __change_sample_font(self):
 
         try:
-            font_name = self.__font_box.currentText()
-            font: QFont = QFont(font_name, int(self.__font_size.text()), italic=self.__is_italic.isChecked())
-            font.setBold(self.__is_bold.isChecked())
+            style = \
+                f"font-family: {self.__font_box.currentText()}; font-style: {self.__style_box.currentText()};" \
+                f"font-weight: {self.__weight_box.currentText()};"
 
-            self.__sample_label.setFont(font)
-            self.__x_label.setFont(font)
-            self.__o_label.setFont(font)
-
-            self.__sample_label.setStyleSheet(f"font-family: {font_name};")
-            self.__x_label.setStyleSheet(f"font-family: {font_name};")
-            self.__o_label.setStyleSheet(f"font-family: {font_name};")
+            self.__sample_label.setStyleSheet(style)
+            self.__x_label.setStyleSheet(style)
+            self.__o_label.setStyleSheet(style)
 
         except Exception as E:
             Log.error(E)
+
+    def __change_app_font(self):
+
+        style = \
+            f"font-family: {self.__font_box.currentText()}; font-style: {self.__style_box.currentText()};" \
+            f"font-weight: {self.__weight_box.currentText()};"
+
+        try:
+            for _object in ObjectsManager.get_objects().values():
+                if isinstance(_object, QObject):
+                    _object.setStyleSheet(style)
+
+        except Exception as E:
+            print(E)
 
     def closeEvent(self, event) -> None:
         Log.debug("Deleting Font Changer Window...")

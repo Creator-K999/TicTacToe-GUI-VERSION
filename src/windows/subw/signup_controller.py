@@ -5,7 +5,7 @@ from processing.cryptography.cryptomanager import CryptoManager
 from processing.management.database.db_manager import DBManager
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
-from src.windows import CURRENT_FONT
+from src.windows import CURRENT_FONT, STYLE, WEIGHT
 
 
 class SignUp(QDialog):
@@ -17,7 +17,7 @@ class SignUp(QDialog):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\sign_up_window.ui", self)
         Log.info("UI has been loaded Successfully!")
 
-        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
+        self.setStyleSheet(f"font-family: {CURRENT_FONT}; font-style: {STYLE}; font-weight: {WEIGHT};")
 
         self.__username_entry: QLineEdit = self.findChild(QLineEdit, "account_username")
         self.__password_entry: QLineEdit = self.findChild(QLineEdit, "account_password")

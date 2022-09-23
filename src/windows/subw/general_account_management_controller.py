@@ -6,7 +6,7 @@ from processing.cryptography.cryptomanager import CryptoManager
 from processing.management.database.db_manager import DBManager
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
-from src.windows import CURRENT_FONT
+from src.windows import CURRENT_FONT, STYLE, WEIGHT
 
 
 class AccountDeletion(QDialog):
@@ -19,7 +19,7 @@ class AccountDeletion(QDialog):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\general_account_management_window.ui", self)
         Log.info("UI has been Loaded Successfully!")
 
-        self.setStyleSheet(f"font-family: {CURRENT_FONT};")
+        self.setStyleSheet(f"font-family: {CURRENT_FONT}; font-style: {STYLE}; font-weight: {WEIGHT};")
 
         self.__search_entry = self.findChild(QLineEdit, "search_entry")
         self.__password_entry = self.findChild(QLineEdit, "password_entry")
