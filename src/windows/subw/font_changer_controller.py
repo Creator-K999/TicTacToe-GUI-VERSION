@@ -1,6 +1,9 @@
+from json import dumps, loads
+
 from PyQt6 import uic
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QDialog, QFontComboBox, QLabel, QPushButton, QComboBox, QMessageBox
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QDialog, QFontComboBox, QLabel, QPushButton, QComboBox, QMessageBox, QFileDialog
 
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
@@ -39,6 +42,8 @@ class FontChanger(QDialog):
         else:
             connect_object(self.__ok_button, self.__change_sample_font)
             connect_object(self.__ok_apply_button, self.__change_app_font)
+            connect_object(self.__save_button, self.__save_font_settings)
+            connect_object(self.__upload_button, self.__upload_font_settings)
 
     def __change_sample_font(self):
 
@@ -73,6 +78,24 @@ class FontChanger(QDialog):
 
         except Exception as E:
             print(E)
+
+    def __save_font_settings(self):
+
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save File", filter="Json Files (*.json)")
+
+        with open(file_path, 'w') as file:
+            file.write(dumps(font_settings, indent=4))
+
+        QMessageBox.information(self, "INFO", "File Saved Successfully!")
+
+    def __upload_font_settings(self):
+
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open File", filter="Json Files (*.json)")
+
+        with open(file_path) as file:
+            file_data = loads(file.read())
+
+        self.__font_box.setCurrentFont(QFont(file_data["font"], italic=file_data["style"], weight=file_data["weight"]))
 
     def closeEvent(self, event) -> None:
         Log.debug("Deleting Font Changer Window...")
