@@ -1,10 +1,10 @@
 from PyQt6 import uic
 from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QDialog, QFontComboBox, QLabel, QPushButton, QComboBox
+from PyQt6.QtWidgets import QDialog, QFontComboBox, QLabel, QPushButton, QComboBox, QMessageBox
 
 from processing.management.objects.objects_manager import ObjectsManager
 from src import Log, connect_object
-from src.windows import CURRENT_FONT, STYLE, WEIGHT
+from src.windows import font_settings
 
 
 class FontChanger(QDialog):
@@ -16,7 +16,7 @@ class FontChanger(QDialog):
         self.__window = uic.loadUi("..\\..\\..\\Dep\\ui\\font_changer_window.ui", self)
         Log.info("UI has been Loaded Successfully!")
 
-        self.setStyleSheet(f"font-family: {CURRENT_FONT}; font-style: {STYLE}; font-weight: {WEIGHT};")
+        self.setStyleSheet(f"font-family: {font_settings['font']}; font-style: {font_settings['style']}; font-weight: {font_settings['weight']};")
 
         self.__font_box: QFontComboBox = self.findChild(QFontComboBox, "font_box")
         self.__style_box: QFontComboBox = self.findChild(QComboBox, "style_box")
@@ -56,14 +56,20 @@ class FontChanger(QDialog):
 
     def __change_app_font(self):
 
+        font_settings["font"] = self.__font_box.currentText()
+        font_settings["style"] = self.__style_box.currentText()
+        font_settings["weight"] = self.__weight_box.currentText()
+
         style = \
-            f"font-family: {self.__font_box.currentText()}; font-style: {self.__style_box.currentText()};" \
-            f"font-weight: {self.__weight_box.currentText()};"
+            f"font-family: {font_settings['font']}; font-style: {font_settings['style']};" \
+            f"font-weight: {font_settings['weight']};"
 
         try:
             for _object in ObjectsManager.get_objects().values():
                 if isinstance(_object, QObject):
                     _object.setStyleSheet(style)
+
+            QMessageBox.information(self, "INFO", "Font Applied Successfully!")
 
         except Exception as E:
             print(E)
