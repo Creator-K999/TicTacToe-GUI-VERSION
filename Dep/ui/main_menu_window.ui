@@ -140,6 +140,12 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Poor Richard</family>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
      <string>Account</string>
@@ -155,10 +161,22 @@
    <property name="text">
     <string>Register</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Poor Richard</family>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
   </action>
   <action name="action_sign_in">
    <property name="text">
     <string>Login</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Poor Richard</family>
+     <pointsize>13</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionManagement">
@@ -169,6 +187,12 @@
   <action name="action_settings">
    <property name="text">
     <string>Settings</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Poor Richard</family>
+     <pointsize>13</pointsize>
+    </font>
    </property>
   </action>
  </widget>

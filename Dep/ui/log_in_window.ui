@@ -10,6 +10,12 @@
     <height>254</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Poor Richard</family>
+    <pointsize>15</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>LogIn Window</string>
   </property>

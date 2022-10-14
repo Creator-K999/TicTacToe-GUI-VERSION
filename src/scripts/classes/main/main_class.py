@@ -27,6 +27,7 @@ class MainClass:
         """
 
         self.__app: QApplication = ObjectsManager.create_object(QApplication, [])  # main application
+        self.__app.setStyleSheet("font-family: Poor Richard;")
         self.__window = ObjectsManager.create_object(MainMenu)  # main menu class
         Log.info("Displaying MainMenu...")
         self.__window.show()
