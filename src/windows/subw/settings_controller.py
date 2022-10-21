@@ -23,9 +23,12 @@ class Settings(QDialog):
         # General Tab
         self.__delete_account_button = self.findChild(QPushButton, "delete_account_button")
         self.__change_font_button = self.findChild(QPushButton, "change_font_button")
+        self.__change_username_button_1: QPushButton = self.findChild(QPushButton, "change_username_button_1")
+        self.__change_username_button_2: QPushButton = self.findChild(QPushButton, "change_username_button_2")
 
         connect_object(self.__delete_account_button, self.__show_account_deletion_window)
         connect_object(self.__change_font_button, self.__show_font_changer_window)
+        connect_object(self.__change_username_button, self.__show_username_changer_window)
 
     def __show_account_deletion_window(self):
 
@@ -53,6 +56,19 @@ class Settings(QDialog):
         Log.debug("Calling 'font_changer.show()'...")
         font_changer.show()
         Log.info("'font_changer.show()' has been Called Successfully!")
+
+    def __show_username_changer_window(self):
+        # Closing the main menu
+        Log.debug("Calling 'self.close()'...")
+        self.hide()
+        Log.info("self has been hidden Successfully!")
+
+        # creating a account deletion window objects and displaying it
+        username_changer = ObjectsManager.create_object(FontChanger)
+
+        Log.debug("Calling 'username_changer.show()'...")
+        username_changer.show()
+        Log.info("'username_changer.show()' has been Called Successfully!")
 
     def closeEvent(self, event) -> None:
         Log.debug("Deleting Settings Window...")
