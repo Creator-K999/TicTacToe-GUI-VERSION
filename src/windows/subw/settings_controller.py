@@ -6,6 +6,7 @@ from src import Log, connect_object
 from src.windows import font_settings
 from src.windows.subw.font_changer_controller import FontChanger
 from src.windows.subw.general_account_management_controller import AccountDeletion
+from src.windows.subw.username_changer_controller import UserNameChanger
 
 
 class Settings(QDialog):
@@ -28,7 +29,8 @@ class Settings(QDialog):
 
         connect_object(self.__delete_account_button, self.__show_account_deletion_window)
         connect_object(self.__change_font_button, self.__show_font_changer_window)
-        connect_object(self.__change_username_button, self.__show_username_changer_window)
+        connect_object(self.__change_username_button_1, self.__show_username_changer_window)
+        connect_object(self.__change_username_button_2, self.__show_username_changer_window)
 
     def __show_account_deletion_window(self):
 
@@ -64,7 +66,7 @@ class Settings(QDialog):
         Log.info("self has been hidden Successfully!")
 
         # creating a account deletion window objects and displaying it
-        username_changer = ObjectsManager.create_object(FontChanger)
+        username_changer = ObjectsManager.create_object(UserNameChanger)
 
         Log.debug("Calling 'username_changer.show()'...")
         username_changer.show()

@@ -7,7 +7,7 @@ from src import Log, connect_object
 from src.windows import font_settings
 
 
-class UsernameChanger(QDialog):
+class UserNameChanger(QDialog):
 
     def __init__(self):
         super().__init__()
