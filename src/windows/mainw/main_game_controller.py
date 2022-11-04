@@ -78,17 +78,17 @@ class MainGameWindow(QMainWindow):
         current_player = self.__game_processor.current_player
 
         self.__game_processor.set_label_text(
-            self.__player_labels[player_1.game_name],
-            f"{player_1.name} ({player_1.mark}): {player_1.score}"
+            self.__player_labels[player_1.object_name],
+            f"{player_1.username} ({player_1.mark}): {player_1.score}"
         )
 
         self.__game_processor.set_label_text(
-            self.__player_labels[player_2.game_name],
-            f"{player_2.name} ({player_2.mark}): {player_2.score}"
+            self.__player_labels[player_2.object_name],
+            f"{player_2.username} ({player_2.mark}): {player_2.score}"
         )
 
-        Log.info(f"setting {current_player.name} label color or red!")
-        self.__player_labels[current_player.game_name].setStyleSheet("color: red;")
+        Log.info(f"setting {current_player.username} label color or red!")
+        self.__player_labels[current_player.object_name].setStyleSheet("color: red;")
 
     def __button_press(self):
         Log.info("A button has been pressed!")

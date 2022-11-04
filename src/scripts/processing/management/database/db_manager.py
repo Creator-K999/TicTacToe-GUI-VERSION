@@ -65,8 +65,8 @@ class DBManager:
 
     @classmethod
     def update_players_scores(cls, player1: Player, player2: Player):
-        player_1_name = player1.name
-        player_2_name = player2.name
+        player_1_name = player1.username
+        player_2_name = player2.username
 
         player_1_score = cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_1_name,)).fetchall()
         player_2_score = cls.__db.execute("SELECT Score FROM Scoreboard WHERE Name = ?", (player_2_name,)).fetchall()

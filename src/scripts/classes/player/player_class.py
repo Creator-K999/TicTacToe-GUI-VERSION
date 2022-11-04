@@ -3,26 +3,43 @@ from processing.management.logger.logger import Log
 
 class Player:
 
-    def __init__(self, game_name, name, mark=None, score=0):
+    def __init__(self, object_name, username, password, mark=None, score=0):
 
-        self.__game_name = game_name
-        self.__name = name
+        self.__object_name = object_name
+        self.__username = username
+        self.__password = password
         self.__mark = mark
         self.__score = score
 
+    def __repr__(self):
+        return f"Player({self.__object_name}, {self.__username}, {self.__password}, {self.__mark}, {self.__score})"
+
     def __str__(self):
-        return f"Player({self.__name}, {self.__mark}, {self.__score})"
+        return f"{self.__object_name}({self.__username}, {self.__password}, {self.__mark}, {self.__score})"
 
 #
 #   PUBLIC SECTION
 #
     @property
-    def game_name(self):
-        return self.__game_name
+    def object_name(self):
+        return self.__object_name
 
     @property
-    def name(self) -> str:
-        return self.__name
+    def username(self) -> str:
+        return self.__username
+
+    @username.setter
+    def username(self, username) -> None:
+
+        if not isinstance(username, str) or len(username) == 0:
+            Log.error(f"Expected a non-empty str, got '{type(username)}' instead!")
+            return
+
+        self.__username = username
+
+    @property
+    def password(self) -> str:
+        return self.__password
 
     @property
     def mark(self):
@@ -35,8 +52,8 @@ class Player:
     @mark.setter
     def mark(self, value):
 
-        if not isinstance(value, str) or value not in frozenset({'X', 'O'}):
-            Log.error("value has to be a either X or O. Got '{value}' instead!")
+        if value not in {'X', 'O'}:
+            Log.error(f"value has to be a either X or O. Got '{value}' instead!")
 
         else:
             self.__mark = value
@@ -51,5 +68,4 @@ class Player:
             self.__score = value
 
     def increment_score(self):
-        Log.info(f"Incrementing {self.__name} score by 1")
         self.__score += 1

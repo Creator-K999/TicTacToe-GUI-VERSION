@@ -82,7 +82,7 @@ class LoginWindow(QDialog):
 
             if password == CryptoManager.decrypt(_encrypted_pass_as_list, key):
 
-                ObjectsManager.create_object(Player, current_player, username, custom_name=current_player)
+                ObjectsManager.create_object(Player, current_player, username, password, custom_name=current_player)
 
                 QMessageBox.information(self, "Info", f"User {username} Logged-In successfully!")
 

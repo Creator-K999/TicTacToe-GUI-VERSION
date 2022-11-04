@@ -29,8 +29,8 @@ class Settings(QDialog):
 
         connect_object(self.__delete_account_button, self.__show_account_deletion_window)
         connect_object(self.__change_font_button, self.__show_font_changer_window)
-        connect_object(self.__change_username_button_1, self.__show_username_changer_window)
-        connect_object(self.__change_username_button_2, self.__show_username_changer_window)
+        connect_object(self.__change_username_button_1, lambda: self.__show_username_changer_window(True))
+        connect_object(self.__change_username_button_2, lambda: self.__show_username_changer_window(False))
 
     def __show_account_deletion_window(self):
 
@@ -59,14 +59,14 @@ class Settings(QDialog):
         font_changer.show()
         Log.info("'font_changer.show()' has been Called Successfully!")
 
-    def __show_username_changer_window(self):
+    def __show_username_changer_window(self, is_player_1):
         # Closing the main menu
         Log.debug("Calling 'self.close()'...")
         self.hide()
         Log.info("self has been hidden Successfully!")
 
         # creating a account deletion window objects and displaying it
-        username_changer = ObjectsManager.create_object(UserNameChanger)
+        username_changer = ObjectsManager.create_object(UserNameChanger, is_player_1)
 
         Log.debug("Calling 'username_changer.show()'...")
         username_changer.show()

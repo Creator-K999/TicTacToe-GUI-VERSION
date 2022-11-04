@@ -24,12 +24,12 @@ class MainGameProcessing:
         if "Player1" in __objects:
             self.__player1 = ObjectsManager.get_object_by_name("Player1")
         else:
-            self.__player1 = ObjectsManager.create_object(Player, "Player1", "Player1", custom_name="Player1")
+            self.__player1 = ObjectsManager.create_object(Player, "Player1", "Player1", None, custom_name="Player1")
 
         if "Player2" in __objects:
             self.__player2 = ObjectsManager.get_object_by_name("Player2")
         else:
-            self.__player2 = ObjectsManager.create_object(Player, "Player2", "Player2", custom_name="Player2")
+            self.__player2 = ObjectsManager.create_object(Player, "Player2", "Player2", None, custom_name="Player2")
 
         Log.info("Successfully got players info through PLAYERS_INFO global dictionary")
 
@@ -55,12 +55,12 @@ class MainGameProcessing:
             return
 
         elif self.__current_player is not None:
-            Log.info(f"Changing color of {self.__current_player.game_name} label to black!")
-            self.__player_labels[self.__current_player.game_name].setStyleSheet("color: black;")
+            Log.info(f"Changing color of {self.__current_player.object_name} label to black!")
+            self.__player_labels[self.__current_player.object_name].setStyleSheet("color: black;")
 
         self.__current_player = value
-        Log.info(f"Changing color of {self.__current_player.name} label to red!")
-        self.__player_labels[self.__current_player.game_name].setStyleSheet("color: red;")
+        Log.info(f"Changing color of {self.__current_player.username} label to red!")
+        self.__player_labels[self.__current_player.object_name].setStyleSheet("color: red;")
 
     @staticmethod
     def set_label_text(label, text):
@@ -75,15 +75,15 @@ class MainGameProcessing:
 
     def button_clicked_process(self, button):
         Log.debug(f"{button.objectName()} has been pressed, current player is "
-                  f"{self.__current_player.name} playing as {self.__current_player.mark}!")
+                  f"{self.__current_player.username} playing as {self.__current_player.mark}!")
         button.setText(self.__current_player.mark)
         button.setDisabled(True)
 
         result = "None"
-        Log.info(f"[TURN]: {self.__current_player.name}")
+        Log.info(f"[TURN]: {self.__current_player.username}")
 
         if self.__win_check():
-            QMessageBox.information(self.__main_game_window_object, "Win", f"{self.__current_player.name} has Won!")
+            QMessageBox.information(self.__main_game_window_object, "Win", f"{self.__current_player.username} has Won!")
 
             self.__current_player.increment_score()
             result = "Win"
@@ -111,7 +111,7 @@ class MainGameProcessing:
         self.__player1.mark = marks[0]
         self.__player2.mark = marks[1]
         self.current_player = self.__player1 if marks[0] == 'X' else self.__player2
-        Log.info(f"The new current player is {self.__current_player.name}")
+        Log.info(f"The new current player is {self.__current_player.username}")
 
     #
     #   PRIVATE SECTION
@@ -120,13 +120,13 @@ class MainGameProcessing:
         self.randomize_player()
 
         self.set_label_text(
-            self.__player_labels[self.__player1.game_name],
-            f"{self.__player1.name} ({self.__player1.mark}): {self.__player1.score}"
+            self.__player_labels[self.__player1.object_name],
+            f"{self.__player1.username} ({self.__player1.mark}): {self.__player1.score}"
         )
 
         self.set_label_text(
-            self.__player_labels[self.__player2.game_name],
-            f"{self.__player2.name} ({self.__player2.mark}): {self.__player2.score}"
+            self.__player_labels[self.__player2.object_name],
+            f"{self.__player2.username} ({self.__player2.mark}): {self.__player2.score}"
         )
 
     def __win_check(self):

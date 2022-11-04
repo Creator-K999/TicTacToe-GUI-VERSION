@@ -1,5 +1,5 @@
-from sys import exit as _exit
 from inspect import stack
+from sys import exit as _exit
 
 from ..logger.logger import Log
 
@@ -18,30 +18,7 @@ class ObjectsManager:
     @classmethod
     def get_object_by_name(cls, object_name):
 
-        current_stack = stack()[1]
-
-        if not isinstance(object_name, str):
-            Log.error(f"String required, got {type(object_name)} instead!", current_stack)
-            cls.destruct_objects()
-            _exit(-1)
-
-        Log.info(f"Trying to get {object_name} instance...", current_stack)
-
-        try:
-            _object = cls.__objects[object_name]
-
-        except AttributeError as E:
-            Log.error(f"Error: {E}", current_stack)
-
-        except KeyError:
-            Log.exception(f"'{object_name}' doesn't exist!", current_stack)
-
-        except Exception as E:
-            Log.error(f"Error: {E}")
-
-        else:
-            Log.debug(f"Found '{object_name}'", current_stack)
-            return _object
+        return cls.__objects.get(object_name, None)
 
     @classmethod
     def destruct_objects(cls):

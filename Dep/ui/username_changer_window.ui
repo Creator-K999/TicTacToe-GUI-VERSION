@@ -44,7 +44,7 @@
      <item>
       <widget class="QLineEdit" name="new_username_entry">
        <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
+        <enum>QLineEdit::Normal</enum>
        </property>
        <property name="dragEnabled">
         <bool>false</bool>
@@ -72,7 +72,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="password_entry"/>
+      <widget class="QLineEdit" name="password_entry">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
